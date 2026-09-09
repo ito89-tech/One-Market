@@ -1,0 +1,284 @@
+// ワンマケ データベーススキーマ
+//
+// 設計方針
+//  - 駅名と市区町村は別テーブル。1 カラムに混ぜない（エリア判定の優先順位を型で守る）
+//  - 収益率は「シート × エリア × 築年数区分」の交点に 1 行。区分数がシートごとに違っても壊れない
+//  - 診断結果は実行時点の入力・基準値ごと保存する（後からデータが変わっても履歴が再現できる）
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum Judgement {
+  UNDERPRICED
+  FAIR
+  OVERPRICED
+}
+
+enum DiagnosisPlan {
+  FREE
+  PAID
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELED
+  REFUNDED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELED
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  UNPAID
+  PAUSED
+}
+
+// ---------------------------------------------------------------- ユーザー
+
+model User {
+  id                  String   @id @default(cuid())
+  email               String   @unique
+  passwordHash        String
+  displayName         String?
+  role                UserRole @default(USER)
+  // 無料診断を使い切ったかどうかはこの列だけを根拠にする（フロントのフラグは信用しない）
+  freeDiagnosisUsedAt DateTime?
+  // 決済で付与された有料診断の残数（1回プラン）
+  paidCredits         Int      @default(0)
+  stripeCustomerId    String?  @unique
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  sessions      Session[]
+  diagnoses     PropertyDiagnosis[]
+  payments      Payment[]
+  subscriptions Subscription[]
+
+  @@index([createdAt])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  // トークンの平文は保存しない。SHA-256 ハッシュのみ。
+  tokenHash String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ------------------------------------------------------- 収益率マスタ（.ods 由来）
+
+model YieldSheet {
+  id          String   @id @default(cuid())
+  key         String   @unique // kanto / kansai / fukuoka / aichi_other
+  name        String
+  prefectures String[]
+  isFallback  Boolean  @default(false)
+  defaultArea String // 「それ以外」に相当するエリアコード
+  sourceFile  String
+  generatedAt DateTime
+
+  areas        Area[]
+  stations     Station[]
+  localities   Municipality[]
+  ageBrackets  AgeBracket[]
+  yieldRates   YieldRate[]
+}
+
+model Area {
+  id      String @id @default(cuid())
+  sheetId String
+  code    String // "1" | "2" | "3" | "4" — シートごとに数が違う
+  label   String
+  sort    Int
+
+  sheet      YieldSheet     @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  stations   Station[]
+  localities Municipality[]
+  yieldRates YieldRate[]
+
+  @@unique([sheetId, code])
+}
+
+model Station {
+  id           String @id @default(cuid())
+  sheetId      String
+  areaId       String
+  name         String // シート上の表記そのまま
+  lookupKey    String // 正規化済みの照合キー（末尾「駅」除去など）
+  sourceColumn Int
+
+  sheet YieldSheet @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  area  Area       @relation(fields: [areaId], references: [id], onDelete: Cascade)
+
+  @@unique([sheetId, lookupKey])
+  @@index([lookupKey])
+}
+
+model Municipality {
+  id        String @id @default(cuid())
+  sheetId   String
+  areaId    String
+  name      String
+  lookupKey String
+  // ward / city / town / other。区を市より優先して照合するために保持する。
+  kind      String
+
+  sheet YieldSheet @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  area  Area       @relation(fields: [areaId], references: [id], onDelete: Cascade)
+
+  @@unique([sheetId, lookupKey])
+  @@index([lookupKey])
+}
+
+model AgeBracket {
+  id      String @id @default(cuid())
+  sheetId String
+  label   String // "0~1" / "2" ... / "35以上"
+  ageMin  Int
+  ageMax  Int? // null = 上限なし
+  sort    Int
+
+  sheet      YieldSheet  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  yieldRates YieldRate[]
+
+  @@unique([sheetId, label])
+}
+
+model YieldRate {
+  id           String  @id @default(cuid())
+  sheetId      String
+  areaId       String
+  ageBracketId String
+  lowPercent   Decimal @db.Decimal(6, 3)
+  highPercent  Decimal @db.Decimal(6, 3)
+  raw          String
+  // 下限＞上限などシート側が不正な場合は false。診断時に DATA_UNAVAILABLE になる。
+  isValid      Boolean @default(true)
+
+  sheet      YieldSheet @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  area       Area       @relation(fields: [areaId], references: [id], onDelete: Cascade)
+  ageBracket AgeBracket @relation(fields: [ageBracketId], references: [id], onDelete: Cascade)
+
+  @@unique([sheetId, areaId, ageBracketId])
+}
+
+model DataIssue {
+  id        String   @id @default(cuid())
+  level     String // BLOCKER / WARNING
+  sheetName String
+  code      String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+// ------------------------------------------------------------------- 診断
+
+model PropertyDiagnosis {
+  id     String @id @default(cuid())
+  userId String
+
+  // 入力値（実行時点のスナップショット）
+  prefecture       String
+  municipality     String
+  stationInput     String
+  walkMinutes      Int
+  buildingAge      Int
+  priceYen         BigInt
+  monthlyRentYen   BigInt
+  managementFeeYen BigInt
+  repairReserveYen BigInt
+
+  // 結果（ユーザー向け）
+  judgement         Judgement
+  marketPriceLowMan Int
+  marketPriceHighMan Int
+  differenceLowMan  Int
+  differenceHighMan Int
+
+  // 内部（管理画面のみ）
+  sheetKey         String
+  areaCode         String
+  matchedBy        String // station / locality / default
+  matchedValue     String?
+  ageBracketLabel  String
+  yieldPercent     Decimal @db.Decimal(8, 4)
+  rateLowPercent   Decimal @db.Decimal(6, 3)
+  rateHighPercent  Decimal @db.Decimal(6, 3)
+
+  plan      DiagnosisPlan
+  paymentId String?
+  createdAt DateTime      @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment Payment? @relation(fields: [paymentId], references: [id])
+
+  @@index([userId, createdAt])
+}
+
+// ------------------------------------------------------------------- 課金
+
+model Payment {
+  id                      String        @id @default(cuid())
+  userId                  String
+  stripeCheckoutSessionId String        @unique
+  stripePaymentIntentId   String?
+  amount                  Int
+  currency                String
+  status                  PaymentStatus @default(PENDING)
+  creditsGranted          Int           @default(0)
+  planKey                 String?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  diagnoses PropertyDiagnosis[]
+
+  @@index([userId, createdAt])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String
+  stripeSubscriptionId String             @unique
+  status               SubscriptionStatus
+  planKey              String             @default("")
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  usedThisPeriod       Int                @default(0)
+  cancelAtPeriodEnd    Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// Stripe の再送に備えて処理済みイベントを記録する（二重付与の防止）
+model StripeEvent {
+  id          String   @id
+  type        String
+  processedAt DateTime @default(now())
+}
