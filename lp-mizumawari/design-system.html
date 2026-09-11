@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>デザインシステム｜みずまわり安心サポート</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="c-header">
+    <div class="wrap c-header__inner">
+      <a class="c-logo" href="index.html">
+        <img src="assets/logo-mark.png" alt="" width="48" height="48" />
+        <span class="c-logo__text">
+          <span class="c-logo__name">デザインシステム</span>
+          <span class="c-logo__sub">みずまわり安心サポート</span>
+        </span>
+      </a>
+      <a class="c-btn-secondary" href="index.html" style="width:auto;min-height:44px">LPを見る</a>
+    </div>
+  </header>
+
+  <main class="ds-page">
+    <div class="wrap">
+      <h1 class="t-h1">Design System</h1>
+      <p class="t-body" style="color:var(--color-sub);max-width:40em">Figmaの Colors / Typography / Spacing / Components に対応するトークンです。Auto Layout相当は Flex / Grid で組んでいます。</p>
+
+      <section class="section section--tight">
+        <h2 class="t-h2">Colors</h2>
+        <div class="card-grid card-grid--3" style="margin-top:24px">
+          <div class="ds-swatch"><i style="background:#1a6fa8"></i><p>Primary Blue<br>#1A6FA8</p></div>
+          <div class="ds-swatch"><i style="background:#e7f3fa"></i><p>Light Blue<br>#E7F3FA</p></div>
+          <div class="ds-swatch"><i style="background:#e89a2c"></i><p>Accent<br>#E89A2C</p></div>
+          <div class="ds-swatch"><i style="background:#ffffff;border-bottom:1px solid #d5e4ec"></i><p>Background<br>#FFFFFF</p></div>
+          <div class="ds-swatch"><i style="background:#1c2e3a"></i><p>Text<br>#1C2E3A</p></div>
+          <div class="ds-swatch"><i style="background:#5b6e7a"></i><p>Sub Text<br>#5B6E7A</p></div>
+          <div class="ds-swatch"><i style="background:#d5e4ec"></i><p>Border<br>#D5E4EC</p></div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <h2 class="t-h2">Typography</h2>
+        <div style="margin-top:24px;display:grid;gap:16px">
+          <div>
+            <p class="t-small">H1 / 32–44px / Bold</p>
+            <p class="t-h1">水まわりの困った、いま相談できます。</p>
+          </div>
+          <div>
+            <p class="t-small">H2 / 24–32px / Bold</p>
+            <p class="t-h2">こんなお困りはありませんか？</p>
+          </div>
+          <div>
+            <p class="t-small">H3 / 18–20px / Bold</p>
+            <p class="t-h3">トイレが詰まった</p>
+          </div>
+          <div>
+            <p class="t-small">Body / 16px / Regular / line-height 1.8</p>
+            <p class="t-body">まずは状況をお聞かせください。対応の目安と、料金の考え方をご案内します。</p>
+          </div>
+          <div>
+            <p class="t-small">Small / 13px</p>
+            <p class="t-small">受付 8:00〜21:00（年中無休）</p>
+          </div>
+          <div>
+            <p class="t-small">Button / 16px / Bold</p>
+            <a class="c-phone-cta" href="#" style="width:auto">電話で相談する</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <h2 class="t-h2">Spacing</h2>
+        <p class="t-small">8pxベース　8 / 16 / 24 / 32 / 48 / 64</p>
+        <div class="space-demo" style="margin-top:16px">
+          <div><b style="width:8px;height:8px"></b><span class="t-small">8</span></div>
+          <div><b style="width:16px;height:16px"></b><span class="t-small">16</span></div>
+          <div><b style="width:24px;height:24px"></b><span class="t-small">24</span></div>
+          <div><b style="width:32px;height:32px"></b><span class="t-small">32</span></div>
+          <div><b style="width:48px;height:48px"></b><span class="t-small">48</span></div>
+          <div><b style="width:64px;height:64px"></b><span class="t-small">64</span></div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <h2 class="t-h2">Components</h2>
+        <div style="display:grid;gap:24px;margin-top:24px">
+          <div>
+            <p class="t-small">Phone CTA / Primary Button / Secondary Button</p>
+            <div class="btn-row" style="margin-top:8px">
+              <a class="c-phone-cta" href="#">電話で相談する</a>
+              <a class="c-btn-primary" href="#">送信する</a>
+              <a class="c-btn-secondary" href="#">フォームで問い合わせる</a>
+            </div>
+          </div>
+          <div>
+            <p class="t-small">Problem Card / Service Card</p>
+            <div class="card-grid card-grid--3" style="margin-top:8px">
+              <article class="c-problem-card">
+                <img src="assets/icon-toilet.png" alt="" width="96" height="96" />
+                <h3 class="t-h3">トイレが詰まった</h3>
+                <p>流れが悪い、水が上がってくる。</p>
+              </article>
+              <article class="c-service-card">
+                <img src="assets/icon-faucet.png" alt="" width="96" height="96" />
+                <h3 class="t-h3">蛇口</h3>
+                <p>水漏れ、閉まりが悪い。</p>
+              </article>
+            </div>
+          </div>
+          <div>
+            <p class="t-small">Feature Card / Price Card / Step Card</p>
+            <div class="card-grid card-grid--3" style="margin-top:8px">
+              <article class="c-feature-card">
+                <div class="c-feature-card__num">01</div>
+                <h3 class="t-h3">流れが分かる</h3>
+                <p>手順を先にご説明します。</p>
+              </article>
+              <article class="c-price-card">
+                <div class="c-price-card__label">出張費</div>
+                <div class="c-price-card__price">3,300<span>円〜</span></div>
+                <p>対応エリア内・日中の目安。</p>
+              </article>
+              <article class="c-step-card">
+                <div class="c-step-card__no">01</div>
+                <h3 class="t-h3">お問い合わせ</h3>
+                <p>症状とご住所の目安。</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
