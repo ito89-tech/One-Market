@@ -11,7 +11,11 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  // アプリからの通常アクセス。Neon ではプーラー経由（-pooler ホスト）を指す。
   url      = env("DATABASE_URL")
+  // マイグレーション専用の直結。プーラー経由では DDL が流せないため分ける。
+  // ローカルでは DATABASE_URL と同じ値を入れておけばよい（必ず設定すること）。
+  directUrl = env("DIRECT_URL")
 }
 
 enum UserRole {

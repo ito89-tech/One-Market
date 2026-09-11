@@ -5,16 +5,17 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "prisma generate && next build",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start -p 3000",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "db:start": "tsx scripts/pg.ts start",
     "db:destroy": "tsx scripts/pg.ts destroy",
     "db:push": "prisma db push",
-    "db:migrate": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
-    "db:reset": "prisma db push --force-reset && npm run db:seed",
-    "engine:start": "tsx scripts/engine-start.ts",
+    "db:reset": "prisma migrate reset --force",
     "setup:local": "tsx scripts/setup-local.ts",
     "local": "tsx scripts/dev-all.ts",
     "dev:all": "tsx scripts/dev-all.ts",
@@ -28,6 +29,7 @@
   "dependencies": {
     "@prisma/client": "^6.19.0",
     "bcryptjs": "^3.0.2",
+    "decimal.js": "^10.6.0",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -50,6 +52,9 @@
     "tsx": "^4.20.6",
     "typescript": "^5",
     "vitest": "^3.2.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "engines": {
     "node": ">=20"

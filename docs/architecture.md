@@ -10,23 +10,30 @@ Next.js 16 (App Router, TypeScript)   [web/]
    ├─ 画面（Server Components 中心）
    ├─ Route Handlers = 公開 API（認証・入力検証・権限判定）
    ├─ Prisma → PostgreSQL
-   └─ サーバー内部からのみ 診断エンジンを呼ぶ
-          │  HTTP (localhost / 内部ネットワーク)
+   └─ 診断エンジン（同一プロセス内）  [web/src/server/engine/]
+      ├─ calc.ts     診断ロジック（純粋関数・Decimal 演算）
+      └─ dataset.ts  基準データの参照（PostgreSQL のみ）
+          │
           ▼
-   FastAPI (Python 3.12)              [engine/]
-   └─ 純粋な診断ロジック。DB もセッションも持たない
-          ▲
-          │  起動時にロード
-   data/yield-master.json（.ods から生成）
+   PostgreSQL（マネージド。ローカルは埋め込み PGlite）
+   └─ 会員・診断履歴・課金 ＋ 収益率マスタ
 ```
 
-### なぜこの分割か
+### なぜこの構成か
 
-- 指示書 §22 が Frontend = Next.js / Backend・Diagnosis = Python を指定している。
-- 診断エンジンを **状態を持たない純粋な計算サービス** にすることで、
-  収益率データが変わっても再デプロイだけで済み、単体テストが容易になる（§21・§36）。
-- 認証・課金・権限判定は Next.js 側に集約する。エンジンは外部公開しない。
-- エンジンが落ちていても LP と会員機能は動作する（診断のみ 503 を返す）。
+- 診断ロジックは **状態を持たない純粋関数**。データは引数で渡すので単体テストが容易（§21・§36）。
+- 基準データの参照先を PostgreSQL に一本化してあるため、
+  画面表示・管理画面・診断計算が同じ数字を見る。ずれようがない。
+- 認証・課金・権限判定も Next.js 側。外部に開くサービスは Next.js だけ。
+- 常駐プロセスが Next.js だけなので、Vercel の 1 デプロイで完結する。
+
+> 当初は Python(FastAPI) の別サービスとして実装していました（指示書 §22）。
+> Vercel では同一デプロイに常駐プロセスを置けず、別ホストを用意すると
+> 「エンジン停止＝診断不能」という単一障害点と月額費用が増えるため、
+> TypeScript へ移植して取り込みました。移植前の実装とテストは `engine/` に
+> 仕様のリファレンスとして残しています（デプロイ対象ではありません）。
+> 境界値を含む仕様ケースは `web/tests/engine.test.ts` に移植済みで、
+> 実データ（data/yield-master.json）に対して同じ結果になることを検証しています。
 
 ## 2. データの流れ
 
@@ -35,12 +42,12 @@ Next.js 16 (App Router, TypeScript)   [web/]
       │ tools/build_yield_dataset.py   ← 値の補完はしない。異常は issues に記録
       ▼
 data/yield-master.json                 ← 唯一の正規化済みマスタ
-      ├─ web/prisma/seed.ts   → PostgreSQL（画面表示・管理画面・駅名補完用）
-      └─ engine 起動時ロード  → 診断計算用
+      └─ web/prisma/seed.ts   → PostgreSQL
+                                 （画面表示・管理画面・駅名補完・診断計算すべて）
 ```
 
-DB とエンジンが同じ JSON を出所とするため、表示と計算がずれません。
-データを更新するときは `.ods` を差し替えて変換 → シード → エンジン再起動、の 3 手順のみです。
+表示も計算も同じテーブルを読むため、両者がずれることはありません。
+データを更新するときは `.ods` を差し替えて変換 → シード、の 2 手順です。
 
 ## 3. ディレクトリ
 
@@ -50,22 +57,18 @@ One-Market/
 ├─ data/yield-master.json     変換済みマスタ（生成物・コミット対象）
 ├─ tools/                     .ods 解析・変換スクリプト（Python）
 ├─ docs/                      設計文書
-├─ engine/                    FastAPI 診断エンジン
-│  ├─ app/
-│  │  ├─ main.py              HTTP 層のみ
-│  │  ├─ schemas.py           入出力の型
-│  │  ├─ dataset.py           マスタの読み込みと索引
-│  │  └─ diagnosis.py         診断ロジック（純粋関数）
-│  └─ tests/
+├─ engine/                    移植前の FastAPI 実装（仕様リファレンス／非デプロイ）
 └─ web/                       Next.js
    ├─ prisma/schema.prisma
+   ├─ prisma/migrations/      スキーマ変更履歴（本番は migrate deploy で適用）
    ├─ prisma/seed.ts
    ├─ scripts/pg.ts           埋め込み PostgreSQL 起動/停止
    └─ src/
       ├─ app/                 画面と Route Handlers
       ├─ components/          UI 部品
-      ├─ lib/                 認証・DB・Stripe・検証・エンジンクライアント
+      ├─ lib/                 認証・DB・Stripe・検証・診断エンジンの入口
       └─ server/              サーバー専用のユースケース層
+         └─ engine/           診断ロジックと基準データ参照
 ```
 
 ## 4. API
@@ -138,24 +141,27 @@ JWT を使わないのは、失効を即座に反映したい（無料枠・権�
 
 | 変数 | 用途 |
 | --- | --- |
-| `DATABASE_URL` | PostgreSQL 接続文字列 |
+| `DATABASE_URL` | PostgreSQL 接続文字列（本番はプーラー経由） |
+| `DIRECT_URL` | マイグレーション用の直結。プーラーでは DDL を流せないため分ける |
 | `AUTH_SECRET` | セッショントークンのハッシュ用ソルト |
-| `DIAGNOSIS_ENGINE_URL` | Python エンジンのベース URL |
 | `STRIPE_SECRET_KEY` | Stripe 秘密鍵（サーバーのみ） |
-| `STRIPE_WEBHOOK_SECRET` | Webhook 署名シークレット |
-| `STRIPE_PRICE_ID` | 有料診断の価格 ID（未確定。空なら Stripe 導線は無効） |
-| `STRIPE_MODE` | `payment` または `subscription` |
+| `STRIPE_WEBHOOK_SECRET` | Webhook 署名シークレット。**未設定だと決済しても枠が付かない** |
+| `STRIPE_PRICE_ID_ONE_TIME` | 1回プランの Price ID |
+| `STRIPE_PRICE_ID_MONTHLY_5` | 月5回プランの Price ID |
+| `STRIPE_PRICE_ID_MONTHLY_UNLIMITED` | 無制限プランの Price ID |
 | `PAYMENT_PROVIDER` | `mock`（localhost のみ）または `stripe` |
-| `SEED_LOCAL_USERS` | ローカル確認用アカウントの投入 |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | 公開鍵（クライアント可） |
-| `NEXT_PUBLIC_APP_URL` | リダイレクト URL の組み立て |
+| `SEED_LOCAL_USERS` | ローカル確認用アカウントの投入。本番は `false` |
+| `NEXT_PUBLIC_APP_URL` | リダイレクト URL の組み立てと CSRF 判定 |
 | `ADMIN_EMAILS` | 起動時に管理者へ昇格させるメールアドレス（カンマ区切り） |
+
+設定漏れは `web/src/instrumentation.ts` が起動時に検査します。
+`STRIPE_WEBHOOK_SECRET` 欠落などの致命的な組み合わせでは起動を止めます。
 
 ## 8. デプロイ方針
 
-MVP の運用コストと保守性を優先し、次を想定します。
+- Next.js: Vercel（Root Directory = `web`、リージョン `hnd1`）
+- PostgreSQL: Neon（マネージド）。アプリはプーラー経由、マイグレーションは直結
+- 診断エンジン: Next.js と同一プロセス。別ホストは不要
+- ローカル開発: PGlite（`npm run db:start`）。接続文字列を差し替えるだけで本番と同じ経路
 
-- Next.js: Vercel（または Node が動く任意の PaaS）
-- FastAPI: Render / Cloud Run など。**外部からのアクセスを閉じ、Next.js からのみ到達可能にする**
-- PostgreSQL: Neon / Supabase / RDS などのマネージド
-- ローカル開発: PGlite（`npm run db:start`）。本番はマネージド PostgreSQL で `DATABASE_URL` だけ差し替える
+手順の詳細は `docs/deployment.md` を参照してください。

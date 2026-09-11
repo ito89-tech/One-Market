@@ -18,8 +18,11 @@
 ブラウザ
   → Next.js (web/ :3000)
       → PostgreSQL 互換（開発は PGlite :55432。Docker 不要）
-      → FastAPI 診断エンジン (engine/ :8000)
+      → 診断エンジン（Next.js と同一プロセス。web/src/server/engine/）
 ```
+
+常駐プロセスは Next.js と DB だけです。本番は Vercel + Neon の 2 つで動きます
+（手順は `docs/deployment.md`）。
 
 収益率の正本はクライアント提供の `利回りシート.xlsx` です。
 変換結果は `data/yield-master.json` です。値の補完はしません。
@@ -32,7 +35,7 @@
 | --- | --- |
 | Node.js | **20 以上**（確認環境は v26。`.nvmrc` は 20） |
 | npm | Node 付属 |
-| Python | **3.12**（`engine/.python-version`） |
+| Python | 任意。`tools/` の .xlsx 変換を実行するときだけ |
 | Chrome | E2E と手動確認 |
 | Stripe CLI | 任意。Test Mode の Webhook を受けるときだけ |
 
@@ -46,14 +49,7 @@ Windows の管理者アカウントでは `postgres.exe` が起動できない�
 ## 3. 最短セットアップ（新しい PC）
 
 ```bash
-# 診断エンジン
-cd engine
-python -m venv .venv
-.\.venv\Scripts\pip install -r requirements.txt   # Windows
-# source .venv/bin/activate && pip install -r requirements.txt  # macOS / Linux
-
-# Web
-cd ../web
+cd web
 npm ci                 # lockfile どおり。初回は npm install でも可
 copy .env.example .env # Windows
 # cp .env.example .env
@@ -61,8 +57,8 @@ copy .env.example .env # Windows
 # AUTH_SECRET は本番では必ず乱数に差し替える
 # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
-npm run setup:local    # .env 確認、venv 確認、DB 起動、migrate、seed
-npm run local          # DB + FastAPI + Next.js をまとめて起動
+npm run setup:local    # .env 確認、DB 起動、migrate deploy、seed
+npm run local          # DB + Next.js をまとめて起動
 ```
 
 ブラウザ: **http://localhost:3000**
@@ -76,25 +72,14 @@ npm run local          # DB + FastAPI + Next.js をまとめて起動
 ```bash
 cd web
 npm run db:start       # PGlite 常駐。Ctrl+C で停止
-npm run db:migrate     # prisma db push
+npm run db:deploy      # prisma migrate deploy（既存の DB に適用）
 npm run db:seed
-npm run engine:start
 npm run dev            # Next.js :3000
 ```
 
-エンジンを直接起動する場合:
-
-```bash
-cd engine
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
-```
-
-pytest:
-
-```bash
-cd engine
-.\.venv\Scripts\python.exe -m pytest -q
-```
+スキーマを変更したときは `npm run db:migrate`（`prisma migrate dev`）で
+`prisma/migrations/` に差分を作り、コミットします。本番へはデプロイ時に
+自動適用されるので、`prisma db push` は本番に使いません。
 
 ---
 
@@ -106,7 +91,7 @@ npm run local
 # 同じ: npm run dev:all
 ```
 
-ポート 55432 / 8000 / 3000 が既に使われていれば、そのプロセスを再利用します。
+ポート 55432 / 3000 が既に使われていれば、そのプロセスを再利用します。
 
 ---
 
@@ -117,8 +102,8 @@ npm run local
 | 変数 | 用途 |
 | --- | --- |
 | `DATABASE_URL` | PostgreSQL。開発は `pgbouncer=true&connection_limit=1` 付き |
+| `DIRECT_URL` | マイグレーション用の直結。ローカルは `DATABASE_URL` と同じで可 |
 | `AUTH_SECRET` | セッショントークンの HMAC |
-| `DIAGNOSIS_ENGINE_URL` | FastAPI（内部のみ。公開しない） |
 | `NEXT_PUBLIC_APP_URL` | アプリ URL |
 | `ADMIN_EMAILS` | 管理者へ昇格するメール（カンマ区切り） |
 | `PAYMENT_PROVIDER` | `mock` または `stripe` |
@@ -211,10 +196,7 @@ npm run stripe:listen
 ## 10. テスト
 
 ```bash
-cd engine
-.\.venv\Scripts\python.exe -m pytest -q
-
-cd ../web
+cd web
 npm test
 npm run typecheck
 npm run lint
@@ -231,11 +213,11 @@ npm run e2e
 | 症状 | 確認 |
 | --- | --- |
 | Can't reach database server | `npm run db:start`。ポート 55432。二重起動していないか |
-| 診断が実行できない | `npm run engine:start`。`http://127.0.0.1:8000/health` |
+| 診断が実行できない | `npm run db:seed` 済みか。`/admin` の「診断エンジン」に件数が出るか |
 | 有料ボタンが準備中 | `PAYMENT_PROVIDER=mock` か、Stripe の test キー + Price |
 | Mock が 403 | 公開ホスト / `sk_live` / `VERCEL_ENV=production` |
 | Stripe listen が認証エラー | `stripe login` が未実施 |
-| ポート競合 | 3000 / 8000 / 55432 |
+| ポート競合 | 3000 / 55432 |
 | E2E が結果画面でタイムアウト | ほぼ DB 停止 |
 | 管理画面 404 | `admin@onemake.local` でログイン |
 

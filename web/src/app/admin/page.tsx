@@ -67,7 +67,8 @@ export default async function AdminOverviewPage() {
         ) : (
           <div className="mt-3">
             <Alert tone="error">
-              診断エンジンに接続できません。engine/ が起動しているか確認してください。
+              基準データを読み込めません。データベースに接続できているか、
+              シード（npm run db:seed）が実行済みか確認してください。
             </Alert>
           </div>
         )}

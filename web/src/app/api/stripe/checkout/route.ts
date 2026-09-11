@@ -48,30 +48,46 @@ export async function POST(request: NextRequest) {
     }
 
     const appUrl = serverEnv.appUrl();
-    const session = await stripe.checkout.sessions.create({
-      mode: plan.checkoutMode,
-      customer: customerId,
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${appUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${appUrl}/checkout/cancel`,
-      client_reference_id: user.id,
-      metadata: { userId: user.id, planKey: plan.key },
-      locale: "ja",
-      ...(plan.checkoutMode === "subscription"
-        ? {
-            subscription_data: {
-              metadata: { userId: user.id, planKey: plan.key },
-            },
-          }
-        : {}),
-    });
+    const session = await stripe.checkout.sessions.create(
+      {
+        mode: plan.checkoutMode,
+        customer: customerId,
+        line_items: [{ price: priceId, quantity: 1 }],
+        success_url: `${appUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${appUrl}/checkout/cancel`,
+        client_reference_id: user.id,
+        metadata: { userId: user.id, planKey: plan.key },
+        locale: "ja",
+        // payment_method_types は指定しない。未指定にすることで Stripe
+        // ダッシュボードで有効化した決済手段がそのまま使われ、Apple Pay /
+        // Google Pay / Link などのウォレットが表示される。ここに
+        // ["card"] を書くとウォレットが消えるので追加しないこと。
+        ...(plan.checkoutMode === "subscription"
+          ? {
+              subscription_data: {
+                metadata: { userId: user.id, planKey: plan.key },
+              },
+            }
+          : {}),
+      },
+      {
+        // 二重クリックで決済セッションと Payment 行が増えないようにする。
+        // 分単位のバケットにしているのは、日を跨がない範囲で本当に
+        // 2 回買いたい場合を塞がないため。
+        idempotencyKey: `checkout:${user.id}:${plan.key}:${Math.floor(
+          Date.now() / 60_000,
+        )}`,
+      },
+    );
 
     if (!session.url) {
       return fail("INTERNAL_ERROR", "決済ページを開始できませんでした。");
     }
 
-    await prisma.payment.create({
-      data: {
+    // 冪等キーで同じセッションが返ることがあるため upsert にする。
+    await prisma.payment.upsert({
+      where: { stripeCheckoutSessionId: session.id },
+      create: {
         userId: user.id,
         stripeCheckoutSessionId: session.id,
         amount: session.amount_total ?? plan.priceYen,
@@ -79,6 +95,7 @@ export async function POST(request: NextRequest) {
         status: "PENDING",
         planKey: plan.key,
       },
+      update: {},
     });
 
     return ok({ url: session.url });

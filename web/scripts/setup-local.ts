@@ -1,8 +1,9 @@
 /**
  * First-time local setup. Run from web/: `npm run setup:local`
  *
- * Copies .env, installs the Python venv if missing, waits for PGlite,
- * then runs prisma generate / db push / seed.
+ * Copies .env, waits for PGlite, then runs prisma generate / migrate / seed.
+ * Migrations (not db push) are used so local goes through the same path as
+ * production.
  *
  * Does not start long-lived servers (use `npm run local` afterwards).
  * Does not run `stripe login` (that needs a Stripe Dashboard account).
@@ -14,13 +15,8 @@ import path from "node:path";
 import { isPortOpen, waitForPort } from "./ports";
 
 const webDir = process.cwd();
-const engineDir = path.resolve(webDir, "..", "engine");
 const envPath = path.join(webDir, ".env");
 const envExample = path.join(webDir, ".env.example");
-const pythonVenv =
-  process.platform === "win32"
-    ? path.join(engineDir, ".venv", "Scripts", "python.exe")
-    : path.join(engineDir, ".venv", "bin", "python");
 
 function run(command: string, args: string[], cwd: string) {
   const result = spawnSync(command, args, { cwd, stdio: "inherit", shell: true });
@@ -59,26 +55,15 @@ function ensureEnv() {
   console.log("[setup] .env.example を .env にコピーしました。AUTH_SECRET は必要なら差し替えてください。");
 }
 
-function ensureEngineVenv() {
-  if (existsSync(pythonVenv)) {
-    console.log("[setup] engine/.venv は既にあります");
-    return;
-  }
-  console.log("[setup] engine/.venv を作成します");
-  run("python", ["-m", "venv", ".venv"], engineDir);
-  run(pythonVenv, ["-m", "pip", "install", "-r", "requirements.txt"], engineDir);
-}
-
 async function main() {
   console.log("[setup] Node", process.version);
   ensureEnv();
-  ensureEngineVenv();
   await ensureDb();
   run("npx", ["prisma", "generate"], webDir);
-  run("npx", ["prisma", "db", "push"], webDir);
+  run("npx", ["prisma", "migrate", "deploy"], webDir);
   run("npx", ["tsx", "prisma/seed.ts"], webDir);
   console.log("");
-  console.log("[setup] 完了。次は `npm run local` で DB / エンジン / Next.js を起動してください。");
+  console.log("[setup] 完了。次は `npm run local` で DB / Next.js を起動してください。");
   console.log("[setup] Stripe Test Mode は任意です。手順は README の「Stripe Test Mode」を見てください。");
 }
 

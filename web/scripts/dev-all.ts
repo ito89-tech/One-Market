@@ -1,9 +1,10 @@
 /**
- * One-command local stack: PGlite + FastAPI + Next.js.
+ * One-command local stack: PGlite + Next.js.
  * Run from web/: `npm run local`
  *
- * Existing processes on 55432 / 8000 / 3000 are reused instead of duplicated.
- * Ctrl+C stops only the children this script started.
+ * The diagnosis engine now runs inside the Next.js process, so there is no
+ * separate service to start. Existing processes on 55432 / 3000 are reused
+ * instead of duplicated. Ctrl+C stops only the children this script started.
  */
 import { type ChildProcess, spawn } from "node:child_process";
 
@@ -43,13 +44,6 @@ async function main() {
     await waitForPort(55432, "PGlite");
   } else {
     console.log("[db] 55432 は既に使用中なので再利用します");
-  }
-
-  if (!(await isPortOpen(8000))) {
-    start("engine", "npm", ["run", "engine:start"]);
-    await waitForPort(8000, "診断エンジン");
-  } else {
-    console.log("[engine] 8000 は既に使用中なので再利用します");
   }
 
   if (!(await isPortOpen(3000))) {
