@@ -23,6 +23,7 @@ export default async function SignupPage({
   const fromDiagnosis = destination.startsWith("/diagnosis");
 
   return (
+    <div className="bg-[var(--color-surface-muted)]">
     <Container className="py-10 sm:py-16">
       <div className="mx-auto max-w-md">
         <header className="mb-6 text-center">
@@ -45,5 +46,6 @@ export default async function SignupPage({
         </p>
       </div>
     </Container>
+    </div>
   );
 }

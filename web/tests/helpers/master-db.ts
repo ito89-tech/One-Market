@@ -40,7 +40,6 @@ const MASTER_PATH = path.resolve(
   __dirname,
   "..",
   "..",
-  "..",
   "data",
   "yield-master.json",
 );

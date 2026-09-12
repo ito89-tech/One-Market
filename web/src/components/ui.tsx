@@ -58,7 +58,7 @@ export function SectionHeading({
   return (
     <header className="mb-8 text-center sm:mb-12">
       {eyebrow ? (
-        <p className="mb-2 text-sm font-bold tracking-wide text-brand-500">
+        <p className="mb-2 text-sm font-bold tracking-wide text-brand-600">
           {eyebrow}
         </p>
       ) : null}
@@ -77,13 +77,17 @@ export function SectionHeading({
 /* ------------------------------------------------------------------ 部品 */
 
 const buttonBase =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-[10px] px-6 text-[15px] font-bold transition-colors touch-manipulation disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-bold transition-[color,background-color,border-color,transform,box-shadow] duration-200 hover:-translate-y-px active:translate-y-0 touch-manipulation disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0";
 
 const buttonVariants = {
   primary: "bg-brand-500 text-white hover:bg-brand-600",
+  accent: "bg-accent-500 text-white hover:bg-accent-600",
   secondary:
-    "border border-brand-500 bg-white text-brand-600 hover:bg-brand-50",
-  quiet: "border border-[var(--color-line)] bg-white text-ink-700 hover:bg-[var(--color-surface-muted)]",
+    "border border-brand-400 bg-brand-400 text-white hover:bg-brand-500",
+  quiet:
+    "border border-brand-400 bg-white text-brand-600 hover:bg-brand-50",
+  inverse:
+    "border border-white bg-white text-brand-700 hover:bg-brand-50 hover:text-brand-800",
 } as const;
 
 type ButtonVariant = keyof typeof buttonVariants;

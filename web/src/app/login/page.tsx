@@ -21,6 +21,7 @@ export default async function LoginPage({
   }
 
   return (
+    <div className="bg-[var(--color-surface-muted)]">
     <Container className="py-10 sm:py-16">
       <div className="mx-auto max-w-md">
         <header className="mb-6 text-center">
@@ -35,5 +36,6 @@ export default async function LoginPage({
         </Card>
       </div>
     </Container>
+    </div>
   );
 }

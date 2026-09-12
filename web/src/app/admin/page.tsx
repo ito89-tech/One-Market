@@ -1,6 +1,10 @@
 import { Alert, Card } from "@/components/ui";
 import { engineHealth } from "@/lib/engine";
-import { isMockPaymentsAllowed, isPaidFlowEnabled } from "@/lib/env";
+import {
+  isMockPaymentsAllowed,
+  isPaidFlowEnabled,
+  serverEnv,
+} from "@/lib/env";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminOverviewPage() {
@@ -15,6 +19,9 @@ export default async function AdminOverviewPage() {
   const health = await engineHealth();
 
   const blockers = issues.filter((issue) => issue.level === "BLOCKER");
+  const stripeSecret = serverEnv.stripe.secretKey();
+  const stripeTestMode =
+    Boolean(stripeSecret) && stripeSecret.startsWith("sk_test_");
 
   const stats = [
     { label: "登録ユーザー", value: users },
@@ -40,12 +47,18 @@ export default async function AdminOverviewPage() {
       {isMockPaymentsAllowed() ? (
         <Alert tone="warning" title="TEST ONLY / TEMP">
           Mock Payment が有効です。本番では PAYMENT_PROVIDER=stripe に切り替え、
-          Stripe のテスト／本番キーを設定してください。料金は未確定です。
+          Stripe のテストキー（sk_test_）または本番キーを設定してください。
+        </Alert>
+      ) : stripeTestMode && isPaidFlowEnabled() ? (
+        <Alert tone="info" title="Stripe Test Mode（サンドボックス）">
+          現在 sk_test_ キーで動作しています。本番課金は発生しません。
+          サンドボックス検証にはテストモードの Price ID と Webhook
+          （whsec_…）をセットしてください。sk_live_ は必須ではありません。
         </Alert>
       ) : !isPaidFlowEnabled() ? (
         <Alert tone="warning" title="有料診断は無効化されています">
-          STRIPE_SECRET_KEY と STRIPE_PRICE_ID
-          が設定されていないため、有料導線は「準備中」として表示されます。
+          STRIPE_SECRET_KEY（sk_test_ でも可）・対応する Price ID・公開ホストでは
+          STRIPE_WEBHOOK_SECRET が揃っていないため、有料導線は「準備中」として表示されます。
         </Alert>
       ) : null}
 

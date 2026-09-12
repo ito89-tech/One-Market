@@ -10,16 +10,27 @@
  * that makes financial sites feel like a sales pitch.
  */
 @theme {
-  --color-brand-50: #eef8f9;
-  --color-brand-100: #d3edef;
-  --color-brand-200: #a8dbdf;
-  --color-brand-300: #6ec2c9;
-  --color-brand-400: #35a2ac;
-  --color-brand-500: #0e7c86;
-  --color-brand-600: #0b6771;
-  --color-brand-700: #0a545d;
-  --color-brand-800: #0a444b;
-  --color-brand-900: #0a383e;
+  --color-brand-50: #e6f8fa;
+  --color-brand-100: #c5eef2;
+  --color-brand-200: #8fdde5;
+  --color-brand-300: #4ecbd6;
+  --color-brand-400: #00b7c3;
+  --color-brand-500: #00a3ae;
+  --color-brand-600: #00838c;
+  --color-brand-700: #006870;
+  --color-brand-800: #05555c;
+  --color-brand-900: #0a444b;
+
+  --color-accent-50: #fff1ef;
+  --color-accent-100: #ffd8d3;
+  --color-accent-200: #ffb3aa;
+  --color-accent-300: #f57a70;
+  --color-accent-400: #ff6a5c;
+  --color-accent-500: #ff3d2e;
+  --color-accent-600: #e53935;
+  --color-accent-700: #a51f1f;
+  --color-accent-800: #8a1c1c;
+  --color-accent-900: #6d1717;
 
   --color-ink-900: #10181c;
   --color-ink-700: #2f3c43;
@@ -27,7 +38,7 @@
   --color-ink-300: #8c979d;
 
   --color-surface: #ffffff;
-  --color-surface-muted: #f5f8f9;
+  --color-surface-muted: #f8f8f8;
   --color-line: #e2e8ea;
 
   --color-judge-under: #0f766e;
@@ -40,7 +51,6 @@
 }
 
 html {
-  /* Avoid the sticky header covering in-page anchors. */
   scroll-padding-top: 5.5rem;
 }
 
@@ -71,11 +81,154 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mobile-nav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-copy.is-active > * {
+  animation: fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-copy.is-active > h1,
+.hero-copy.is-active > .hero-title {
+  animation-delay: 0.2s;
+}
+
+.hero-copy.is-active > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.hero-copy.is-active > *:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.hero-copy.is-active > *:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.hero-copy.is-active > *:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.hero-copy-stack,
+.hero-caption-stack {
+  display: grid;
+}
+
+.hero-copy-stack > *,
+.hero-caption-stack > * {
+  grid-area: 1 / 1;
+}
+
+.hero-photo-frame {
+  position: relative;
+  height: 340px;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+@media (min-width: 640px) {
+  .hero-photo-frame {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-photo-frame {
+    height: 480px;
+  }
+}
+
+.hero-slide-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translate3d(0, 14px, 0) scale(0.98);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.hero-slide-photo.is-active {
+  z-index: 1;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.lp-lift {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lp-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(16, 24, 28, 0.08);
+}
+
+.nav-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1.5px;
+  padding-bottom: 2px;
+  transition:
+    color 0.2s ease,
+    background-size 0.28s ease;
+}
+
+.nav-link:hover {
+  background-size: 100% 1.5px;
+}
+
+.mobile-nav-panel {
+  animation: mobile-nav-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .hero-copy.is-active > *,
+  .hero-slide-photo.is-active {
+    opacity: 1;
+    transform: none;
   }
 }

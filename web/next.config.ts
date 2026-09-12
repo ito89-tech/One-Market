@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Keep bundled master files available to serverless admin sync routes on Vercel.
+  outputFileTracingIncludes: {
+    "/api/admin/yield-master/**/*": [
+      "./data/yield-master.json",
+      "./data/yield-sheet.xlsx",
+    ],
+  },
 };
 
 export default nextConfig;

@@ -1,0 +1,5823 @@
+{
+  "schemaVersion": 1,
+  "source": "利回りシート.xlsx",
+  "generatedAt": "2026-09-09T09:28:10.602711+00:00",
+  "sheets": [
+    {
+      "key": "kanto",
+      "name": "東京・埼玉・神奈川・千葉",
+      "prefectures": [
+        "東京都",
+        "埼玉県",
+        "神奈川県",
+        "千葉県"
+      ],
+      "isFallback": false,
+      "areaCodes": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "defaultArea": "4",
+      "rates": [
+        {
+          "label": "0~1",
+          "ageMin": 0,
+          "ageMax": 1,
+          "byArea": {
+            "1": {
+              "low": 3.1,
+              "high": 3.19,
+              "raw": "3.10%-3.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.2,
+              "high": 3.34,
+              "raw": "3.20%-3.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.5,
+              "high": 3.59,
+              "raw": "3.50%-3.59%",
+              "valid": true
+            },
+            "4": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "2",
+          "ageMin": 2,
+          "ageMax": 2,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.29,
+              "raw": "3.20%-3.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.3,
+              "high": 3.39,
+              "raw": "3.30%-3.39%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.6,
+              "high": 3.69,
+              "raw": "3.60%-3.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "3",
+          "ageMin": 3,
+          "ageMax": 3,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.29,
+              "raw": "3.20%-3.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.3,
+              "high": 3.44,
+              "raw": "3.30%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.6,
+              "high": 3.69,
+              "raw": "3.60%-3.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "4",
+          "ageMin": 4,
+          "ageMax": 4,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.29,
+              "raw": "3.20%-3.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.3,
+              "high": 3.44,
+              "raw": "3.30%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.6,
+              "high": 3.69,
+              "raw": "3.60%-3.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "5",
+          "ageMin": 5,
+          "ageMax": 5,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.29,
+              "raw": "3.20%-3.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.35,
+              "high": 3.44,
+              "raw": "3.35%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.6,
+              "high": 3.69,
+              "raw": "3.60%-3.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "6",
+          "ageMin": 6,
+          "ageMax": 6,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.39,
+              "raw": "3.20%-3.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.35,
+              "high": 3.44,
+              "raw": "3.35%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.7,
+              "high": 3.79,
+              "raw": "3.70%-3.79%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "7",
+          "ageMin": 7,
+          "ageMax": 7,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.39,
+              "raw": "3.20%-3.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.35,
+              "high": 3.44,
+              "raw": "3.35%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.7,
+              "high": 3.79,
+              "raw": "3.70%-3.79%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "8",
+          "ageMin": 8,
+          "ageMax": 8,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.39,
+              "raw": "3.20%-3.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.35,
+              "high": 3.44,
+              "raw": "3.35%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.7,
+              "high": 3.79,
+              "raw": "3.70%-3.79%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "9",
+          "ageMin": 9,
+          "ageMax": 9,
+          "byArea": {
+            "1": {
+              "low": 3.2,
+              "high": 3.39,
+              "raw": "3.20%-3.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.35,
+              "high": 3.44,
+              "raw": "3.35%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.7,
+              "high": 3.79,
+              "raw": "3.70%-3.79%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "10",
+          "ageMin": 10,
+          "ageMax": 10,
+          "byArea": {
+            "1": {
+              "low": 3.3,
+              "high": 3.39,
+              "raw": "3.30%-3.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.35,
+              "high": 3.44,
+              "raw": "3.35%-3.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.7,
+              "high": 3.79,
+              "raw": "3.70%-3.79%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "11",
+          "ageMin": 11,
+          "ageMax": 11,
+          "byArea": {
+            "1": {
+              "low": 3.3,
+              "high": 3.39,
+              "raw": "3.30%-3.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.4,
+              "high": 3.49,
+              "raw": "3.40%-3.49%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.8,
+              "high": 3.89,
+              "raw": "3.80%-3.89%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "12",
+          "ageMin": 12,
+          "ageMax": 12,
+          "byArea": {
+            "1": {
+              "low": 3.3,
+              "high": 3.45,
+              "raw": "3.30%-3.45%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.4,
+              "high": 3.49,
+              "raw": "3.40%-3.49%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.8,
+              "high": 3.89,
+              "raw": "3.80%-3.89%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "13",
+          "ageMin": 13,
+          "ageMax": 13,
+          "byArea": {
+            "1": {
+              "low": 3.3,
+              "high": 3.45,
+              "raw": "3.30%-3.45%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.4,
+              "high": 3.49,
+              "raw": "3.40%-3.49%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.8,
+              "high": 3.89,
+              "raw": "3.80%-3.89%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "14",
+          "ageMin": 14,
+          "ageMax": 14,
+          "byArea": {
+            "1": {
+              "low": 3.35,
+              "high": 3.45,
+              "raw": "3.35%-3.45%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.45,
+              "high": 3.54,
+              "raw": "3.45%-3.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.8,
+              "high": 3.89,
+              "raw": "3.80%-3.89%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "15",
+          "ageMin": 15,
+          "ageMax": 15,
+          "byArea": {
+            "1": {
+              "low": 3.3,
+              "high": 3.45,
+              "raw": "3.30%-3.45%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.45,
+              "high": 3.54,
+              "raw": "3.45%-3.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.8,
+              "high": 3.89,
+              "raw": "3.80%-3.89%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "16",
+          "ageMin": 16,
+          "ageMax": 16,
+          "byArea": {
+            "1": {
+              "low": 3.4,
+              "high": 3.5,
+              "raw": "3.40%-3.50%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.5,
+              "high": 3.59,
+              "raw": "3.50%-3.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.9,
+              "high": 3.99,
+              "raw": "3.90%-3.99%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "17",
+          "ageMin": 17,
+          "ageMax": 17,
+          "byArea": {
+            "1": {
+              "low": 3.4,
+              "high": 3.5,
+              "raw": "3.40%-3.50%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.5,
+              "high": 3.59,
+              "raw": "3.50%-3.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.9,
+              "high": 3.99,
+              "raw": "3.90%-3.99%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "18",
+          "ageMin": 18,
+          "ageMax": 18,
+          "byArea": {
+            "1": {
+              "low": 3.4,
+              "high": 3.55,
+              "raw": "3.40%-3.55%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.5,
+              "high": 3.59,
+              "raw": "3.50%-3.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.9,
+              "high": 3.99,
+              "raw": "3.90%-3.99%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "19",
+          "ageMin": 19,
+          "ageMax": 19,
+          "byArea": {
+            "1": {
+              "low": 3.4,
+              "high": 3.55,
+              "raw": "3.40%-3.55%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.5,
+              "high": 3.59,
+              "raw": "3.50%-3.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.9,
+              "high": 3.99,
+              "raw": "3.90%-3.99%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "20",
+          "ageMin": 20,
+          "ageMax": 20,
+          "byArea": {
+            "1": {
+              "low": 3.4,
+              "high": 3.6,
+              "raw": "3.40%-3.60%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.5,
+              "high": 3.59,
+              "raw": "3.50%-3.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.9,
+              "high": 3.99,
+              "raw": "3.90%-3.99%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "21",
+          "ageMin": 21,
+          "ageMax": 21,
+          "byArea": {
+            "1": {
+              "low": 3.4,
+              "high": 3.6,
+              "raw": "3.40%-3.60%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.55,
+              "high": 3.69,
+              "raw": "3.55%-3.69%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.09,
+              "raw": "4.00%-4.09%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "22",
+          "ageMin": 22,
+          "ageMax": 22,
+          "byArea": {
+            "1": {
+              "low": 3.45,
+              "high": 3.6,
+              "raw": "3.45%-3.60%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.55,
+              "high": 3.69,
+              "raw": "3.55%-3.69%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.09,
+              "raw": "4.00%-4.09%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "23",
+          "ageMin": 23,
+          "ageMax": 23,
+          "byArea": {
+            "1": {
+              "low": 3.45,
+              "high": 3.6,
+              "raw": "3.45%-3.60%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.55,
+              "high": 3.69,
+              "raw": "3.55%-3.69%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.09,
+              "raw": "4.00%-4.09%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "24",
+          "ageMin": 24,
+          "ageMax": 24,
+          "byArea": {
+            "1": {
+              "low": 3.45,
+              "high": 3.65,
+              "raw": "3.45%-3.65%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.55,
+              "high": 3.69,
+              "raw": "3.55%-3.69%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.09,
+              "raw": "4.00%-4.09%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "25",
+          "ageMin": 25,
+          "ageMax": 25,
+          "byArea": {
+            "1": {
+              "low": 3.5,
+              "high": 3.65,
+              "raw": "3.50%-3.65%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.55,
+              "high": 3.69,
+              "raw": "3.55%-3.69%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.09,
+              "raw": "4.00%-4.09%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "26",
+          "ageMin": 26,
+          "ageMax": 26,
+          "byArea": {
+            "1": {
+              "low": 3.5,
+              "high": 3.65,
+              "raw": "3.50%-3.65%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.6,
+              "high": 3.74,
+              "raw": "3.60%-3.74%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.19,
+              "raw": "4.10%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "27",
+          "ageMin": 27,
+          "ageMax": 27,
+          "byArea": {
+            "1": {
+              "low": 3.55,
+              "high": 3.7,
+              "raw": "3.55%-3.70%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.6,
+              "high": 3.74,
+              "raw": "3.60%-3.74%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.19,
+              "raw": "4.10%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "28",
+          "ageMin": 28,
+          "ageMax": 28,
+          "byArea": {
+            "1": {
+              "low": 3.55,
+              "high": 3.7,
+              "raw": "3.55%-3.70%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.6,
+              "high": 3.74,
+              "raw": "3.60%-3.74%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.19,
+              "raw": "4.10%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "29",
+          "ageMin": 29,
+          "ageMax": 29,
+          "byArea": {
+            "1": {
+              "low": 3.55,
+              "high": 3.7,
+              "raw": "3.55%-3.70%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.6,
+              "high": 3.74,
+              "raw": "3.60%-3.74%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.19,
+              "raw": "4.10%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "30",
+          "ageMin": 30,
+          "ageMax": 30,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.7,
+              "raw": "3.60%-3.70%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.19,
+              "raw": "4.10%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "31",
+          "ageMin": 31,
+          "ageMax": 31,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.75,
+              "raw": "3.60%-3.75%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "32",
+          "ageMin": 32,
+          "ageMax": 32,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.75,
+              "raw": "3.60%-3.75%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "33",
+          "ageMin": 33,
+          "ageMax": 33,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.75,
+              "raw": "3.60%-3.75%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "34",
+          "ageMin": 34,
+          "ageMax": 34,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.75,
+              "raw": "3.60%-3.75%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "35以上",
+          "ageMin": 35,
+          "ageMax": null,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.2,
+              "raw": "4.00%-4.20%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.2,
+              "high": 4.4,
+              "raw": "4.20%-4.40%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.4,
+              "raw": "4.30%-4.40%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.7,
+              "high": 4.89,
+              "raw": "4.70%-4.89%",
+              "valid": true
+            }
+          }
+        }
+      ],
+      "stations": [
+        {
+          "name": "代々木",
+          "key": "代々木",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "原宿",
+          "key": "原宿",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "渋谷",
+          "key": "渋谷",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "恵比寿",
+          "key": "恵比寿",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "目黒",
+          "key": "目黒",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "五反田",
+          "key": "五反田",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "大崎",
+          "key": "大崎",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "大井町",
+          "key": "大井町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "品川",
+          "key": "品川",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "高円寺",
+          "key": "高円寺",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "横浜",
+          "key": "横浜",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "神田",
+          "key": "神田",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "秋葉原",
+          "key": "秋葉原",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "東京",
+          "key": "東京",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "池袋",
+          "key": "池袋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "浜松町",
+          "key": "浜松町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "新宿",
+          "key": "新宿",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "新橋",
+          "key": "新橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "高輪ゲートウェイ",
+          "key": "高輪ゲートウェイ",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "阿佐ヶ谷",
+          "key": "阿佐ケ谷",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "大森",
+          "key": "大森",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "中野",
+          "key": "中野",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "吉祥寺",
+          "key": "吉祥寺",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "上野",
+          "key": "上野",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "新日本橋",
+          "key": "新日本橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "馬喰町",
+          "key": "馬喰町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "信濃町",
+          "key": "信濃町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "有楽町",
+          "key": "有楽町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "御徒町",
+          "key": "御徒町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "西荻窪",
+          "key": "西荻窪",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "荻窪",
+          "key": "荻窪",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "御茶ノ水",
+          "key": "御茶ノ水",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "四ツ谷",
+          "key": "四ツ谷",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "水道橋",
+          "key": "水道橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "飯田橋",
+          "key": "飯田橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "市ヶ谷",
+          "key": "市ケ谷",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "田町",
+          "key": "田町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "千駄ヶ谷",
+          "key": "千駄ケ谷",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "表参道",
+          "key": "表参道",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "乃木坂",
+          "key": "乃木坂",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "赤坂",
+          "key": "赤坂",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "国会議事堂前",
+          "key": "国会議事堂前",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "霞ヶ関",
+          "key": "霞ケ関",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "日比谷",
+          "key": "日比谷",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "大手町",
+          "key": "大手町",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "銀座一丁目",
+          "key": "銀座一丁目",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "桜田門",
+          "key": "桜田門",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "永田町",
+          "key": "永田町",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "麹町",
+          "key": "麹町",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "外苑前",
+          "key": "外苑前",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "青山一丁目",
+          "key": "青山一丁目",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "赤坂見附",
+          "key": "赤坂見附",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "溜池山王",
+          "key": "溜池山王",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "虎ノ門",
+          "key": "虎ノ門",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "銀座",
+          "key": "銀座",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "半蔵門",
+          "key": "半蔵門",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "六本木",
+          "key": "六本木",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "虎ノ門ヒルズ",
+          "key": "虎ノ門ヒルズ",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "白金台",
+          "key": "白金台",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "白金高輪",
+          "key": "白金高輪",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "麻布十番",
+          "key": "麻布十番",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "六本木一丁目",
+          "key": "六本木一丁目",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "新宿御苑前",
+          "key": "新宿御苑前",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "四谷三丁目",
+          "key": "四谷三丁目",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "九段下",
+          "key": "九段下",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "国立競技場",
+          "key": "国立競技場",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "二重橋前",
+          "key": "二重橋前",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "中目黒",
+          "key": "中目黒",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "明治神宮前",
+          "key": "明治神宮前",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "広尾",
+          "key": "広尾",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "神谷町",
+          "key": "神谷町",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "神楽坂",
+          "key": "神楽坂",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "水天宮前",
+          "key": "水天宮前",
+          "area": "1",
+          "column": 7
+        },
+        {
+          "name": "北参道",
+          "key": "北参道",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "早稲田",
+          "key": "早稲田",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "代々木上原",
+          "key": "代々木上原",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "中野坂上",
+          "key": "中野坂上",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "新御茶ノ水",
+          "key": "新御茶ノ水",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "京橋",
+          "key": "京橋",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "日本橋",
+          "key": "日本橋",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "三越前",
+          "key": "三越前",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "東銀座",
+          "key": "東銀座",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "八丁堀",
+          "key": "八丁堀",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "人形町",
+          "key": "人形町",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "後楽園",
+          "key": "後楽園",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "代々木公園",
+          "key": "代々木公園",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "西新宿",
+          "key": "西新宿",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "新宿三丁目",
+          "key": "新宿三丁目",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "淡路町",
+          "key": "淡路町",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "神保町",
+          "key": "神保町",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "南阿佐ヶ谷",
+          "key": "南阿佐ケ谷",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "新高円寺",
+          "key": "新高円寺",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "東高円寺",
+          "key": "東高円寺",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "新中野",
+          "key": "新中野",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "本郷三丁目",
+          "key": "本郷三丁目",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "末広町",
+          "key": "末広町",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "上野広小路",
+          "key": "上野広小路",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "湯島",
+          "key": "湯島",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "竹橋",
+          "key": "竹橋",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "門前仲町",
+          "key": "門前仲町",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "築地",
+          "key": "築地",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "清澄白河",
+          "key": "清澄白河",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "江戸川橋",
+          "key": "江戸川橋",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "護国寺",
+          "key": "護国寺",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "東池袋",
+          "key": "東池袋",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "西早稲田",
+          "key": "西早稲田",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "小伝馬町",
+          "key": "小伝馬町",
+          "area": "1",
+          "column": 8
+        },
+        {
+          "name": "赤羽橋",
+          "key": "赤羽橋",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "三田",
+          "key": "三田",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "芝公園",
+          "key": "芝公園",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "御成門",
+          "key": "御成門",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "内幸町",
+          "key": "内幸町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "都庁前",
+          "key": "都庁前",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "新宿西口",
+          "key": "新宿西口",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "東新宿",
+          "key": "東新宿",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "若松河田",
+          "key": "若松河田",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "牛込柳町",
+          "key": "牛込柳町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "牛込神楽坂",
+          "key": "牛込神楽坂",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "汐留",
+          "key": "汐留",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "浜町",
+          "key": "浜町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "高輪台",
+          "key": "高輪台",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "泉岳寺",
+          "key": "泉岳寺",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "東日本橋",
+          "key": "東日本橋",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "宝町",
+          "key": "宝町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "茅場町",
+          "key": "茅場町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "大門",
+          "key": "大門",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "小川町",
+          "key": "小川町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "馬喰横山",
+          "key": "馬喰横山",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "岩本町",
+          "key": "岩本町",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "曙橋",
+          "key": "曙橋",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "築地市場",
+          "key": "築地市場",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "勝どき",
+          "key": "勝どき",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "月島",
+          "key": "月島",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "春日",
+          "key": "春日",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "西新宿五丁目",
+          "key": "西新宿五丁目",
+          "area": "1",
+          "column": 9
+        },
+        {
+          "name": "代官山",
+          "key": "代官山",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "三軒茶屋",
+          "key": "三軒茶屋",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "自由が丘",
+          "key": "自由が丘",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "池尻大橋",
+          "key": "池尻大橋",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "不動前",
+          "key": "不動前",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "武蔵小山",
+          "key": "武蔵小山",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "祐天寺",
+          "key": "祐天寺",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "学芸大学",
+          "key": "学芸大学",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "都立大学",
+          "key": "都立大学",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "田園調布",
+          "key": "田園調布",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "駒澤大学",
+          "key": "駒澤大学",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "桜新町",
+          "key": "桜新町",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "用賀",
+          "key": "用賀",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "二子玉川",
+          "key": "二子玉川",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "西小山",
+          "key": "西小山",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "洗足",
+          "key": "洗足",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "大岡山",
+          "key": "大岡山",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "奥沢",
+          "key": "奥沢",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "大崎広小路",
+          "key": "大崎広小路",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "戸越銀座",
+          "key": "戸越銀座",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "荏原中延",
+          "key": "荏原中延",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "旗の台",
+          "key": "旗の台",
+          "area": "1",
+          "column": 10
+        },
+        {
+          "name": "明大前",
+          "key": "明大前",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "下北沢",
+          "key": "下北沢",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "神泉",
+          "key": "神泉",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "初台",
+          "key": "初台",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "幡ヶ谷",
+          "key": "幡ケ谷",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "笹塚",
+          "key": "笹塚",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "代田橋",
+          "key": "代田橋",
+          "area": "1",
+          "column": 11
+        },
+        {
+          "name": "参宮橋",
+          "key": "参宮橋",
+          "area": "1",
+          "column": 12
+        },
+        {
+          "name": "南新宿",
+          "key": "南新宿",
+          "area": "1",
+          "column": 12
+        },
+        {
+          "name": "代々木八幡",
+          "key": "代々木八幡",
+          "area": "1",
+          "column": 12
+        },
+        {
+          "name": "蒲田",
+          "key": "蒲田",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "京急蒲田",
+          "key": "京急蒲田",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "武蔵小杉",
+          "key": "武蔵小杉",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "川崎",
+          "key": "川崎",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "桜木町",
+          "key": "桜木町",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "高島町",
+          "key": "高島町",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "新高島",
+          "key": "新高島",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "みなとみらい",
+          "key": "みなとみらい",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "馬車道",
+          "key": "馬車道",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "日大大通り",
+          "key": "日大大通り",
+          "area": "2",
+          "column": 14
+        },
+        {
+          "name": "元町・中華街",
+          "key": "元町中華街",
+          "area": "2",
+          "column": 14
+        }
+      ],
+      "localities": [
+        {
+          "name": "中央区",
+          "key": "中央区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "千代田区",
+          "key": "千代田区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "港区",
+          "key": "港区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "新宿区",
+          "key": "新宿区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "渋谷区",
+          "key": "渋谷区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "品川区",
+          "key": "品川区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "目黒区",
+          "key": "目黒区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "大田区",
+          "key": "大田区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "中野区",
+          "key": "中野区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "江東区",
+          "key": "江東区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "豊島区",
+          "key": "豊島区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "台東区",
+          "key": "台東区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "墨田区",
+          "key": "墨田区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "練馬区",
+          "key": "練馬区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "杉並区",
+          "key": "杉並区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "文京区",
+          "key": "文京区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "世田谷区",
+          "key": "世田谷区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "板橋区",
+          "key": "板橋区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "北区",
+          "key": "北区",
+          "kind": "ward",
+          "area": "2",
+          "column": 15
+        },
+        {
+          "name": "葛飾区",
+          "key": "葛飾区",
+          "kind": "ward",
+          "area": "3",
+          "column": 17
+        },
+        {
+          "name": "江戸川区",
+          "key": "江戸川区",
+          "kind": "ward",
+          "area": "3",
+          "column": 17
+        },
+        {
+          "name": "足立区",
+          "key": "足立区",
+          "kind": "ward",
+          "area": "3",
+          "column": 17
+        },
+        {
+          "name": "荒川区",
+          "key": "荒川区",
+          "kind": "ward",
+          "area": "3",
+          "column": 17
+        },
+        {
+          "name": "横浜市",
+          "key": "横浜市",
+          "kind": "city",
+          "area": "3",
+          "column": 17
+        },
+        {
+          "name": "川崎市",
+          "key": "川崎市",
+          "kind": "city",
+          "area": "3",
+          "column": 17
+        }
+      ]
+    },
+    {
+      "key": "kansai",
+      "name": "大阪・京都・兵庫",
+      "prefectures": [
+        "大阪府",
+        "京都府",
+        "兵庫県"
+      ],
+      "isFallback": false,
+      "areaCodes": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "defaultArea": "4",
+      "rates": [
+        {
+          "label": "0~1",
+          "ageMin": 0,
+          "ageMax": 1,
+          "byArea": {
+            "1": {
+              "low": 3.5,
+              "high": 3.69,
+              "raw": "3.50%-3.69%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "2",
+          "ageMin": 2,
+          "ageMax": 2,
+          "byArea": {
+            "1": {
+              "low": 3.55,
+              "high": 3.69,
+              "raw": "3.55%-3.69%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 3.95,
+              "high": 4.19,
+              "raw": "3.95%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "3",
+          "ageMin": 3,
+          "ageMax": 3,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.75,
+              "high": 3.89,
+              "raw": "3.75%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "4",
+          "ageMin": 4,
+          "ageMax": 4,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.75,
+              "high": 3.89,
+              "raw": "3.75%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "5",
+          "ageMin": 5,
+          "ageMax": 5,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.75,
+              "high": 3.89,
+              "raw": "3.75%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "6",
+          "ageMin": 6,
+          "ageMax": 6,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "7",
+          "ageMin": 7,
+          "ageMax": 7,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "8",
+          "ageMin": 8,
+          "ageMax": 8,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "9",
+          "ageMin": 9,
+          "ageMax": 9,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "10",
+          "ageMin": 10,
+          "ageMax": 10,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "11",
+          "ageMin": 11,
+          "ageMax": 11,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "12",
+          "ageMin": 12,
+          "ageMax": 12,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "13",
+          "ageMin": 13,
+          "ageMax": 13,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "14",
+          "ageMin": 14,
+          "ageMax": 14,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "15",
+          "ageMin": 15,
+          "ageMax": 15,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "16",
+          "ageMin": 16,
+          "ageMax": 16,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.45,
+              "high": 4.64,
+              "raw": "4.45%-4.64%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "17",
+          "ageMin": 17,
+          "ageMax": 17,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.45,
+              "high": 4.64,
+              "raw": "4.45%-4.64%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "18",
+          "ageMin": 18,
+          "ageMax": 18,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.45,
+              "high": 4.64,
+              "raw": "4.45%-4.64%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "19",
+          "ageMin": 19,
+          "ageMax": 19,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.45,
+              "high": 4.64,
+              "raw": "4.45%-4.64%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "20",
+          "ageMin": 20,
+          "ageMax": 20,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.45,
+              "high": 4.64,
+              "raw": "4.45%-4.64%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "21",
+          "ageMin": 21,
+          "ageMax": 21,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "22",
+          "ageMin": 22,
+          "ageMax": 22,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "23",
+          "ageMin": 23,
+          "ageMax": 23,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "24",
+          "ageMin": 24,
+          "ageMax": 24,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "25",
+          "ageMin": 25,
+          "ageMax": 25,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "26",
+          "ageMin": 26,
+          "ageMax": 26,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "27",
+          "ageMin": 27,
+          "ageMax": 27,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "28",
+          "ageMin": 28,
+          "ageMax": 28,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "29",
+          "ageMin": 29,
+          "ageMax": 29,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "30",
+          "ageMin": 30,
+          "ageMax": 30,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "31",
+          "ageMin": 31,
+          "ageMax": 31,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "32",
+          "ageMin": 32,
+          "ageMax": 32,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "33",
+          "ageMin": 33,
+          "ageMax": 33,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "34",
+          "ageMin": 34,
+          "ageMax": 34,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.6,
+              "high": 4.79,
+              "raw": "4.60%-4.79%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "35以上",
+          "ageMin": 35,
+          "ageMax": null,
+          "byArea": {
+            "1": {
+              "low": 4.25,
+              "high": 4.39,
+              "raw": "4.25%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.55,
+              "high": 4.74,
+              "raw": "4.55%-4.74%",
+              "valid": true
+            },
+            "4": {
+              "low": 4.7,
+              "high": 4.89,
+              "raw": "4.70%-4.89%",
+              "valid": true
+            }
+          }
+        }
+      ],
+      "stations": [
+        {
+          "name": "江坂",
+          "key": "江坂",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "中津",
+          "key": "中津",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "梅田",
+          "key": "梅田",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "淀屋橋",
+          "key": "淀屋橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "本町",
+          "key": "本町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "心斎橋",
+          "key": "心斎橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "難波",
+          "key": "難波",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "松屋町",
+          "key": "松屋町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "堺筋本町",
+          "key": "堺筋本町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "北浜",
+          "key": "北浜",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "長堀町",
+          "key": "長堀町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "大江橋",
+          "key": "大江橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "西梅田",
+          "key": "西梅田",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "東梅田",
+          "key": "東梅田",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "肥後橋",
+          "key": "肥後橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "渡邉橋",
+          "key": "渡邉橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "四ツ橋",
+          "key": "四ツ橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "福島",
+          "key": "福島",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "中崎町",
+          "key": "中崎町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "北新地",
+          "key": "北新地",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "天満駅",
+          "key": "天満",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "天満橋",
+          "key": "天満橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "扇町",
+          "key": "扇町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "大阪天満宮",
+          "key": "大阪天満宮",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "南森町",
+          "key": "南森町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "西長堀",
+          "key": "西長堀",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "中之島",
+          "key": "中之島",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "西大橋",
+          "key": "西大橋",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "天神橋筋六丁目",
+          "key": "天神橋筋六丁目",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "谷町四丁目",
+          "key": "谷町四丁目",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "天王寺",
+          "key": "天王寺",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "谷町六丁目",
+          "key": "谷町六丁目",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "阿波座",
+          "key": "阿波座",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "野田阪神",
+          "key": "野田阪神",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "大国町",
+          "key": "大国町",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "海老江",
+          "key": "海老江",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "玉川",
+          "key": "玉川",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "新福島",
+          "key": "新福島",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "野田",
+          "key": "野田",
+          "area": "1",
+          "column": 6
+        },
+        {
+          "name": "東三国",
+          "key": "東三国",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "新大阪",
+          "key": "新大阪",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "西中島南方",
+          "key": "西中島南方",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "森ノ宮",
+          "key": "森ノ宮",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "京橋",
+          "key": "京橋",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "都島",
+          "key": "都島",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "大阪城北詰",
+          "key": "大阪城北詰",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "烏丸",
+          "key": "烏丸",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "烏丸御池",
+          "key": "烏丸御池",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "三宮",
+          "key": "三宮",
+          "area": "3",
+          "column": 10
+        },
+        {
+          "name": "神戸三宮",
+          "key": "神戸三宮",
+          "area": "3",
+          "column": 10
+        },
+        {
+          "name": "三ノ宮",
+          "key": "三ノ宮",
+          "area": "3",
+          "column": 10
+        }
+      ],
+      "localities": [
+        {
+          "name": "大阪市",
+          "key": "大阪市",
+          "kind": "city",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "北区",
+          "key": "北区",
+          "kind": "ward",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "中央区",
+          "key": "中央区",
+          "kind": "ward",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "福島区",
+          "key": "福島区",
+          "kind": "ward",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "西区",
+          "key": "西区",
+          "kind": "ward",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "天王寺区",
+          "key": "天王寺区",
+          "kind": "ward",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "浪速区",
+          "key": "浪速区",
+          "kind": "ward",
+          "area": "2",
+          "column": 8
+        },
+        {
+          "name": "淀川区",
+          "key": "淀川区",
+          "kind": "ward",
+          "area": "3",
+          "column": 10
+        },
+        {
+          "name": "東淀川区",
+          "key": "東淀川区",
+          "kind": "ward",
+          "area": "3",
+          "column": 10
+        },
+        {
+          "name": "都島区",
+          "key": "都島区",
+          "kind": "ward",
+          "area": "3",
+          "column": 10
+        },
+        {
+          "name": "東成区",
+          "key": "東成区",
+          "kind": "ward",
+          "area": "3",
+          "column": 10
+        }
+      ]
+    },
+    {
+      "key": "fukuoka",
+      "name": "福岡",
+      "prefectures": [
+        "福岡県"
+      ],
+      "isFallback": false,
+      "areaCodes": [
+        "1",
+        "2",
+        "3"
+      ],
+      "defaultArea": "3",
+      "rates": [
+        {
+          "label": "0~1",
+          "ageMin": 0,
+          "ageMax": 1,
+          "byArea": {
+            "1": {
+              "low": 3.5,
+              "high": 3.69,
+              "raw": "3.50%-3.69%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "2",
+          "ageMin": 2,
+          "ageMax": 2,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "3",
+          "ageMin": 3,
+          "ageMax": 3,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "4",
+          "ageMin": 4,
+          "ageMax": 4,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "5",
+          "ageMin": 5,
+          "ageMax": 5,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "6",
+          "ageMin": 6,
+          "ageMax": 6,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "7",
+          "ageMin": 7,
+          "ageMax": 7,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "8",
+          "ageMin": 8,
+          "ageMax": 8,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "9",
+          "ageMin": 9,
+          "ageMax": 9,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "10",
+          "ageMin": 10,
+          "ageMax": 10,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "11",
+          "ageMin": 11,
+          "ageMax": 11,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "12",
+          "ageMin": 12,
+          "ageMax": 12,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "13",
+          "ageMin": 13,
+          "ageMax": 13,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "14",
+          "ageMin": 14,
+          "ageMax": 14,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "15",
+          "ageMin": 15,
+          "ageMax": 15,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "16",
+          "ageMin": 16,
+          "ageMax": 16,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "17",
+          "ageMin": 17,
+          "ageMax": 17,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "18",
+          "ageMin": 18,
+          "ageMax": 18,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "19",
+          "ageMin": 19,
+          "ageMax": 19,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "20",
+          "ageMin": 20,
+          "ageMax": 20,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "21",
+          "ageMin": 21,
+          "ageMax": 21,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "22",
+          "ageMin": 22,
+          "ageMax": 22,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "23",
+          "ageMin": 23,
+          "ageMax": 23,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "24",
+          "ageMin": 24,
+          "ageMax": 24,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "25",
+          "ageMin": 25,
+          "ageMax": 25,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "26",
+          "ageMin": 26,
+          "ageMax": 26,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "27",
+          "ageMin": 27,
+          "ageMax": 27,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "28",
+          "ageMin": 28,
+          "ageMax": 28,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "29",
+          "ageMin": 29,
+          "ageMax": 29,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "30",
+          "ageMin": 30,
+          "ageMax": 30,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "31",
+          "ageMin": 31,
+          "ageMax": 31,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "32",
+          "ageMin": 32,
+          "ageMax": 32,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "33",
+          "ageMin": 33,
+          "ageMax": 33,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "34",
+          "ageMin": 34,
+          "ageMax": 34,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "35以上",
+          "ageMin": 35,
+          "ageMax": null,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.39,
+              "raw": "4.25%-4.39%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.55,
+              "high": 4.74,
+              "raw": "4.55%-4.74%",
+              "valid": true
+            }
+          }
+        }
+      ],
+      "stations": [
+        {
+          "name": "博多",
+          "key": "博多",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "天神",
+          "key": "天神",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "天神南",
+          "key": "天神南",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "赤坂",
+          "key": "赤坂",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "薬院",
+          "key": "薬院",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "渡辺通",
+          "key": "渡辺通",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "呉服町",
+          "key": "呉服町",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "祇園",
+          "key": "祇園",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "中洲川端",
+          "key": "中洲川端",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "大濠公園",
+          "key": "大濠公園",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "薬院大通",
+          "key": "薬院大通",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "櫛田神社前",
+          "key": "櫛田神社前",
+          "area": "2",
+          "column": 7
+        }
+      ],
+      "localities": []
+    },
+    {
+      "key": "aichi_other",
+      "name": "愛知・その他",
+      "prefectures": [
+        "愛知県"
+      ],
+      "isFallback": true,
+      "areaCodes": [
+        "1",
+        "2",
+        "3"
+      ],
+      "defaultArea": "3",
+      "rates": [
+        {
+          "label": "0~1",
+          "ageMin": 0,
+          "ageMax": 1,
+          "byArea": {
+            "1": {
+              "low": 3.6,
+              "high": 3.79,
+              "raw": "3.60%-3.79%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "2",
+          "ageMin": 2,
+          "ageMax": 2,
+          "byArea": {
+            "1": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "3",
+          "ageMin": 3,
+          "ageMax": 3,
+          "byArea": {
+            "1": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.75,
+              "high": 3.89,
+              "raw": "3.75%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "4",
+          "ageMin": 4,
+          "ageMax": 4,
+          "byArea": {
+            "1": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.75,
+              "high": 3.89,
+              "raw": "3.75%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "5",
+          "ageMin": 5,
+          "ageMax": 5,
+          "byArea": {
+            "1": {
+              "low": 3.65,
+              "high": 3.84,
+              "raw": "3.65%-3.84%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.75,
+              "high": 3.89,
+              "raw": "3.75%-3.89%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "6",
+          "ageMin": 6,
+          "ageMax": 6,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "7",
+          "ageMin": 7,
+          "ageMax": 7,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "8",
+          "ageMin": 8,
+          "ageMax": 8,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "9",
+          "ageMin": 9,
+          "ageMax": 9,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "10",
+          "ageMin": 10,
+          "ageMax": 10,
+          "byArea": {
+            "1": {
+              "low": 3.7,
+              "high": 3.89,
+              "raw": "3.70%-3.89%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.85,
+              "high": 4.04,
+              "raw": "3.85%-4.04%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "11",
+          "ageMin": 11,
+          "ageMax": 11,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "12",
+          "ageMin": 12,
+          "ageMax": 12,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "13",
+          "ageMin": 13,
+          "ageMax": 13,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "14",
+          "ageMin": 14,
+          "ageMax": 14,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "15",
+          "ageMin": 15,
+          "ageMax": 15,
+          "byArea": {
+            "1": {
+              "low": 3.8,
+              "high": 3.99,
+              "raw": "3.80%-3.99%",
+              "valid": true
+            },
+            "2": {
+              "low": 3.95,
+              "high": 4.14,
+              "raw": "3.95%-4.14%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "16",
+          "ageMin": 16,
+          "ageMax": 16,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "17",
+          "ageMin": 17,
+          "ageMax": 17,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "18",
+          "ageMin": 18,
+          "ageMax": 18,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "19",
+          "ageMin": 19,
+          "ageMax": 19,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "20",
+          "ageMin": 20,
+          "ageMax": 20,
+          "byArea": {
+            "1": {
+              "low": 3.9,
+              "high": 4.09,
+              "raw": "3.90%-4.09%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.05,
+              "high": 4.24,
+              "raw": "4.05%-4.24%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.3,
+              "high": 4.49,
+              "raw": "4.30%-4.49%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "21",
+          "ageMin": 21,
+          "ageMax": 21,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "22",
+          "ageMin": 22,
+          "ageMax": 22,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "23",
+          "ageMin": 23,
+          "ageMax": 23,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "24",
+          "ageMin": 24,
+          "ageMax": 24,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "25",
+          "ageMin": 25,
+          "ageMax": 25,
+          "byArea": {
+            "1": {
+              "low": 4.0,
+              "high": 4.19,
+              "raw": "4.00%-4.19%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.15,
+              "high": 4.34,
+              "raw": "4.15%-4.34%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "26",
+          "ageMin": 26,
+          "ageMax": 26,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "27",
+          "ageMin": 27,
+          "ageMax": 27,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "28",
+          "ageMin": 28,
+          "ageMax": 28,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "29",
+          "ageMin": 29,
+          "ageMax": 29,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "30",
+          "ageMin": 30,
+          "ageMax": 30,
+          "byArea": {
+            "1": {
+              "low": 4.1,
+              "high": 4.29,
+              "raw": "4.10%-4.29%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.25,
+              "high": 4.44,
+              "raw": "4.25%-4.44%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "31",
+          "ageMin": 31,
+          "ageMax": 31,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "32",
+          "ageMin": 32,
+          "ageMax": 32,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "33",
+          "ageMin": 33,
+          "ageMax": 33,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "34",
+          "ageMin": 34,
+          "ageMax": 34,
+          "byArea": {
+            "1": {
+              "low": 4.2,
+              "high": 4.39,
+              "raw": "4.20%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.35,
+              "high": 4.54,
+              "raw": "4.35%-4.54%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.5,
+              "high": 4.69,
+              "raw": "4.50%-4.69%",
+              "valid": true
+            }
+          }
+        },
+        {
+          "label": "35以上",
+          "ageMin": 35,
+          "ageMax": null,
+          "byArea": {
+            "1": {
+              "low": 4.25,
+              "high": 4.39,
+              "raw": "4.25%-4.39%",
+              "valid": true
+            },
+            "2": {
+              "low": 4.4,
+              "high": 4.59,
+              "raw": "4.40%-4.59%",
+              "valid": true
+            },
+            "3": {
+              "low": 4.55,
+              "high": 4.74,
+              "raw": "4.55%-4.74%",
+              "valid": true
+            }
+          }
+        }
+      ],
+      "stations": [
+        {
+          "name": "名古屋",
+          "key": "名古屋",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "名鉄名古屋",
+          "key": "名鉄名古屋",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "近鉄名古屋",
+          "key": "近鉄名古屋",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "伏見",
+          "key": "伏見",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "栄",
+          "key": "栄",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "丸の内",
+          "key": "丸の内",
+          "area": "1",
+          "column": 5
+        },
+        {
+          "name": "新栄町",
+          "key": "新栄町",
+          "area": "2",
+          "column": 7
+        },
+        {
+          "name": "今池",
+          "key": "今池",
+          "area": "2",
+          "column": 7
+        }
+      ],
+      "localities": []
+    }
+  ],
+  "issues": [
+    {
+      "level": "WARNING",
+      "sheet": "東京・埼玉・神奈川・千葉",
+      "code": "DUPLICATE_STATION",
+      "message": "駅名「四谷三丁目」が同一シート内で重複しています（1エリア / 1エリア）。",
+      "station": "四谷三丁目"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "東京・埼玉・神奈川・千葉",
+      "code": "DUPLICATE_STATION",
+      "message": "駅名「永田町」が同一シート内で重複しています（1エリア / 1エリア）。",
+      "station": "永田町"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "大阪・京都・兵庫",
+      "code": "DUPLICATE_STATION",
+      "message": "駅名「大江橋」が同一シート内で重複しています（1エリア / 1エリア）。",
+      "station": "大江橋"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "大阪・京都・兵庫",
+      "code": "MIXED_STATION_LOCALITY_COLUMN",
+      "message": "2エリアの列(列8)に市区町村名と駅名が混在しています（見出しが無い、または見出しと中身が一致しない）。接尾辞（区/市/町/村）で自動判別しています。要確認。",
+      "area": "2"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "大阪・京都・兵庫",
+      "code": "MIXED_STATION_LOCALITY_COLUMN",
+      "message": "3エリアの列(列10)に市区町村名と駅名が混在しています（見出しが無い、または見出しと中身が一致しない）。接尾辞（区/市/町/村）で自動判別しています。要確認。",
+      "area": "3"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "-",
+      "code": "CROSS_SHEET_STATION",
+      "message": "駅名「赤坂」が複数シートに存在します（東京・埼玉・神奈川・千葉:1、福岡:1）。都道府県の指定で判別します。",
+      "station": "赤坂"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "-",
+      "code": "CROSS_SHEET_STATION",
+      "message": "駅名「京橋」が複数シートに存在します（東京・埼玉・神奈川・千葉:1、大阪・京都・兵庫:2）。都道府県の指定で判別します。",
+      "station": "京橋"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "-",
+      "code": "CROSS_SHEET_LOCALITY",
+      "message": "市区町村「中央区」が複数シートに存在します（東京・埼玉・神奈川・千葉:2、大阪・京都・兵庫:2）。都道府県の指定で判別します。",
+      "locality": "中央区"
+    },
+    {
+      "level": "WARNING",
+      "sheet": "-",
+      "code": "CROSS_SHEET_LOCALITY",
+      "message": "市区町村「北区」が複数シートに存在します（東京・埼玉・神奈川・千葉:2、大阪・京都・兵庫:2）。都道府県の指定で判別します。",
+      "locality": "北区"
+    }
+  ]
+}

@@ -74,11 +74,17 @@ $env:ADMIN_EMAILS="<管理者にするメールアドレス>"
 npx tsx prisma/seed.ts
 ```
 
-シードは `data/yield-master.json` を読むため、リポジトリのルートが必要です。
-Vercel 上では実行されません（ビルドで走るのは `prisma migrate deploy` のみ）。
+シードは `web/data/yield-master.json`（無ければリポジトリ直下の `data/yield-master.json`）を読みます。
+Vercel の Root Directory は `web/` のため、本番ランタイム用のマスタは `web/data/` にバンドルしています。
 
-> `.ods` を更新したときは、変換 → 上記シードを再実行します。
-> シードはマスタ系テーブルのみ入れ替え、会員・診断履歴・課金データは消しません。
+デプロイ後の再同期は管理画面 **収益率データ** から行えます。
+
+- 「バンドル済みマスタをDBに再反映」… デプロイに含まれる JSON を Neon へ投入
+- JSON アップロード… 手元で `python tools/build_yield_dataset.py` した出力（Vercel でも確実）
+- xlsx アップロード… ローカルで Python が使えるときのみ自動変換。Vercel では JSON 推奨
+
+> スプレッドシートを更新したときは、変換 → シード再実行、または管理画面から同期します。
+> 同期はマスタ系テーブルのみ入れ替え、会員・診断履歴・課金データは消しません。
 
 ### 既に `prisma db push` で作った DB がある場合
 
@@ -91,9 +97,13 @@ npx prisma migrate resolve --applied 0_init
 
 ---
 
-## 3. Stripe を本番モードで設定する
+## 3. Stripe を設定する（テスト → 本番）
 
-ダッシュボードは右上のトグルで **本番環境** に切り替えてから作業します。
+有料フローは **Test Mode（`sk_test_`）でも本番と同じく動作します**。
+サンドボックス検証ではテストキー＋テスト用 Price ID＋テストモード Webhook を入れれば十分で、
+`sk_live_` は必須ではありません。公開ホストでは Webhook が無いと有料導線だけ無効になります。
+
+本番課金に切り替えるときは、ダッシュボード右上を **本番環境** にしてから以下を行います。
 
 ### 3-1. 商品と価格を作る
 
@@ -172,8 +182,8 @@ npx prisma migrate resolve --applied 0_init
 | `NEXT_PUBLIC_APP_URL` | `https://<本番ドメイン>` |
 | `PAYMENT_PROVIDER` | `stripe` |
 | `SEED_LOCAL_USERS` | `false` |
-| `STRIPE_SECRET_KEY` | `sk_live_...` |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_...`（3-3 で控えたもの） |
+| `STRIPE_SECRET_KEY` | 本番は `sk_live_...`／検証は `sk_test_...` 可 |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_...`（3-3 で控えたもの。テスト／本番は別） |
 | `STRIPE_PRICE_ID_ONE_TIME` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_5` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_UNLIMITED` | `price_...` |
@@ -229,8 +239,9 @@ Stripe の Webhook ログに出ているレスポンスを確認してくださ�
 - **スキーマを変更したとき**: ローカルで `npm run db:migrate` を実行して
   `prisma/migrations/` に差分を作り、コミットします。本番へはデプロイ時に
   `prisma migrate deploy` が自動適用します。`prisma db push` を本番に使わないこと。
-- **マスタデータを更新したとき**: 手順 2 のシードを再実行します。
-  アプリ側は最大 60 秒キャッシュするため、反映に少し時間がかかります。
+- **マスタデータを更新したとき**: 手順 2 のシードを再実行するか、管理画面
+  `/admin/data` からバンドル JSON の再反映／JSON アップロードを行います。
+  反映直後にエンジンのシートキャッシュは破棄されます。
 - **料金を変更するとき**: Stripe 側で新しい Price を作り、環境変数を差し替えます。
   `web/src/config/plans.ts` の表示金額も合わせて更新してください。
 - **返金**: Stripe 側で返金すると `charge.refunded` で Payment が REFUNDED に

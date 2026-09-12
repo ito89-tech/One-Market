@@ -10,6 +10,7 @@ export default async function NewDiagnosisPage() {
   const user = await getCurrentUser();
 
   return (
+    <div className="bg-[var(--color-surface-muted)]">
     <Container className="py-10 sm:py-14">
       <div className="mx-auto max-w-2xl">
         <header className="mb-8">
@@ -33,5 +34,6 @@ export default async function NewDiagnosisPage() {
         <PropertyForm isLoggedIn={Boolean(user)} />
       </div>
     </Container>
+    </div>
   );
 }

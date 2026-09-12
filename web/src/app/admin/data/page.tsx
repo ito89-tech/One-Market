@@ -1,7 +1,9 @@
 import { AdminTable } from "@/components/admin-table";
 import { Alert, Card } from "@/components/ui";
+import { YieldMasterSyncPanel } from "@/components/yield-master-sync-panel";
 import { formatDate } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
+import { getYieldMasterStats } from "@/server/yield-master";
 
 export default async function AdminDataPage() {
   const sheets = await prisma.yieldSheet.findMany({
@@ -29,14 +31,19 @@ export default async function AdminDataPage() {
     },
   });
 
+  const initialStats = await getYieldMasterStats();
+
   return (
     <div className="space-y-8">
       <Alert tone="info" title="このデータについて">
         クライアント提供の「利回りシート.xlsx」を変換して取り込んだものです。
-        値の補完・修正は一切行っていません。更新する場合は xlsx を差し替えて
+        値の補完・修正は一切行っていません。本番（Vercel）では下の「バンドル済みマスタをDBに再反映」
+        か、手元で
         <code className="mx-1 rounded bg-white px-1">python tools/build_yield_dataset.py</code>
-        と <code className="mx-1 rounded bg-white px-1">npm run db:seed</code> を実行してください。
+        した JSON のアップロードを使ってください。
       </Alert>
+
+      <YieldMasterSyncPanel initialStats={initialStats} />
 
       {invalidRates.length > 0 ? (
         <Alert

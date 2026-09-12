@@ -1,140 +1,26 @@
 /**
- * Loads data/yield-master.json (generated from the client's .ods) into the
+ * Loads data/yield-master.json (generated from the client's spreadsheet) into the
  * database. Idempotent: it clears the master tables and reloads them, so
  * re-running after a data update is safe. User, diagnosis and payment data are
  * never wiped. Local confirmation users are upserted only when allowed.
  */
 import "dotenv/config";
 
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { PrismaClient, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
+import {
+  defaultMasterPath,
+  loadYieldMasterFromFile,
+  replaceYieldMasterInDb,
+} from "./yield-master-lib";
+
 const prisma = new PrismaClient();
 
-const MASTER_PATH = path.join(process.cwd(), "..", "data", "yield-master.json");
-
-type RateCell = { low: number; high: number; raw: string; valid: boolean };
-
-type Master = {
-  source: string;
-  generatedAt: string;
-  sheets: Array<{
-    key: string;
-    name: string;
-    prefectures: string[];
-    isFallback: boolean;
-    areaCodes: string[];
-    defaultArea: string;
-    rates: Array<{
-      label: string;
-      ageMin: number;
-      ageMax: number | null;
-      byArea: Record<string, RateCell>;
-    }>;
-    stations: Array<{ name: string; key: string; area: string; column: number }>;
-    localities: Array<{
-      name: string;
-      key: string;
-      kind: string;
-      area: string;
-      column: number;
-    }>;
-  }>;
-  issues: Array<{ level: string; sheet: string; code: string; message: string }>;
-};
-
 async function main() {
-  const master: Master = JSON.parse(readFileSync(MASTER_PATH, "utf-8"));
-
-  // Cascades clear Area / Station / Municipality / AgeBracket / YieldRate.
-  await prisma.yieldSheet.deleteMany();
-  await prisma.dataIssue.deleteMany();
-
-  for (const sheet of master.sheets) {
-    const createdSheet = await prisma.yieldSheet.create({
-      data: {
-        key: sheet.key,
-        name: sheet.name,
-        prefectures: sheet.prefectures,
-        isFallback: sheet.isFallback,
-        defaultArea: sheet.defaultArea,
-        sourceFile: master.source,
-        generatedAt: new Date(master.generatedAt),
-      },
-    });
-
-    const areaIdByCode = new Map<string, string>();
-    for (const [index, code] of sheet.areaCodes.entries()) {
-      const area = await prisma.area.create({
-        data: {
-          sheetId: createdSheet.id,
-          code,
-          label: `${code}エリア`,
-          sort: index,
-        },
-      });
-      areaIdByCode.set(code, area.id);
-    }
-
-    const bracketIdByLabel = new Map<string, string>();
-    for (const [index, row] of sheet.rates.entries()) {
-      const bracket = await prisma.ageBracket.create({
-        data: {
-          sheetId: createdSheet.id,
-          label: row.label,
-          ageMin: row.ageMin,
-          ageMax: row.ageMax,
-          sort: index,
-        },
-      });
-      bracketIdByLabel.set(row.label, bracket.id);
-    }
-
-    await prisma.station.createMany({
-      data: sheet.stations.map((station) => ({
-        sheetId: createdSheet.id,
-        areaId: areaIdByCode.get(station.area)!,
-        name: station.name,
-        lookupKey: station.key,
-        sourceColumn: station.column,
-      })),
-    });
-
-    await prisma.municipality.createMany({
-      data: sheet.localities.map((locality) => ({
-        sheetId: createdSheet.id,
-        areaId: areaIdByCode.get(locality.area)!,
-        name: locality.name,
-        lookupKey: locality.key,
-        kind: locality.kind,
-      })),
-    });
-
-    await prisma.yieldRate.createMany({
-      data: sheet.rates.flatMap((row) =>
-        Object.entries(row.byArea).map(([code, cell]) => ({
-          sheetId: createdSheet.id,
-          areaId: areaIdByCode.get(code)!,
-          ageBracketId: bracketIdByLabel.get(row.label)!,
-          lowPercent: cell.low,
-          highPercent: cell.high,
-          raw: cell.raw,
-          isValid: cell.valid,
-        })),
-      ),
-    });
-  }
-
-  await prisma.dataIssue.createMany({
-    data: master.issues.map((issue) => ({
-      level: issue.level,
-      sheetName: issue.sheet,
-      code: issue.code,
-      message: issue.message,
-    })),
-  });
+  const masterPath = defaultMasterPath();
+  const master = loadYieldMasterFromFile(masterPath);
+  const counts = await replaceYieldMasterInDb(prisma, master);
 
   await seedLocalUsers();
 
@@ -151,15 +37,7 @@ async function main() {
     console.log(`管理者に昇格: ${count} 件`);
   }
 
-  const counts = {
-    sheets: await prisma.yieldSheet.count(),
-    areas: await prisma.area.count(),
-    stations: await prisma.station.count(),
-    municipalities: await prisma.municipality.count(),
-    ageBrackets: await prisma.ageBracket.count(),
-    yieldRates: await prisma.yieldRate.count(),
-    issues: await prisma.dataIssue.count(),
-  };
+  console.log(`マスタ読込: ${masterPath}`);
   console.log("シード完了:", counts);
 }
 
