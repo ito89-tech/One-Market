@@ -14,6 +14,24 @@
 
 診断エンジンは Next.js と同じプロセスで動くため、別サービスは要りません。
 
+### 進め方（2段階に分けるのが安全）
+
+Stripe の Webhook 登録には本番ドメインが必要で、ドメインは Vercel の
+プロジェクトを作らないと決まりません。そのため、決済を後回しにした
+**2段階**で進めるのが確実です。
+
+| 段階 | 入れる環境変数 | 確認できること |
+| --- | --- | --- |
+| 第1段階 | DB・認証・アプリ URL のみ | 会員登録・ログイン・無料診断 |
+| 第2段階 | Stripe 一式を追加 | 有料購入とウォレット決済 |
+
+第1段階では有料導線が「準備中」と表示されます。これは設定不足を検知した
+正常な状態で、エラーにはなりません。
+
+Stripe の環境変数は **`STRIPE_SECRET_KEY` と `STRIPE_WEBHOOK_SECRET` を
+同時に入れてください**。秘密鍵だけを入れると起動時に失敗します
+（決済だけ成立して診断枠が付かない状態を防ぐための意図的な停止です）。
+
 ---
 
 ## 1. Neon でデータベースを作る
@@ -128,13 +146,21 @@ npx prisma migrate resolve --applied 0_init
 
 ## 4. Vercel に設定する
 
-### 4-1. プロジェクト作成
+### 4-0. 404: NOT_FOUND が出ている場合はここを先に
 
-- リポジトリを Import
-- **Root Directory: `web`**
+`xxxx.vercel.app` が 404 なら、ほぼ確実に **Root Directory が `web` になっていません**。
+手順は `docs/vercel-404-fix.md` にまとめてあります。先に直してから下へ進んでください。
+無料プラン（Hobby）で十分です。有料プランは不要です。
+
+### 4-1. プロジェクト作成（まだなら）
+
+- GitHub リポジトリ `ito89-tech/One-Market` を Import
+- **Root Directory: `web`**（必須。Edit を押して入力）
 - Framework Preset: Next.js（自動判定）
-- Build Command: 変更不要（`package.json` の `vercel-build` が使われ、
-  `prisma generate` → `prisma migrate deploy` → `next build` の順で走ります）
+- Build Command: 変更不要
+
+既にプロジェクトがある場合は **Settings → General → Root Directory → `web` → Save** のあと、
+**Deployments → ⋯ → Redeploy**（Build Cache は外す）してください。
 
 ### 4-2. 環境変数（Production）
 

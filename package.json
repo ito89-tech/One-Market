@@ -1,0 +1,13 @@
+{
+  "name": "one-market",
+  "private": true,
+  "description": "Monorepo root. The Next.js app lives in web/. Prefer setting Vercel Root Directory to web.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run vercel-build --prefix web",
+    "vercel-build": "npm run vercel-build --prefix web",
+    "start": "npm run start --prefix web"
+  }
+}
