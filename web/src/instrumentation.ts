@@ -13,9 +13,9 @@ export async function register() {
   if (!process.env.NEXT_PUBLIC_APP_URL && process.env.VERCEL_URL) {
     process.env.NEXT_PUBLIC_APP_URL = `https://${process.env.VERCEL_URL}`;
   }
-  if (process.env.DATABASE_URL && !process.env.DIRECT_URL) {
-    process.env.DIRECT_URL = process.env.DATABASE_URL;
-  }
+
+  const { ensurePrismaEnv } = await import("@/lib/prisma");
+  ensurePrismaEnv();
 
   const { describeConfigProblems } = await import("@/lib/env");
   const { fatal, warnings } = describeConfigProblems();

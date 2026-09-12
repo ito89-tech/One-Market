@@ -12,6 +12,9 @@
 | データベース | Neon | 会員・診断履歴・課金 ＋ 収益率マスタ |
 | 決済 | Stripe | ホスト型 Checkout。ウォレットを含む |
 
+接続・自動 migrate / シードの詳細は **`docs/database-connection.md`** を読んでください。
+`https://onemarket-kappa.vercel.app/api/health` が `ok: true` になるまで会員機能は使いません。
+
 診断エンジンは Next.js と同じプロセスで動くため、別サービスは要りません。
 
 ### 進め方（2段階に分けるのが安全）

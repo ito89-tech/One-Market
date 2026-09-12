@@ -1,17 +1,23 @@
+import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@prisma/client";
+import { neonConfig } from "@neondatabase/serverless";
+import ws from "ws";
 
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
+import {
+  applyDatabaseUrlsToEnv,
+  shouldUseNeonAdapter,
+} from "@/lib/database-url";
+
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClient;
+};
 
 /**
- * Neon のプーラー経由 URL だけ入れた場合でも、スキーマの directUrl 参照で
- * Prisma が起動時に落ちないようにする。マイグレーションは手元／ビルドで
- * DIRECT_URL を明示する運用のまま。
+ * Neon / Vercel Postgres 連携の別名を DATABASE_URL / DIRECT_URL に揃え、
+ * 接続文字列を正規化する。
  */
 export function ensurePrismaEnv(): void {
-  const databaseUrl = process.env.DATABASE_URL;
-  if (databaseUrl && !process.env.DIRECT_URL) {
-    process.env.DIRECT_URL = databaseUrl;
-  }
+  applyDatabaseUrlsToEnv();
 }
 
 /** 会員・診断 API が環境不足で曖昧な 500 を出さないための事前チェック。 */
@@ -27,12 +33,29 @@ export function requireRuntimeSecrets(): void {
 
 function createPrismaClient(): PrismaClient {
   ensurePrismaEnv();
-  return new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
-  });
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL が設定されていません");
+  }
+
+  const log =
+    process.env.NODE_ENV === "development"
+      ? (["warn", "error"] as const)
+      : (["error"] as const);
+
+  // Vercel + Neon は TCP 直結より serverless driver（WebSocket）の方が安定する。
+  if (shouldUseNeonAdapter(databaseUrl)) {
+    neonConfig.webSocketConstructor = ws;
+    const adapter = new PrismaNeon({ connectionString: databaseUrl });
+    return new PrismaClient({ adapter, log: [...log] });
+  }
+
+  // ローカル PGlite など通常の PostgreSQL ワイヤプロトコル
+  return new PrismaClient({ log: [...log] });
 }
 
 function getClient(): PrismaClient {
+  ensurePrismaEnv();
   if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL が設定されていません");
   }

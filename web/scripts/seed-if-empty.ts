@@ -8,7 +8,11 @@ import { spawnSync } from "node:child_process";
 
 import { PrismaClient } from "@prisma/client";
 
+import { applyDatabaseUrlsToEnv } from "../src/lib/database-url";
+
 async function main() {
+  applyDatabaseUrlsToEnv();
+
   if (!process.env.DATABASE_URL) {
     console.warn("[seed-if-empty] DATABASE_URL 未設定のためスキップします。");
     return;

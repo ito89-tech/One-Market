@@ -146,6 +146,7 @@ export function describeConfigProblems(): ConfigProblems {
 
   if (!process.env.DATABASE_URL) {
     // サイト表示は続行し、ログイン／診断だけ失敗する。
+    // POSTGRES_PRISMA_URL 等は ensurePrismaEnv で DATABASE_URL に揃える前提。
     warnings.push(
       "DATABASE_URL が未設定です。会員機能と診断はデータベース設定後に利用できます。",
     );

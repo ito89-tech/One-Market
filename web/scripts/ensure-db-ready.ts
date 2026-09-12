@@ -1,11 +1,16 @@
 /**
- * ローカル / Vercel 共通: スキーマ適用 → 空なら xlsx シード。
+ * Vercel / ローカル共通の DB 準備。
  *
- * - DATABASE_URL が無いときはスキップ（ビルドを落とさない）
- * - DIRECT_URL が無いときは DATABASE_URL を流用
- * - 既存スキーマで migrate が P3005 のときは 0_init を baseline して再試行
+ * 1. Vercel Postgres / Neon 連携の別名を DATABASE_URL / DIRECT_URL に揃える
+ * 2. prisma migrate deploy（失敗時は P3005 baseline を試す）
+ * 3. YieldSheet が空ならバンドル xlsx を投入
+ *
+ * DATABASE_URL が無いときはスキップ（ビルドを落とさない）。
+ * Vercel で URL があるのに migrate が失敗したときはビルドを落とす（静かな失敗を防ぐ）。
  */
 import { spawnSync } from "node:child_process";
+
+import { applyDatabaseUrlsToEnv } from "../src/lib/database-url";
 
 function run(label: string, command: string, args: string[], allowFail = false) {
   console.log(`[ensure-db] ${label}: ${command} ${args.join(" ")}`);
@@ -22,15 +27,20 @@ function run(label: string, command: string, args: string[], allowFail = false) 
 }
 
 function main() {
-  const databaseUrl = process.env.DATABASE_URL ?? "";
-  if (!databaseUrl) {
-    console.warn("[ensure-db] DATABASE_URL 未設定のためスキップします。");
+  const resolved = applyDatabaseUrlsToEnv();
+  if (!resolved.databaseUrl) {
+    console.warn(
+      "[ensure-db] DATABASE_URL / POSTGRES_PRISMA_URL / POSTGRES_URL が未設定のためスキップします。",
+    );
+    console.warn(
+      "[ensure-db] Neon または Vercel Storage → Postgres を接続し、Redeploy してください。",
+    );
     process.exit(0);
   }
 
+  console.log(`[ensure-db] 接続ソース: ${resolved.source}`);
   if (!process.env.DIRECT_URL) {
-    process.env.DIRECT_URL = databaseUrl;
-    console.warn("[ensure-db] DIRECT_URL 未設定のため DATABASE_URL を流用します。");
+    process.env.DIRECT_URL = resolved.databaseUrl;
   }
 
   let migrateCode = run("migrate deploy", "npx", ["prisma", "migrate", "deploy"], true);
@@ -49,14 +59,12 @@ function main() {
   }
 
   if (migrateCode !== 0) {
-    console.warn(
-      "[ensure-db] マイグレーションに失敗しました。続きのビルドは行いますが、会員・診断は DB 修復後に使えます。",
-    );
-    // Vercel ではビルド全体を落とすと 404 になるため、ここでは exit 0。
-    // ローカル setup では明示的に失敗させたい場合は ENSURE_DB_STRICT=1。
-    if (process.env.ENSURE_DB_STRICT === "1") {
+    console.error("[ensure-db] マイグレーションに失敗しました。");
+    // Vercel で URL があるのに失敗＝本番が壊れたまま Ready になるのを防ぐ
+    if (process.env.VERCEL || process.env.ENSURE_DB_STRICT === "1") {
       process.exit(migrateCode);
     }
+    console.warn("[ensure-db] ローカルでは続行します（ENSURE_DB_STRICT=1 で厳格化可）。");
     process.exit(0);
   }
 
