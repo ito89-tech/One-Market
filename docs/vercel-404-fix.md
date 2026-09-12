@@ -91,16 +91,34 @@ Command "npm install --prefix web" exited with 254
 
 これは **Root Directory がすでに `web` なのに、Install Command がもう一度 `web` を付けている**状態です。
 
-直しかた:
+リポジトリから `vercel.json` の `--prefix web` を消しても、
+**Vercel ダッシュボードに保存された Override が残っていると、同じエラーが続きます。**
+（今回の redeploy がまさにこれです）
 
-1. **Settings → General → Root Directory** が `web` であること
-2. **Settings → General → Build & Development Settings**
-   - **Install Command** → Override を **OFF**（空／デフォルトの `npm install`）
-   - **Build Command** → Override を **OFF**（デフォルトのまま）
-3. Redeploy（Build Cache なし）
+### 必ずダッシュボードで直す
 
-リポジトリ側ではルートの `vercel.json` に `--prefix web` を書かないこと。
-設定は `web/vercel.json` だけを使います。
+1. プロジェクトを開く
+2. **Settings** → **General**
+3. **Build & Development Settings** までスクロール
+4. **Install Command** の右にある **Override** トグルを **OFF** にする  
+   （ON のまま `npm install --prefix web` と書いてあるのが犯人）
+5. **Build Command** の Override も **OFF**（推奨）
+6. **Root Directory** は `web` のまま
+7. **Save**
+8. **Deployments** → 最新の **⋯** → **Redeploy**  
+   → **Use existing Build Cache** のチェックを外す → Redeploy
+
+正しい状態:
+
+| 項目 | 値 |
+| --- | --- |
+| Root Directory | `web` |
+| Install Command | Override OFF（実質 `npm install`） |
+| Build Command | Override OFF または `npm run vercel-build` |
+
+リポジトリの `web/vercel.json` にも `installCommand: npm install` を書いてありますが、
+**ダッシュボードの Override が ON だと、そちらの方が優先されます。**
+だから Override を OFF にすることが必須です。
 
 
 1. **Settings → Git**
