@@ -10,6 +10,7 @@ import "server-only";
 
 import { prisma } from "@/lib/prisma";
 import { localityLookupKey, stationLookupKey } from "@/lib/station";
+import { ensureYieldMasterReady } from "@/server/ensure-yield-master";
 
 import { Decimal, DiagnosisError, type RateRange } from "./calc";
 
@@ -47,6 +48,8 @@ export async function loadSheets(): Promise<EngineSheet[]> {
   if (sheetCache && now - sheetCache.loadedAt < SHEET_CACHE_TTL_MS) {
     return sheetCache.sheets;
   }
+
+  await ensureYieldMasterReady();
 
   const sheets = await prisma.yieldSheet.findMany({
     select: {

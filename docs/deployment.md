@@ -77,6 +77,10 @@ npx tsx prisma/seed.ts
 シードは `web/data/yield-sheet.xlsx` を **直接解析して PostgreSQL に書き込みます**（JSON 中間層は使いません）。
 診断計算もこの PostgreSQL だけを参照します。
 
+Vercel の `vercel-build` でも、マイグレーション後にマスタが 0 件なら同じ xlsx 投入を自動実行します。
+さらに実行時 API でも空 DB を検知したら一度だけ自動投入します（`ensureYieldMasterReady`）。
+いずれも正本の参照先は PostgreSQL のみです。
+
 デプロイ後の再同期・修正は管理画面 **収益率データ**（`/admin/data`）から行えます。
 
 - 「バンドル済み xlsx を PostgreSQL に再反映」… デプロイ同梱の xlsx を Neon へ投入

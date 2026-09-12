@@ -3,6 +3,7 @@ import "server-only";
 import { prisma } from "@/lib/prisma";
 import { stationLookupKey } from "@/lib/station";
 import { PREFECTURES } from "@/lib/validation";
+import { ensureYieldMasterReady } from "@/server/ensure-yield-master";
 
 export type StationCandidate = {
   name: string;
@@ -41,6 +42,8 @@ function uniqueSheets(rows: StationCandidate[]): StationCandidate[] {
 export async function lookupStationCandidates(
   station: string,
 ): Promise<StationCandidate[]> {
+  await ensureYieldMasterReady();
+
   const key = stationLookupKey(station);
   if (!key) return [];
 

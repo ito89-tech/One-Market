@@ -3,12 +3,15 @@ import type { NextRequest } from "next/server";
 import { internalError, ok } from "@/lib/api";
 import { prisma } from "@/lib/prisma";
 import { stationLookupKey, uniquePreserveOrder } from "@/lib/station";
+import { ensureYieldMasterReady } from "@/server/ensure-yield-master";
 
 /**
  * Station names for the input field. Area codes are internal and not returned.
  */
 export async function GET(request: NextRequest) {
   try {
+    await ensureYieldMasterReady();
+
     const prefecture = request.nextUrl.searchParams.get("prefecture")?.trim();
     const query = request.nextUrl.searchParams.get("q")?.trim() ?? "";
 
