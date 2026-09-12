@@ -80,7 +80,28 @@ DB がまだ無い状態でもビルド自体は通るようにしてありま�
 
 ---
 
-## GitHub 連携の確認
+## Root Directory と Install Command の二重指定に注意
+
+Root Directory を `web` にしたあとに、次のエラーが出ることがあります。
+
+```text
+ENOENT: ... open '/vercel/path0/web/web/package.json'
+Command "npm install --prefix web" exited with 254
+```
+
+これは **Root Directory がすでに `web` なのに、Install Command がもう一度 `web` を付けている**状態です。
+
+直しかた:
+
+1. **Settings → General → Root Directory** が `web` であること
+2. **Settings → General → Build & Development Settings**
+   - **Install Command** → Override を **OFF**（空／デフォルトの `npm install`）
+   - **Build Command** → Override を **OFF**（デフォルトのまま）
+3. Redeploy（Build Cache なし）
+
+リポジトリ側ではルートの `vercel.json` に `--prefix web` を書かないこと。
+設定は `web/vercel.json` だけを使います。
+
 
 1. **Settings → Git**
 2. Connected Git Repository が `ito89-tech/One-Market` になっていること
