@@ -8,7 +8,8 @@ import {
   hashPassword,
   verifyPassword,
 } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { databaseFailureResponse } from "@/lib/db-errors";
+import { prisma, requireRuntimeSecrets } from "@/lib/prisma";
 import { loginSchema, toFieldErrors } from "@/lib/validation";
 
 /** Compared against when the account does not exist, to keep timing uniform. */
@@ -16,6 +17,7 @@ const DUMMY_HASH_PROMISE = hashPassword("onemake-timing-equaliser");
 
 export async function POST(request: NextRequest) {
   try {
+    requireRuntimeSecrets();
     await assertSameOrigin();
 
     const body = await request.json().catch(() => null);
@@ -62,6 +64,14 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof AuthError) {
       return fail(error.code, error.message);
+    }
+    const dbFailure = databaseFailureResponse(error);
+    if (dbFailure) return dbFailure;
+    if (error instanceof Error && /AUTH_SECRET|DATABASE_URL/.test(error.message)) {
+      return fail(
+        "ENGINE_UNAVAILABLE",
+        "サーバー設定が完了していません。管理者に連絡してください。",
+      );
     }
     return internalError(error);
   }

@@ -18,8 +18,13 @@ const webDir = process.cwd();
 const envPath = path.join(webDir, ".env");
 const envExample = path.join(webDir, ".env.example");
 
-function run(command: string, args: string[], cwd: string) {
-  const result = spawnSync(command, args, { cwd, stdio: "inherit", shell: true });
+function run(command: string, args: string[], cwd: string, env: NodeJS.ProcessEnv = process.env) {
+  const result = spawnSync(command, args, {
+    cwd,
+    stdio: "inherit",
+    shell: true,
+    env,
+  });
   if (result.status !== 0) {
     process.exit(result.status ?? 1);
   }
@@ -60,8 +65,10 @@ async function main() {
   ensureEnv();
   await ensureDb();
   run("npx", ["prisma", "generate"], webDir);
-  run("npx", ["prisma", "migrate", "deploy"], webDir);
-  run("npx", ["tsx", "prisma/seed.ts"], webDir);
+  run("npx", ["tsx", "scripts/ensure-db-ready.ts"], webDir, {
+    ...process.env,
+    ENSURE_DB_STRICT: "1",
+  });
   console.log("");
   console.log("[setup] 完了。次は `npm run local` で DB / Next.js を起動してください。");
   console.log("[setup] Stripe Test Mode は任意です。手順は README の「Stripe Test Mode」を見てください。");

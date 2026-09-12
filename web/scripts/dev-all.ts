@@ -46,6 +46,20 @@ async function main() {
     console.log("[db] 55432 は既に使用中なので再利用します");
   }
 
+  // スキーマ／マスタが空でも診断・登録が通るように揃える
+  console.log("[db] スキーマとマスタを確認します");
+  const ready = spawn("npx", ["tsx", "scripts/ensure-db-ready.ts"], {
+    stdio: "inherit",
+    shell: true,
+    env: { ...process.env, ENSURE_DB_STRICT: "1" },
+  });
+  await new Promise<void>((resolve, reject) => {
+    ready.on("exit", (code) => {
+      if (code && code !== 0) reject(new Error(`ensure-db-ready exit ${code}`));
+      else resolve();
+    });
+  });
+
   if (!(await isPortOpen(3000))) {
     start("web", "npm", ["run", "dev"]);
     await waitForPort(3000, "Next.js");
@@ -59,6 +73,7 @@ async function main() {
 
   console.log("");
   console.log("ローカル起動: http://localhost:3000");
+  console.log("健全性: http://localhost:3000/api/health");
   console.log("停止: Ctrl+C");
 }
 

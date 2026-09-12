@@ -129,6 +129,7 @@ npm run local
 | メール | 用途 |
 | --- | --- |
 | `admin@onemake.local` | 管理者。`/admin` |
+| `ADMIN_EMAILS` のアドレス（例: `egami09@proton.me`） | ローカルシード時は同じパスワードで管理者として投入 |
 | `user@onemake.local` | 一般（未決済） |
 | `paid@onemake.local` | 一般。無料枠使用済み＋有料残数 1（初回シード時） |
 

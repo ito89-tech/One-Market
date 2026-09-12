@@ -14,6 +14,17 @@ export function ensurePrismaEnv(): void {
   }
 }
 
+/** 会員・診断 API が環境不足で曖昧な 500 を出さないための事前チェック。 */
+export function requireRuntimeSecrets(): void {
+  ensurePrismaEnv();
+  if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL が設定されていません");
+  }
+  if (!process.env.AUTH_SECRET) {
+    throw new Error("AUTH_SECRET が設定されていません");
+  }
+}
+
 function createPrismaClient(): PrismaClient {
   ensurePrismaEnv();
   return new PrismaClient({

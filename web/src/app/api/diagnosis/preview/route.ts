@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 
 import { fail, internalError, ok } from "@/lib/api";
+import { databaseFailureResponse } from "@/lib/db-errors";
 import { propertyInputSchema, toFieldErrors } from "@/lib/validation";
 import { resolveLocationInput } from "@/server/location";
 
@@ -29,6 +30,8 @@ export async function POST(request: NextRequest) {
 
     return ok({ valid: true, location });
   } catch (error) {
+    const dbFailure = databaseFailureResponse(error);
+    if (dbFailure) return dbFailure;
     return internalError(error);
   }
 }

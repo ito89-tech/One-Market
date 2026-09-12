@@ -77,9 +77,16 @@ npx tsx prisma/seed.ts
 シードは `web/data/yield-sheet.xlsx` を **直接解析して PostgreSQL に書き込みます**（JSON 中間層は使いません）。
 診断計算もこの PostgreSQL だけを参照します。
 
-Vercel の `vercel-build` でも、マイグレーション後にマスタが 0 件なら同じ xlsx 投入を自動実行します。
+Vercel の `vercel-build` は `scripts/ensure-db-ready.ts` を実行します。
+
+- `DIRECT_URL` が無くても `DATABASE_URL` を流用してマイグレーションする
+- 既存スキーマで P3005 が出たら `0_init` を baseline して再試行する
+- YieldSheet が 0 件ならバンドル済み xlsx を PostgreSQL へ投入する
+
 さらに実行時 API でも空 DB を検知したら一度だけ自動投入します（`ensureYieldMasterReady`）。
 いずれも正本の参照先は PostgreSQL のみです。
+
+デプロイ後の確認用に `GET /api/health` があります（DB 接続・シート数・駅数。シークレットは含みません）。
 
 デプロイ後の再同期・修正は管理画面 **収益率データ**（`/admin/data`）から行えます。
 
@@ -223,18 +230,19 @@ Preview には Stripe の **テストキー**（`sk_test_` と対応する Price
 順番に確認してください。上が通らないと下は意味がありません。
 
 1. **トップページが表示される** — Vercel のビルドと起動が成功している
-2. **会員登録 → ログイン** — DB 接続と `AUTH_SECRET` が正しい
-3. **管理画面 `/admin`（`ADMIN_EMAILS` のアカウント）**
+2. **`/api/health` が 200** — `database=up` かつ `yieldSheets` / `stations` が 0 より大きい
+3. **会員登録 → ログイン** — DB 接続と `AUTH_SECRET` が正しい
+4. **管理画面 `/admin`（`ADMIN_EMAILS` のアカウント）**
    - 「診断エンジン」に `sheets` / `stations` の件数が出る → シード済み
    - BLOCKER の警告が無い
-4. **無料診断を1回実行** — 診断エンジンが動き、履歴が保存される
-5. **有料プランを購入**
+5. **無料診断を1回実行** — 診断エンジンが動き、履歴が保存される
+6. **有料プランを購入**
    - スマートフォンの Safari / Chrome で Apple Pay / Google Pay が出ることを確認
    - 決済後、マイページに残り回数が反映される（＝ Webhook が届いている）
-6. **Stripe ダッシュボードの Webhook ログ** — 該当イベントが 200 で成功している
-7. **2回目の有料診断** — 残り回数が正しく減る
+7. **Stripe ダッシュボードの Webhook ログ** — 該当イベントが 200 で成功している
+8. **2回目の有料診断** — 残り回数が正しく減る
 
-5 で残り回数が増えない場合は、ほぼ Webhook の設定ミスです。
+6 で残り回数が増えない場合は、ほぼ Webhook の設定ミスです。
 Stripe の Webhook ログに出ているレスポンスを確認してください。
 
 - 503 → `STRIPE_WEBHOOK_SECRET` が未設定

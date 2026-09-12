@@ -116,6 +116,17 @@ export async function requireAdmin(): Promise<User> {
  * cross-site POSTs from a form navigation; this closes the remaining gap for
  * requests that arrive without a matching Origin.
  */
+function normalizeHost(host: string): string {
+  return host
+    .toLowerCase()
+    .replace(/^127\.0\.0\.1(?=:|$)/, "localhost")
+    .replace(/^\[::1\](?=:|$)/, "localhost");
+}
+
+function hostsEquivalent(left: string, right: string): boolean {
+  return normalizeHost(left) === normalizeHost(right);
+}
+
 export async function assertSameOrigin(): Promise<void> {
   const headerList = await headers();
   const origin = headerList.get("origin");
@@ -129,10 +140,10 @@ export async function assertSameOrigin(): Promise<void> {
     throw new AuthError("FORBIDDEN", "不正なリクエストです");
   }
 
-  if (host && originHost === host) return;
+  if (host && hostsEquivalent(originHost, host)) return;
 
   const configured = new URL(serverEnv.appUrl()).host;
-  if (originHost === configured) return;
+  if (hostsEquivalent(originHost, configured)) return;
 
   throw new AuthError("FORBIDDEN", "不正なリクエストです");
 }

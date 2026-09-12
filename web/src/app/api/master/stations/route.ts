@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 
 import { internalError, ok } from "@/lib/api";
+import { databaseFailureResponse } from "@/lib/db-errors";
 import { prisma } from "@/lib/prisma";
 import { stationLookupKey, uniquePreserveOrder } from "@/lib/station";
 import { ensureYieldMasterReady } from "@/server/ensure-yield-master";
@@ -61,6 +62,8 @@ export async function GET(request: NextRequest) {
       })),
     });
   } catch (error) {
+    const dbFailure = databaseFailureResponse(error);
+    if (dbFailure) return dbFailure;
     return internalError(error);
   }
 }

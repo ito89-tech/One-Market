@@ -102,6 +102,27 @@ async function seedLocalUsers() {
     });
   }
 
+  // ADMIN_EMAILS もローカル確認用に同じパスワードで用意する（本番 SEED_LOCAL_USERS=false では作らない）
+  const adminEmails = (process.env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean);
+  for (const email of adminEmails) {
+    await prisma.user.upsert({
+      where: { email },
+      create: {
+        email,
+        passwordHash,
+        role: "ADMIN",
+        displayName: "管理者",
+      },
+      update: {
+        passwordHash,
+        role: "ADMIN",
+      },
+    });
+  }
+
   console.log("ローカル確認用ユーザーを投入しました（パスワードは README を参照）");
 }
 

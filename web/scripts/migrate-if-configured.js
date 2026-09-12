@@ -1,27 +1,9 @@
 /**
- * Vercel ビルド用。DATABASE_URL / DIRECT_URL が揃っているときだけ
- * prisma migrate deploy を実行する。
- *
- * 環境変数未設定のまま migrate を走らせるとビルド全体が落ち、
- * 本番 URL が 404 になる。DB 準備前でも Next.js のビルド自体は
- * 成功させ、デプロイを「Ready」にするのが目的。
+ * 後方互換。実体は ensure-db-ready.ts（DIRECT_URL 補完・P3005 baseline・空なら xlsx シード）。
  */
 const { spawnSync } = require("node:child_process");
 
-const databaseUrl = process.env.DATABASE_URL ?? "";
-const directUrl = process.env.DIRECT_URL ?? "";
-
-if (!databaseUrl || !directUrl) {
-  console.warn(
-    "[migrate] DATABASE_URL または DIRECT_URL が未設定のため、スキーマ適用をスキップします。",
-  );
-  console.warn(
-    "[migrate] Neon の接続文字列を Vercel の Environment Variables に入れたあと、Redeploy してください。",
-  );
-  process.exit(0);
-}
-
-const result = spawnSync("npx", ["prisma", "migrate", "deploy"], {
+const result = spawnSync("npx", ["tsx", "scripts/ensure-db-ready.ts"], {
   stdio: "inherit",
   shell: true,
   env: process.env,

@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 
 import { fail, internalError, ok } from "@/lib/api";
+import { databaseFailureResponse } from "@/lib/db-errors";
 import { resolveLocationInput } from "@/server/location";
 
 export async function GET(request: NextRequest) {
@@ -20,6 +21,8 @@ export async function GET(request: NextRequest) {
     });
     return ok(location);
   } catch (error) {
+    const dbFailure = databaseFailureResponse(error);
+    if (dbFailure) return dbFailure;
     return internalError(error);
   }
 }
