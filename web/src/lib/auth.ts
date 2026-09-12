@@ -58,22 +58,32 @@ export async function destroySession(): Promise<void> {
 }
 
 export async function getCurrentUser(): Promise<User | null> {
-  const store = await cookies();
-  const token = store.get(COOKIE_NAME)?.value;
-  if (!token) return null;
+  try {
+    // 本番で環境変数が揃う前でもトップページを落とさない
+    if (!process.env.DATABASE_URL || !process.env.AUTH_SECRET) {
+      return null;
+    }
 
-  const session = await prisma.session.findUnique({
-    where: { tokenHash: hashToken(token) },
-    include: { user: true },
-  });
-  if (!session) return null;
+    const store = await cookies();
+    const token = store.get(COOKIE_NAME)?.value;
+    if (!token) return null;
 
-  if (session.expiresAt.getTime() <= Date.now()) {
-    await prisma.session.delete({ where: { id: session.id } }).catch(() => {});
+    const session = await prisma.session.findUnique({
+      where: { tokenHash: hashToken(token) },
+      include: { user: true },
+    });
+    if (!session) return null;
+
+    if (session.expiresAt.getTime() <= Date.now()) {
+      await prisma.session.delete({ where: { id: session.id } }).catch(() => {});
+      return null;
+    }
+
+    return session.user;
+  } catch (error) {
+    console.error("[auth] getCurrentUser failed", error);
     return null;
   }
-
-  return session.user;
 }
 
 export class AuthError extends Error {

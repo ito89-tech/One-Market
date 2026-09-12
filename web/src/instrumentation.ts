@@ -1,16 +1,21 @@
 /**
- * サーバー起動時に一度だけ走る設定チェック。
+ * サーバー起動時の設定チェック。
  *
- * 本番の設定漏れは画面上は正常に見えてしまうため、ここで落とす。とくに
- * Stripe の webhook secret 欠落は「決済は通るが診断枠が付かない」状態を作るので、
- * 起動を止めてでも気付けるようにしている。
+ * 以前は不足があると throw してサーバー全体を止めていたが、Vercel では
+ * それが全ページの白い「A server error occurred」になる。ログには残しつつ
+ * 起動は続行し、画面側は認証・DB を安全にフォールバックする。
  */
 export async function register() {
-  // Edge ランタイムでは process.env の一部しか見えないため Node 側だけで検査する。
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
-  // ビルド中にも呼ばれる。ここで落とすと、環境変数が正しくてもローカルの
-  // `next build` が通らなくなるので、実行時だけを対象にする。
   if (process.env.NEXT_PHASE === "phase-production-build") return;
+
+  // Vercel が自動付与するホスト名から公開 URL を補完する
+  if (!process.env.NEXT_PUBLIC_APP_URL && process.env.VERCEL_URL) {
+    process.env.NEXT_PUBLIC_APP_URL = `https://${process.env.VERCEL_URL}`;
+  }
+  if (process.env.DATABASE_URL && !process.env.DIRECT_URL) {
+    process.env.DIRECT_URL = process.env.DATABASE_URL;
+  }
 
   const { describeConfigProblems } = await import("@/lib/env");
   const { fatal, warnings } = describeConfigProblems();
@@ -18,9 +23,7 @@ export async function register() {
   for (const warning of warnings) {
     console.warn(`[config] ${warning}`);
   }
-
-  if (fatal.length > 0) {
-    const detail = fatal.map((message) => `  - ${message}`).join("\n");
-    throw new Error(`本番環境の設定に不備があります:\n${detail}`);
+  for (const message of fatal) {
+    console.error(`[config] ${message}`);
   }
 }

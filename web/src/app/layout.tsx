@@ -19,13 +19,18 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0e7c86",
+  themeColor: "#00a3ae",
 };
 
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await getCurrentUser();
+  let user: Awaited<ReturnType<typeof getCurrentUser>> = null;
+  try {
+    user = await getCurrentUser();
+  } catch (error) {
+    console.error("[layout] getCurrentUser failed", error);
+  }
 
   return (
     <html lang="ja" data-scroll-behavior="smooth">

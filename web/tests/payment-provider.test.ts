@@ -5,6 +5,7 @@ const KEYS = [
   "VERCEL_ENV",
   "NEXT_PUBLIC_APP_URL",
   "STRIPE_SECRET_KEY",
+  "STRIPE_WEBHOOK_SECRET",
   "STRIPE_PRICE_ID",
   "STRIPE_PRICE_ID_ONE_TIME",
   "STRIPE_PRICE_ID_MONTHLY_5",
@@ -20,6 +21,7 @@ beforeEach(() => {
   process.env.VERCEL_ENV = "";
   process.env.NEXT_PUBLIC_APP_URL = "http://localhost:3000";
   process.env.STRIPE_SECRET_KEY = "";
+  process.env.STRIPE_WEBHOOK_SECRET = "";
   process.env.STRIPE_PRICE_ID = "";
   process.env.STRIPE_PRICE_ID_ONE_TIME = "";
   process.env.STRIPE_PRICE_ID_MONTHLY_5 = "";
@@ -95,5 +97,16 @@ describe("決済プロバイダ切替", () => {
     const { serverEnv, paymentProvider } = await loadEnv();
     expect(serverEnv.stripe.priceIdFor("one_time")).toBe("");
     expect(paymentProvider()).toBe("none");
+  });
+
+  it("公開ホストで webhook 未設定の Stripe は有料導線を無効にする", async () => {
+    process.env.PAYMENT_PROVIDER = "stripe";
+    process.env.NEXT_PUBLIC_APP_URL = "https://onemake.example";
+    process.env.STRIPE_SECRET_KEY = "sk_test_dummy";
+    process.env.STRIPE_PRICE_ID_ONE_TIME = "price_test_dummy";
+    delete process.env.STRIPE_WEBHOOK_SECRET;
+    const { paymentProvider, isPaidFlowEnabled } = await loadEnv();
+    expect(paymentProvider()).toBe("none");
+    expect(isPaidFlowEnabled()).toBe(false);
   });
 });

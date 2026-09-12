@@ -23,7 +23,9 @@ function isProductionRuntime(): boolean {
 }
 
 function isLocalAppUrl(): boolean {
-  const raw = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const raw =
+    process.env.NEXT_PUBLIC_APP_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
   try {
     const host = new URL(raw).hostname;
     return host === "localhost" || host === "127.0.0.1";
@@ -61,9 +63,16 @@ function hasAnyStripePrice(): boolean {
   );
 }
 
+function resolvedAppUrl(): string {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
+  // Vercel はデプロイごとに VERCEL_URL を付与する（スキームなし）
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://localhost:3000";
+}
+
 export const serverEnv = {
   authSecret: () => required("AUTH_SECRET"),
-  appUrl: () => process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+  appUrl: resolvedAppUrl,
   adminEmails: () =>
     (process.env.ADMIN_EMAILS ?? "")
       .split(",")
@@ -95,10 +104,19 @@ export function isMockPaymentsAllowed(): boolean {
 
 export function paymentProvider(): "mock" | "stripe" | "none" {
   if (isMockPaymentsAllowed()) return "mock";
-  if (serverEnv.stripe.secretKey() && serverEnv.stripe.hasAnyPrice()) {
-    return "stripe";
+  const secret = serverEnv.stripe.secretKey();
+  if (!secret || !serverEnv.stripe.hasAnyPrice()) return "none";
+
+  // 公開環境で webhook が無いと課金だけ成立して枠が付かない。
+  // サイト全体は落とさず、有料導線だけ無効にする。
+  if (
+    !serverEnv.stripe.webhookSecret() &&
+    (isProductionRuntime() || !isLocalAppUrl())
+  ) {
+    return "none";
   }
-  return "none";
+
+  return "stripe";
 }
 
 /**
@@ -127,22 +145,25 @@ export function describeConfigProblems(): ConfigProblems {
   if (!isDeployed) return { fatal, warnings };
 
   if (!process.env.DATABASE_URL) {
-    fatal.push("DATABASE_URL が未設定です。");
+    // サイト表示は続行し、ログイン／診断だけ失敗する。
+    warnings.push(
+      "DATABASE_URL が未設定です。会員機能と診断はデータベース設定後に利用できます。",
+    );
   }
 
   const authSecret = process.env.AUTH_SECRET ?? "";
   if (!authSecret) {
-    fatal.push("AUTH_SECRET が未設定です。");
+    warnings.push(
+      "AUTH_SECRET が未設定です。ログイン機能はデータベース設定と合わせて有効になります。",
+    );
   } else if (authSecret.length < 32) {
-    fatal.push("AUTH_SECRET が短すぎます（32文字以上にしてください）。");
+    warnings.push("AUTH_SECRET が短すぎます（32文字以上にしてください）。");
   }
 
   const secretKey = process.env.STRIPE_SECRET_KEY ?? "";
   if (secretKey && !process.env.STRIPE_WEBHOOK_SECRET) {
-    // 付与は webhook でしか行わない。ここが欠けると決済だけ成立して
-    // 診断枠が付かず、全件が返金対応になる。
-    fatal.push(
-      "STRIPE_SECRET_KEY があるのに STRIPE_WEBHOOK_SECRET が未設定です。決済しても診断枠が付与されません。",
+    warnings.push(
+      "STRIPE_SECRET_KEY があるのに STRIPE_WEBHOOK_SECRET が未設定です。有料導線は無効化されています。",
     );
   }
 
@@ -152,13 +173,15 @@ export function describeConfigProblems(): ConfigProblems {
     );
   }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
-  if (!appUrl) {
-    fatal.push(
-      "NEXT_PUBLIC_APP_URL が未設定です。決済後の戻り先と CSRF 判定に必要です。",
+  const appUrl = resolvedAppUrl();
+  if (!process.env.NEXT_PUBLIC_APP_URL && !process.env.VERCEL_URL) {
+    warnings.push(
+      "NEXT_PUBLIC_APP_URL が未設定です。決済後の戻り先のために設定してください。",
     );
-  } else if (!appUrl.startsWith("https://")) {
-    fatal.push(`NEXT_PUBLIC_APP_URL は https である必要があります（現在: ${appUrl}）。`);
+  } else if (appUrl && !appUrl.startsWith("https://") && !isLocalAppUrl()) {
+    warnings.push(
+      `NEXT_PUBLIC_APP_URL は https である必要があります（現在: ${appUrl}）。`,
+    );
   }
 
   if (secretKey) {
