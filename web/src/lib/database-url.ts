@@ -28,6 +28,10 @@ export function resolveDatabaseUrlsFromEnv(
     env.POSTGRES_URL,
     env.NEON_DATABASE_URL,
     env.DATABASE_URL_POOLED,
+    // Vercel Storage 接続ウィザードで prefix=STORAGE にした場合
+    env.STORAGE_PRISMA_URL,
+    env.STORAGE_DATABASE_URL,
+    env.STORAGE_URL,
   );
 
   const directUrl = firstDefined(
@@ -35,6 +39,8 @@ export function resolveDatabaseUrlsFromEnv(
     env.POSTGRES_URL_NON_POOLING,
     env.DATABASE_URL_UNPOOLED,
     env.NEON_DIRECT_URL,
+    env.STORAGE_URL_NON_POOLING,
+    env.STORAGE_DIRECT_URL,
     // 最後の手段: プーラー URL でも Prisma schema の directUrl 参照は満たす
     databaseUrl,
   );
@@ -44,6 +50,9 @@ export function resolveDatabaseUrlsFromEnv(
   else if (env.POSTGRES_PRISMA_URL) source = "POSTGRES_PRISMA_URL";
   else if (env.POSTGRES_URL) source = "POSTGRES_URL";
   else if (env.NEON_DATABASE_URL) source = "NEON_DATABASE_URL";
+  else if (env.STORAGE_PRISMA_URL) source = "STORAGE_PRISMA_URL";
+  else if (env.STORAGE_DATABASE_URL) source = "STORAGE_DATABASE_URL";
+  else if (env.STORAGE_URL) source = "STORAGE_URL";
 
   return { databaseUrl, directUrl, source };
 }
