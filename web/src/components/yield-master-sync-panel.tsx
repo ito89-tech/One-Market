@@ -59,7 +59,7 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
 
   async function runUpload() {
     if (!file) {
-      setError("ファイルを選択してください");
+      setError("xlsx ファイルを選択してください");
       return;
     }
     setPending("upload");
@@ -93,10 +93,10 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
   return (
     <Card className="space-y-4">
       <div>
-        <h2 className="text-base font-bold text-ink-900">マスタ同期</h2>
+        <h2 className="text-base font-bold text-ink-900">xlsx → PostgreSQL 同期</h2>
         <p className="mt-1 text-sm text-ink-500">
-          Vercel ではバンドル済み JSON の再反映、または手元で変換した JSON のアップロードが確実です。
-          xlsx はローカルで Python が使える場合のみ変換できます。
+          利回りシート.xlsx を解析し、Prisma スキーマどおりに Neon / PostgreSQL
+          へ直接書き込みます。JSON 中間ファイルは使いません。会員・決済・診断履歴は消しません。
         </p>
       </div>
 
@@ -123,7 +123,7 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
       {stats.source || stats.generatedAt ? (
         <p className="text-xs text-ink-300">
           ソース: {stats.source ?? "—"}
-          {stats.generatedAt ? ` / 生成: ${stats.generatedAt}` : ""}
+          {stats.generatedAt ? ` / 取込: ${stats.generatedAt}` : ""}
         </p>
       ) : null}
 
@@ -133,18 +133,20 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
           onClick={() => void runSync()}
           disabled={pending !== null}
         >
-          {pending === "sync" ? "反映中…" : "バンドル済みマスタをDBに再反映"}
+          {pending === "sync"
+            ? "反映中…"
+            : "バンドル済み xlsx を PostgreSQL に再反映"}
         </Button>
       </div>
 
       <div className="border-t border-[var(--color-line)] pt-4">
-        <label className="block text-sm font-bold text-ink-900" htmlFor="yield-master-file">
-          JSON / xlsx をアップロード
+        <label className="block text-sm font-bold text-ink-900" htmlFor="yield-xlsx-file">
+          新しい利回りシート.xlsx をアップロード
         </label>
         <input
-          id="yield-master-file"
+          id="yield-xlsx-file"
           type="file"
-          accept=".json,.xlsx,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           className="mt-2 block w-full text-sm text-ink-700 file:mr-3 file:rounded-full file:border-0 file:bg-brand-50 file:px-4 file:py-2 file:font-bold file:text-brand-700"
           onChange={(event) => {
             setFile(event.target.files?.[0] ?? null);
@@ -158,7 +160,7 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
             onClick={() => void runUpload()}
             disabled={pending !== null || !file}
           >
-            {pending === "upload" ? "取り込み中…" : "アップロードして反映"}
+            {pending === "upload" ? "取り込み中…" : "xlsx を解析して DB に反映"}
           </Button>
         </div>
       </div>

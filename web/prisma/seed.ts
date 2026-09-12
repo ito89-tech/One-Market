@@ -1,8 +1,6 @@
 /**
- * Loads data/yield-master.json (generated from the client's spreadsheet) into the
- * database. Idempotent: it clears the master tables and reloads them, so
- * re-running after a data update is safe. User, diagnosis and payment data are
- * never wiped. Local confirmation users are upserted only when allowed.
+ * 利回りシート.xlsx を直接読み、PostgreSQL に投入する。
+ * Idempotent: master tables だけを入れ替え、会員・決済・診断履歴は消さない。
  */
 import "dotenv/config";
 
@@ -10,16 +8,18 @@ import { PrismaClient, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import {
-  defaultMasterPath,
-  loadYieldMasterFromFile,
+  defaultXlsxPath,
+  buildYieldMasterFromXlsxFile,
+} from "./yield-xlsx";
+import {
   replaceYieldMasterInDb,
 } from "./yield-master-lib";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const masterPath = defaultMasterPath();
-  const master = loadYieldMasterFromFile(masterPath);
+  const xlsxPath = defaultXlsxPath();
+  const master = await buildYieldMasterFromXlsxFile(xlsxPath);
   const counts = await replaceYieldMasterInDb(prisma, master);
 
   await seedLocalUsers();
@@ -37,7 +37,7 @@ async function main() {
     console.log(`管理者に昇格: ${count} 件`);
   }
 
-  console.log(`マスタ読込: ${masterPath}`);
+  console.log(`マスタ読込: ${xlsxPath}`);
   console.log("シード完了:", counts);
 }
 

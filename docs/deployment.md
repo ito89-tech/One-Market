@@ -70,20 +70,25 @@ npx prisma migrate deploy
 
 # 2) 収益率マスタを投入（本番ではローカル確認用アカウントを作らない）
 $env:SEED_LOCAL_USERS="false"
-$env:ADMIN_EMAILS="<管理者にするメールアドレス>"
+$env:ADMIN_EMAILS="egami09@proton.me"
 npx tsx prisma/seed.ts
 ```
 
-シードは `web/data/yield-master.json`（無ければリポジトリ直下の `data/yield-master.json`）を読みます。
-Vercel の Root Directory は `web/` のため、本番ランタイム用のマスタは `web/data/` にバンドルしています。
+シードは `web/data/yield-sheet.xlsx` を **直接解析して PostgreSQL に書き込みます**（JSON 中間層は使いません）。
+診断計算もこの PostgreSQL だけを参照します。
 
-デプロイ後の再同期は管理画面 **収益率データ** から行えます。
+デプロイ後の再同期・修正は管理画面 **収益率データ**（`/admin/data`）から行えます。
 
-- 「バンドル済みマスタをDBに再反映」… デプロイに含まれる JSON を Neon へ投入
-- JSON アップロード… 手元で `python tools/build_yield_dataset.py` した出力（Vercel でも確実）
-- xlsx アップロード… ローカルで Python が使えるときのみ自動変換。Vercel では JSON 推奨
+- 「バンドル済み xlsx を PostgreSQL に再反映」… デプロイ同梱の xlsx を Neon へ投入
+- xlsx アップロード… 新しい利回りシートを解析して DB 全置換（会員・決済は残る）
+- 収益率セル編集 / 駅の追加削除… DB 上の値を管理者が直接修正補充
 
-> スプレッドシートを更新したときは、変換 → シード再実行、または管理画面から同期します。
+管理者は環境変数 `ADMIN_EMAILS`（カンマ区切り）で指定します。初期値は
+`egami09@proton.me`。差し替えは Vercel の Environment Variables を変更するだけです。
+登録時・ログイン時に一覧と一致すれば `ADMIN` に昇格します。
+
+> スプレッドシートを更新したときは、管理画面から xlsx をアップロードするか、
+> `web/data/yield-sheet.xlsx` を差し替えて再デプロイ／再同期します。
 > 同期はマスタ系テーブルのみ入れ替え、会員・診断履歴・課金データは消しません。
 
 ### 既に `prisma db push` で作った DB がある場合
@@ -187,7 +192,7 @@ npx prisma migrate resolve --applied 0_init
 | `STRIPE_PRICE_ID_ONE_TIME` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_5` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_UNLIMITED` | `price_...` |
-| `ADMIN_EMAILS` | 管理画面に入れるメールアドレス |
+| `ADMIN_EMAILS` | 管理者メール（カンマ区切り）。初期: `egami09@proton.me`。後から差し替え可 |
 
 `AUTH_SECRET` の生成:
 
@@ -240,7 +245,7 @@ Stripe の Webhook ログに出ているレスポンスを確認してくださ�
   `prisma/migrations/` に差分を作り、コミットします。本番へはデプロイ時に
   `prisma migrate deploy` が自動適用します。`prisma db push` を本番に使わないこと。
 - **マスタデータを更新したとき**: 手順 2 のシードを再実行するか、管理画面
-  `/admin/data` からバンドル JSON の再反映／JSON アップロードを行います。
+  `/admin/data` から xlsx→PostgreSQL 同期と、収益率・駅マスタの直接編集ができます。
   反映直後にエンジンのシートキャッシュは破棄されます。
 - **料金を変更するとき**: Stripe 側で新しい Price を作り、環境変数を差し替えます。
   `web/src/config/plans.ts` の表示金額も合わせて更新してください。

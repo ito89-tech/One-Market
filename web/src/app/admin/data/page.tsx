@@ -1,49 +1,68 @@
 import { AdminTable } from "@/components/admin-table";
 import { Alert, Card } from "@/components/ui";
+import { StationEditor } from "@/components/station-editor";
 import { YieldMasterSyncPanel } from "@/components/yield-master-sync-panel";
+import { YieldRateEditor } from "@/components/yield-rate-editor";
 import { formatDate } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { getYieldMasterStats } from "@/server/yield-master";
 
 export default async function AdminDataPage() {
-  const sheets = await prisma.yieldSheet.findMany({
-    orderBy: { key: "asc" },
-    include: {
-      areas: {
-        orderBy: { sort: "asc" },
+  const [sheets, issues, invalidRates, stats, rateRows, stations] =
+    await Promise.all([
+      prisma.yieldSheet.findMany({
+        orderBy: { key: "asc" },
         include: {
-          _count: { select: { stations: true, localities: true } },
+          areas: {
+            orderBy: { sort: "asc" },
+            include: {
+              _count: { select: { stations: true, localities: true } },
+            },
+          },
+          _count: { select: { yieldRates: true, ageBrackets: true } },
         },
-      },
-      _count: { select: { yieldRates: true, ageBrackets: true } },
-    },
-  });
-  const issues = await prisma.dataIssue.findMany({
-    orderBy: [{ level: "asc" }, { code: "asc" }],
-  });
-
-  const invalidRates = await prisma.yieldRate.findMany({
-    where: { isValid: false },
-    include: {
-      sheet: { select: { name: true } },
-      area: { select: { code: true } },
-      ageBracket: { select: { label: true } },
-    },
-  });
-
-  const initialStats = await getYieldMasterStats();
+      }),
+      prisma.dataIssue.findMany({
+        orderBy: [{ level: "asc" }, { code: "asc" }],
+      }),
+      prisma.yieldRate.findMany({
+        where: { isValid: false },
+        include: {
+          sheet: { select: { name: true } },
+          area: { select: { code: true } },
+          ageBracket: { select: { label: true } },
+        },
+      }),
+      getYieldMasterStats(),
+      prisma.yieldRate.findMany({
+        orderBy: [{ sheet: { key: "asc" } }, { ageBracket: { sort: "asc" } }],
+        take: 2000,
+        include: {
+          sheet: { select: { name: true } },
+          area: { select: { code: true } },
+          ageBracket: { select: { label: true } },
+        },
+      }),
+      prisma.station.findMany({
+        orderBy: [{ sheet: { key: "asc" } }, { name: "asc" }],
+        take: 2000,
+        include: {
+          sheet: { select: { id: true, name: true } },
+          area: { select: { id: true, code: true } },
+        },
+      }),
+    ]);
 
   return (
     <div className="space-y-8">
-      <Alert tone="info" title="このデータについて">
-        クライアント提供の「利回りシート.xlsx」を変換して取り込んだものです。
-        値の補完・修正は一切行っていません。本番（Vercel）では下の「バンドル済みマスタをDBに再反映」
-        か、手元で
-        <code className="mx-1 rounded bg-white px-1">python tools/build_yield_dataset.py</code>
-        した JSON のアップロードを使ってください。
+      <Alert tone="info" title="データの流れ">
+        正本はクライアント提供の利回りシート.xlsx です。管理画面から xlsx を取り込むと、
+        スキーマどおりに PostgreSQL（Neon）へ直接反映されます。診断計算もこの DB
+        だけを参照します。取込後の不足・修正は、下の編集パネルで PostgreSQL
+        上の値を直接更新できます。
       </Alert>
 
-      <YieldMasterSyncPanel initialStats={initialStats} />
+      <YieldMasterSyncPanel initialStats={stats} />
 
       {invalidRates.length > 0 ? (
         <Alert
@@ -55,12 +74,45 @@ export default async function AdminDataPage() {
               <li key={rate.id}>
                 {rate.sheet.name} / {rate.area.code}エリア / 築
                 {rate.ageBracket.label}：<code>{rate.raw}</code>
-                （下限が上限を上回っています。クライアント確認待ち）
               </li>
             ))}
           </ul>
         </Alert>
       ) : null}
+
+      <YieldRateEditor
+        initialRows={rateRows.map((rate) => ({
+          id: rate.id,
+          sheetName: rate.sheet.name,
+          areaCode: rate.area.code,
+          ageLabel: rate.ageBracket.label,
+          lowPercent: Number(rate.lowPercent),
+          highPercent: Number(rate.highPercent),
+          isValid: rate.isValid,
+          raw: rate.raw,
+        }))}
+      />
+
+      <StationEditor
+        sheets={sheets.map((sheet) => ({
+          id: sheet.id,
+          name: sheet.name,
+          areas: sheet.areas.map((area) => ({
+            id: area.id,
+            code: area.code,
+            label: area.label,
+          })),
+        }))}
+        initialStations={stations.map((station) => ({
+          id: station.id,
+          name: station.name,
+          lookupKey: station.lookupKey,
+          sheetId: station.sheet.id,
+          sheetName: station.sheet.name,
+          areaId: station.area.id,
+          areaCode: station.area.code,
+        }))}
+      />
 
       <section>
         <h2 className="mb-3 text-base font-bold text-ink-900">シート構成</h2>
@@ -77,7 +129,8 @@ export default async function AdminDataPage() {
               </p>
               <p className="mt-1 text-sm text-ink-500">
                 築年数区分 {sheet._count.ageBrackets} 件／収益率セル{" "}
-                {sheet._count.yieldRates} 件／「それ以外」= {sheet.defaultArea}エリア
+                {sheet._count.yieldRates} 件／「それ以外」= {sheet.defaultArea}
+                エリア
               </p>
               <ul className="mt-3 space-y-1 text-sm text-ink-700">
                 {sheet.areas.map((area) => (

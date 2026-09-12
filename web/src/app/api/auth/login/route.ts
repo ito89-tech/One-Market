@@ -45,6 +45,19 @@ export async function POST(request: NextRequest) {
     }
 
     await createSession(user.id);
+
+    // ADMIN_EMAILS を後から差し替えても、該当ログイン時に権限を揃えられる。
+    const adminEmails = (process.env.ADMIN_EMAILS ?? "")
+      .split(",")
+      .map((value) => value.trim().toLowerCase())
+      .filter(Boolean);
+    if (adminEmails.includes(email) && user.role !== "ADMIN") {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { role: "ADMIN" },
+      });
+    }
+
     return ok({ id: user.id, email: user.email });
   } catch (error) {
     if (error instanceof AuthError) {
