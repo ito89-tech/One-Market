@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { resolveDatabaseUrlsFromEnv } from "@/lib/database-url";
+import { isPaidFlowEnabled, paymentProvider } from "@/lib/env";
 import { ensurePrismaEnv, prisma } from "@/lib/prisma";
 import { ensureYieldMasterReady } from "@/server/ensure-yield-master";
 
@@ -14,6 +15,16 @@ export async function GET() {
   ensurePrismaEnv();
   const resolved = resolveDatabaseUrlsFromEnv();
 
+  const stripeSecret = Boolean(process.env.STRIPE_SECRET_KEY);
+  const stripeWebhook = Boolean(process.env.STRIPE_WEBHOOK_SECRET);
+  const stripePrices = {
+    one_time: Boolean(
+      process.env.STRIPE_PRICE_ID_ONE_TIME || process.env.STRIPE_PRICE_ID,
+    ),
+    monthly_5: Boolean(process.env.STRIPE_PRICE_ID_MONTHLY_5),
+    monthly_unlimited: Boolean(process.env.STRIPE_PRICE_ID_MONTHLY_UNLIMITED),
+  };
+
   const checks: Record<string, unknown> = {
     ok: false,
     databaseConfigured: Boolean(resolved.databaseUrl),
@@ -24,6 +35,13 @@ export async function GET() {
     database: "unknown",
     yieldSheets: null as number | null,
     stations: null as number | null,
+    stripe: {
+      secretConfigured: stripeSecret,
+      webhookConfigured: stripeWebhook,
+      prices: stripePrices,
+      paymentProvider: paymentProvider(),
+      paidFlowEnabled: isPaidFlowEnabled(),
+    },
     hint: null as string | null,
   };
 
@@ -40,16 +58,22 @@ export async function GET() {
     await ensureYieldMasterReady();
     checks.yieldSheets = await prisma.yieldSheet.count();
     checks.stations = await prisma.station.count();
-    checks.ok =
-      Boolean(process.env.AUTH_SECRET) &&
-      Number(checks.yieldSheets) > 0 &&
-      Number(checks.stations) > 0;
-    if (!process.env.AUTH_SECRET) {
+
+    const masterOk =
+      Number(checks.yieldSheets) >= 4 && Number(checks.stations) >= 100;
+    const authOk = Boolean(process.env.AUTH_SECRET);
+    checks.ok = authOk && masterOk;
+
+    if (!authOk) {
       checks.hint = "AUTH_SECRET が未設定です。";
-    } else if (!checks.ok) {
+    } else if (!masterOk) {
       checks.hint =
-        "スキーマはあるがマスタが空です。ビルド時シードか /admin/data で xlsx 同期が必要です。";
+        "収益率マスタが不完全です。再デプロイでバンドル xlsx が自動投入されます。";
+    } else if (!isPaidFlowEnabled()) {
+      checks.hint =
+        "会員・診断は利用可能です。有料決済は Stripe の秘密鍵・Price ID・Webhook を揃えると有効になります。";
     }
+
     return NextResponse.json(checks, { status: checks.ok ? 200 : 503 });
   } catch (error) {
     checks.database = "down";

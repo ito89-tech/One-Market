@@ -68,7 +68,7 @@ function main() {
     process.exit(0);
   }
 
-  run("seed-if-empty", "npx", ["tsx", "scripts/seed-if-empty.ts"]);
+  run("yield-master-seed", "npx", ["tsx", "scripts/ensure-yield-master-seed.ts"]);
 }
 
 main();

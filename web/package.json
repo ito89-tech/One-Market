@@ -10,6 +10,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "db:ready": "tsx scripts/ensure-db-ready.ts",
+    "db:seed-master": "tsx scripts/ensure-yield-master-seed.ts",
     "db:start": "tsx scripts/pg.ts start",
     "db:destroy": "tsx scripts/pg.ts destroy",
     "db:push": "prisma db push",
