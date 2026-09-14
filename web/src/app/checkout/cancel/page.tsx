@@ -16,11 +16,11 @@ export default function CheckoutCancelPage() {
             料金は発生していません。入力いただいた物件情報は保持しています。
           </p>
           <div className="mt-6 space-y-3">
-            <LinkButton href="/mypage" className="w-full">
-              マイページへ
+            <LinkButton href="/diagnosis/run" className="w-full">
+              入力済みの物件に戻る
             </LinkButton>
-            <LinkButton href="/" variant="quiet" className="w-full">
-              トップへ戻る
+            <LinkButton href="/mypage" variant="quiet" className="w-full">
+              マイページへ
             </LinkButton>
           </div>
         </Card>

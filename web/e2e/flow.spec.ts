@@ -128,10 +128,7 @@ test.describe("2回目以降と有料導線", () => {
     await expectNoHorizontalScroll(page);
 
     await page.getByRole("button", { name: "テスト決済を成功させる" }).click();
-    await expect(page).toHaveURL(/\/checkout\/success/);
-    await expect(page.getByText("有料診断をご利用いただけます")).toBeVisible();
-
-    await page.getByRole("link", { name: "入力済みの物件を診断する" }).click();
+    // 決済後は確認ボタンを経ず、入力済み物件の結果へ自動遷移する
     await waitForResult(page);
     await expect(page.getByText(/判定：(割安|相場通り|割高)/)).toBeVisible();
 
