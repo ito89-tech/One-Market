@@ -170,12 +170,7 @@ export function RunDiagnosis({ paidFlowEnabled }: { paidFlowEnabled: boolean }) 
               pending={checkoutPending}
               error={state.checkoutError ?? null}
             />
-          ) : (
-            <Alert tone="info">
-              有料診断は現在準備中です。ご利用いただけるようになりましたら、
-              マイページにてご案内いたします。
-            </Alert>
-          )}
+          ) : null}
           <LinkButton href="/mypage" variant="quiet" className="w-full">
             マイページへ
           </LinkButton>

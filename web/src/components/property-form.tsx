@@ -399,11 +399,6 @@ export function PropertyForm({ isLoggedIn }: { isLoggedIn: boolean }) {
         <Button type="submit" disabled={submitting} className="w-full">
           {submitting ? "確認しています…" : "この物件の相場を確認してみる"}
         </Button>
-        {!isLoggedIn ? (
-          <p className="mt-3 text-center text-xs text-ink-500">
-            次の画面で会員登録します。入力した内容はそのまま引き継がれます。
-          </p>
-        ) : null}
       </div>
     </form>
   );

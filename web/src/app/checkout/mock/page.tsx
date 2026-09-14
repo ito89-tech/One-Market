@@ -7,7 +7,7 @@ import { Alert, Container, LinkButton } from "@/components/ui";
 import { getCurrentUser } from "@/lib/auth";
 import { isMockPaymentsAllowed } from "@/lib/env";
 
-export const metadata: Metadata = { title: "テスト決済" };
+export const metadata: Metadata = { title: "お支払い" };
 export const dynamic = "force-dynamic";
 
 export default async function MockCheckoutPage() {
@@ -18,8 +18,8 @@ export default async function MockCheckoutPage() {
     return (
       <Container className="py-14 sm:py-20">
         <div className="mx-auto max-w-md space-y-4">
-          <Alert tone="error" title="テスト決済は使えません">
-            この環境では Mock Payment が無効です。本番では Stripe を使います。
+          <Alert tone="error" title="このページは利用できません">
+            お支払い手続きはマイページから進めてください。
           </Alert>
           <LinkButton href="/mypage" className="w-full">
             マイページへ

@@ -93,10 +93,9 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
   return (
     <Card className="space-y-4">
       <div>
-        <h2 className="text-base font-bold text-ink-900">xlsx → PostgreSQL 同期</h2>
+        <h2 className="text-base font-bold text-ink-900">利回りシートの取り込み</h2>
         <p className="mt-1 text-sm text-ink-500">
-          利回りシート.xlsx を解析し、Prisma スキーマどおりに Neon / PostgreSQL
-          へ直接書き込みます。JSON 中間ファイルは使いません。会員・決済・診断履歴は消しません。
+          利回りシート.xlsx を取り込むと、診断に使う基準データが更新されます。
         </p>
       </div>
 
@@ -135,7 +134,7 @@ export function YieldMasterSyncPanel({ initialStats }: { initialStats: Stats }) 
         >
           {pending === "sync"
             ? "反映中…"
-            : "バンドル済み xlsx を PostgreSQL に再反映"}
+            : "保存済みのシートを再取り込み"}
         </Button>
       </div>
 

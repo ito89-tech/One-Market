@@ -6,7 +6,6 @@ import { useState } from "react";
 import { PlanPicker } from "@/components/plan-picker";
 import { Alert, Button, Card, LinkButton } from "@/components/ui";
 import { BILLING_PLANS, isPlanKey, type PlanKey } from "@/config/plans";
-import { LOCAL_TEMP } from "@/config/local-temp";
 
 export function MockCheckoutForm() {
   const searchParams = useSearchParams();
@@ -37,7 +36,7 @@ export function MockCheckoutForm() {
       }
       setError(body.error.message);
     } catch {
-      setError("テスト決済を完了できませんでした。時間をおいて再度お試しください。");
+      setError("お支払いを完了できませんでした。時間をおいて再度お試しください。");
     } finally {
       setPending(false);
     }
@@ -46,12 +45,9 @@ export function MockCheckoutForm() {
   if (choosing) {
     return (
       <Card>
-        <Alert tone="warning" title="TEST ONLY">
-          {LOCAL_TEMP.mockPaymentNotice}
-        </Alert>
-        <h1 className="mt-5 text-xl font-bold text-ink-900">テスト決済</h1>
+        <h1 className="mt-1 text-xl font-bold text-ink-900">お支払い</h1>
         <p className="mt-3 text-sm leading-relaxed text-ink-500">
-          ローカル確認用です。Stripe には請求しません。
+          プランを選んでお支払いください。
         </p>
         <div className="mt-5">
           <PlanPicker
@@ -69,13 +65,9 @@ export function MockCheckoutForm() {
 
   return (
     <Card>
-      <Alert tone="warning" title="TEST ONLY">
-        {LOCAL_TEMP.mockPaymentNotice}
-      </Alert>
-
-      <h1 className="mt-5 text-xl font-bold text-ink-900">テスト決済</h1>
+      <h1 className="text-xl font-bold text-ink-900">お支払い</h1>
       <p className="mt-3 text-sm leading-relaxed text-ink-500">
-        {plan.name}（{plan.priceLabel}）をテスト決済として成功させます。
+        {plan.name}（{plan.priceLabel}）でお支払いを完了します。
       </p>
 
       {error ? (
@@ -86,7 +78,7 @@ export function MockCheckoutForm() {
 
       <div className="mt-6 space-y-3">
         <Button onClick={succeed} disabled={pending} className="w-full">
-          {pending ? "反映しています…" : LOCAL_TEMP.mockSuccessLabel}
+          {pending ? "反映しています…" : "お支払いを完了する"}
         </Button>
         <Button
           type="button"
@@ -97,7 +89,7 @@ export function MockCheckoutForm() {
           プランを選び直す
         </Button>
         <LinkButton href="/checkout/cancel" variant="quiet" className="w-full">
-          {LOCAL_TEMP.mockCancelLabel}
+          やめる
         </LinkButton>
       </div>
     </Card>

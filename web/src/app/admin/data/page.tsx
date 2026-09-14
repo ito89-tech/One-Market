@@ -55,13 +55,6 @@ export default async function AdminDataPage() {
 
   return (
     <div className="space-y-8">
-      <Alert tone="info" title="データの流れ">
-        正本はクライアント提供の利回りシート.xlsx です。管理画面から xlsx を取り込むと、
-        スキーマどおりに PostgreSQL（Neon）へ直接反映されます。診断計算もこの DB
-        だけを参照します。取込後の不足・修正は、下の編集パネルで PostgreSQL
-        上の値を直接更新できます。
-      </Alert>
-
       <YieldMasterSyncPanel initialStats={stats} />
 
       {invalidRates.length > 0 ? (

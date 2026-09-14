@@ -265,7 +265,7 @@ export default function LandingPage() {
               提示価格が相場と比べてどうか、確認してみる
             </h2>
             <p className="mt-3 text-sm text-ink-500">
-              入力は1〜2分。登録は結果を見る直前だけです。
+              入力は1〜2分です。
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <LinkButton href="/diagnosis/new">無料で相場を確認してみる</LinkButton>

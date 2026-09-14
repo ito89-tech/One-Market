@@ -82,9 +82,6 @@ export function AdminUserCreate() {
   return (
     <Card>
       <h2 className="text-base font-bold text-ink-900">ユーザーの登録</h2>
-      <p className="mt-2 text-sm leading-relaxed text-ink-500">
-        実地の管理者は権限を「管理者」にして登録します。パスワードはご本人に直接お伝えください。
-      </p>
 
       <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-5">
         {formError ? <Alert tone="error">{formError}</Alert> : null}
@@ -106,7 +103,7 @@ export function AdminUserCreate() {
         <Field
           label="初期パスワード"
           required
-          hint="8文字以上。ご本人に伝えたうえで変更を促してください。"
+          hint="8文字以上"
           error={errors.password}
         >
           {(props) => (

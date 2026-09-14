@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { CheckoutSuccessContinue } from "@/components/checkout-success-continue";
 import { Container } from "@/components/ui";
 import { getCurrentUser } from "@/lib/auth";
-import { isMockPaymentsAllowed } from "@/lib/env";
 import { hasActiveSubscription } from "@/server/diagnosis";
 
 export const metadata: Metadata = { title: "お支払い完了" };
@@ -25,7 +24,6 @@ export default async function CheckoutSuccessPage({
   const { session_id: sessionId } = await searchParams;
   const subscribed = await hasActiveSubscription(user.id);
   const initiallyUsable = user.paidCredits > 0 || subscribed;
-  const mock = isMockPaymentsAllowed();
 
   return (
     <Container className="py-14 sm:py-20">
@@ -33,7 +31,6 @@ export default async function CheckoutSuccessPage({
         <CheckoutSuccessContinue
           sessionId={sessionId?.startsWith("cs_") ? sessionId : null}
           initiallyUsable={initiallyUsable}
-          mock={mock}
         />
       </div>
     </Container>

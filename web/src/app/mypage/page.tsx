@@ -6,7 +6,6 @@ import { DeleteButton } from "@/components/delete-button";
 import { LogoutButton } from "@/components/logout-button";
 import { UpgradeButton } from "@/components/upgrade-button";
 import {
-  Alert,
   Badge,
   Card,
   Container,
@@ -117,14 +116,7 @@ export default async function MyPage() {
 
             <div className="mt-5 space-y-3">
               {entitlement.kind === "NONE" ? (
-                paidFlowEnabled ? (
-                  <UpgradeButton />
-                ) : (
-                  <Alert tone="info">
-                    有料診断は現在準備中です。ご利用いただけるようになりましたら、
-                    こちらでご案内いたします。
-                  </Alert>
-                )
+                paidFlowEnabled ? <UpgradeButton /> : null
               ) : (
                 <LinkButton href="/diagnosis/new" className="w-full">
                   物件を診断する

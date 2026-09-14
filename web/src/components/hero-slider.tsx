@@ -8,19 +8,19 @@ import { cx, LinkButton } from "@/components/ui";
 const SLIDES = [
   {
     src: "/images/hero-full-laptop-v2.png",
-    alt: "ノートパソコン全体。画面には判定と相場価格の表示例が出ています",
-    caption: "パソコンでの診断画面の表示例",
+    alt: "ノートパソコン全体。画面には判定と相場価格が出ています",
+    caption: "パソコンでの診断画面",
     width: 955,
     height: 633,
     eyebrow: "ワンルーム投資物件の価格診断",
     kicker: "初回無料　／　入力は1〜2分",
     title: ["その提案価格は、", "相場と比べてどうですか？"],
-    body: "物件の情報を入力するだけで、エリアと築年数から見た相場価格と、提示された価格との差を確認できます。登録は結果を見る直前だけです。",
+    body: "物件の情報を入力するだけで、エリアと築年数から見た相場価格と、提示された価格との差を確認できます。",
   },
   {
     src: "/images/hero-full-phone-v3.png",
     alt: "スマートフォン全体。診断結果の判定と相場価格が表示されています",
-    caption: "スマートフォンでの確認イメージ",
+    caption: "スマートフォンでの診断画面",
     width: 446,
     height: 964,
     eyebrow: "外出先でも同じ尺度で",
@@ -179,7 +179,7 @@ export function HeroSlider() {
                   )}
                   aria-hidden={i !== index}
                 >
-                  {item.caption}。表示例です。実際の結果は入力内容によって変わります。
+                  {item.caption}
                 </p>
               ))}
             </div>

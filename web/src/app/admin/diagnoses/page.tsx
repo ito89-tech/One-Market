@@ -18,9 +18,6 @@ export default async function AdminDiagnosesPage() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-ink-500">
-        判定の根拠（エリア区分・築年数区分・内部収益率）は管理者のみ確認できます。
-      </p>
       <AdminTable
         columns={[
           "日時",

@@ -78,11 +78,9 @@ async function waitUntilCanDiagnose(sessionId: string | null): Promise<boolean> 
 export function CheckoutSuccessContinue({
   sessionId,
   initiallyUsable,
-  mock,
 }: {
   sessionId: string | null;
   initiallyUsable: boolean;
-  mock: boolean;
 }) {
   const router = useRouter();
   const started = useRef(false);
@@ -149,13 +147,6 @@ export function CheckoutSuccessContinue({
         <h1 className="text-xl font-bold text-ink-900">
           お手続きありがとうございます
         </h1>
-        {mock ? (
-          <div className="mt-5 text-left">
-            <Alert tone="warning" title="TEST ONLY">
-              これは開発環境用のテスト決済です。本番の料金は発生していません。
-            </Alert>
-          </div>
-        ) : null}
         <div className="mt-5 text-left">
           <Alert tone="error">{error}</Alert>
         </div>
@@ -176,13 +167,6 @@ export function CheckoutSuccessContinue({
       <h1 className="text-xl font-bold text-ink-900">
         お手続きありがとうございます
       </h1>
-      {mock ? (
-        <div className="mt-5 text-left">
-          <Alert tone="warning" title="TEST ONLY">
-            これは開発環境用のテスト決済です。本番の料金は発生していません。
-          </Alert>
-        </div>
-      ) : null}
       <p
         aria-live="polite"
         className="mt-3 text-sm leading-relaxed text-ink-500"

@@ -1,7 +1,5 @@
 import { AdminTable } from "@/components/admin-table";
-import { Alert } from "@/components/ui";
 import { formatDate } from "@/lib/format";
-import { isPaidFlowEnabled, serverEnv } from "@/lib/env";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminPaymentsPage() {
@@ -16,24 +14,8 @@ export default async function AdminPaymentsPage() {
     include: { user: { select: { email: true } } },
   });
 
-  const secret = serverEnv.stripe.secretKey();
-  const testMode = Boolean(secret) && secret.startsWith("sk_test_");
-
   return (
     <div className="space-y-8">
-      {testMode ? (
-        <Alert tone="info" title="Stripe Test Mode">
-          sk_test_ キーでサンドボックス検証中です。テスト用 Price ID と
-          Webhook（/api/stripe/webhook）を設定すれば有料フローを確認できます。
-          本番課金には sk_live_ は必須ではなく、検証完了後に差し替えてください。
-        </Alert>
-      ) : !isPaidFlowEnabled() ? (
-        <Alert tone="warning" title="有料フロー未設定">
-          STRIPE_SECRET_KEY（sk_test_ 可）・Price ID・（公開ホストでは）Webhook
-          シークレットを設定すると有料導線が有効になります。詳細は docs/deployment.md を参照。
-        </Alert>
-      ) : null}
-
       <section>
         <h2 className="mb-3 text-base font-bold text-ink-900">決済</h2>
         <AdminTable

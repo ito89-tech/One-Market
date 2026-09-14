@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { PropertyForm } from "@/components/property-form";
-import { Alert, Container } from "@/components/ui";
+import { Container } from "@/components/ui";
 import { getCurrentUser } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "物件情報の入力" };
@@ -21,15 +21,6 @@ export default async function NewDiagnosisPage() {
             物件資料に書かれている内容をそのまま入力してください。1〜2分ほどで終わります。
           </p>
         </header>
-
-        {!user ? (
-          <div className="mb-6">
-            <Alert tone="info">
-              入力の途中で会員登録を求めることはありません。
-              すべて入力したあとに、診断結果をお届けするための登録をご案内します。
-            </Alert>
-          </div>
-        ) : null}
 
         <PropertyForm isLoggedIn={Boolean(user)} />
       </div>
