@@ -17,7 +17,7 @@ export default function GlobalError({
           minHeight: "100vh",
           alignItems: "center",
           justifyContent: "center",
-          background: "#f7fafb",
+          background: "#fff6f3",
           color: "#1c2430",
         }}
       >
@@ -33,7 +33,7 @@ export default function GlobalError({
               marginTop: 16,
               border: 0,
               borderRadius: 8,
-              background: "#00a3ae",
+              background: "#ff3d2e",
               color: "#fff",
               padding: "10px 18px",
               fontWeight: 700,

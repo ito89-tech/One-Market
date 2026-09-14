@@ -3,34 +3,32 @@
 /*
  * Design tokens for ワンマケ.
  *
- * Derived from the reference-site analysis in docs/ui-spec.md: white base,
- * one confident accent colour, generous section rhythm. The accent is a teal
- * rather than the reference site's coral — a property-valuation tool needs to
- * read as calm and factual, and we deliberately avoid the black/gold palette
- * that makes financial sites feel like a sales pitch.
+ * White base, coral as the primary CTA colour, teal as the secondary button
+ * colour — matching the bright reference landing page. Judge colours stay
+ * independent so 割安 / 相場通り / 割高 remain readable.
  */
 @theme {
-  --color-brand-50: #e6f8fa;
-  --color-brand-100: #c5eef2;
-  --color-brand-200: #8fdde5;
-  --color-brand-300: #4ecbd6;
-  --color-brand-400: #00b7c3;
-  --color-brand-500: #00a3ae;
-  --color-brand-600: #00838c;
-  --color-brand-700: #006870;
-  --color-brand-800: #05555c;
-  --color-brand-900: #0a444b;
+  --color-brand-50: #fff0ee;
+  --color-brand-100: #ffd8d3;
+  --color-brand-200: #ffb3aa;
+  --color-brand-300: #ff8578;
+  --color-brand-400: #ff5d4d;
+  --color-brand-500: #ff3d2e;
+  --color-brand-600: #e83328;
+  --color-brand-700: #c42820;
+  --color-brand-800: #9e1f1a;
+  --color-brand-900: #7a1814;
 
-  --color-accent-50: #fff1ef;
-  --color-accent-100: #ffd8d3;
-  --color-accent-200: #ffb3aa;
-  --color-accent-300: #f57a70;
-  --color-accent-400: #ff6a5c;
-  --color-accent-500: #ff3d2e;
-  --color-accent-600: #e53935;
-  --color-accent-700: #a51f1f;
-  --color-accent-800: #8a1c1c;
-  --color-accent-900: #6d1717;
+  --color-accent-50: #e6f8fa;
+  --color-accent-100: #c5eef2;
+  --color-accent-200: #8fdde5;
+  --color-accent-300: #4ecbd6;
+  --color-accent-400: #00b7c3;
+  --color-accent-500: #00a3ae;
+  --color-accent-600: #00838c;
+  --color-accent-700: #006870;
+  --color-accent-800: #05555c;
+  --color-accent-900: #0a444b;
 
   --color-ink-900: #10181c;
   --color-ink-700: #2f3c43;
@@ -38,8 +36,9 @@
   --color-ink-300: #8c979d;
 
   --color-surface: #ffffff;
-  --color-surface-muted: #f8f8f8;
-  --color-line: #e2e8ea;
+  --color-surface-muted: #fff6f3;
+  --color-surface-warm: #fff4e0;
+  --color-line: #f0ddd8;
 
   --color-judge-under: #0f766e;
   --color-judge-fair: #1d4ed8;

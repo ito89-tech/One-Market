@@ -134,9 +134,13 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      <Section id="flow">
+      <Section id="flow" className="bg-brand-500">
         <Reveal>
-          <SectionHeading eyebrow="ご利用の流れ" title="3つのステップで完了します" />
+          <SectionHeading
+            tone="inverse"
+            eyebrow="ご利用の流れ"
+            title="3つのステップで完了します"
+          />
         </Reveal>
         <ol className="grid gap-4 md:grid-cols-3">
           {[
@@ -154,7 +158,7 @@ export default function LandingPage() {
             },
           ].map((step, index) => (
             <Reveal as="li" key={step.title} className="h-full" delay={index * 80}>
-              <Card className="lp-lift h-full">
+              <Card className="lp-lift h-full border-transparent">
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-sm font-bold text-white">
                   {index + 1}
                 </span>
@@ -254,18 +258,19 @@ export default function LandingPage() {
         </Reveal>
       </Section>
 
-      <section className="bg-brand-500 py-14 sm:py-16">
+      <section className="bg-surface-warm py-14 sm:py-16">
         <Container className="text-center">
           <Reveal>
-            <h2 className="text-xl font-bold text-white sm:text-2xl">
+            <h2 className="text-xl font-bold text-ink-900 sm:text-2xl">
               提示価格が相場と比べてどうか、確認してみる
             </h2>
-            <p className="mt-3 text-sm text-white/85">
+            <p className="mt-3 text-sm text-ink-500">
               入力は1〜2分。登録は結果を見る直前だけです。
             </p>
-            <div className="mt-6">
-              <LinkButton href="/diagnosis/new" variant="inverse">
-                無料で相場を確認してみる
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <LinkButton href="/diagnosis/new">無料で相場を確認してみる</LinkButton>
+              <LinkButton href="/login" variant="accent">
+                ログイン
               </LinkButton>
             </div>
           </Reveal>

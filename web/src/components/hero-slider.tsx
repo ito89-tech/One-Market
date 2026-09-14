@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { cx, LinkButton } from "@/components/ui";
@@ -82,7 +81,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#f3f8f8]"
+      className="relative overflow-hidden bg-brand-50"
       onTouchStart={(event) => {
         touchStartX.current = event.changedTouches[0]?.clientX ?? null;
       }}
@@ -138,19 +137,13 @@ export function HeroSlider() {
               ))}
             </div>
 
-            <div className="relative z-20 mt-8">
+            <div className="relative z-20 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <LinkButton href="/diagnosis/new" className="w-full sm:w-auto">
                 無料で相場を確認してみる
               </LinkButton>
-              <p className="mt-3 text-sm text-ink-500">
-                すでに登録済みの方は
-                <Link
-                  href="/login"
-                  className="font-bold text-brand-700 underline-offset-2 hover:underline"
-                >
-                  ログイン
-                </Link>
-              </p>
+              <LinkButton href="/login" variant="accent" className="w-full sm:w-auto">
+                ログイン
+              </LinkButton>
             </div>
           </div>
 

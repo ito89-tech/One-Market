@@ -50,23 +50,41 @@ export function SectionHeading({
   eyebrow,
   title,
   description,
+  tone = "default",
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
+  tone?: "default" | "inverse";
 }) {
+  const inverse = tone === "inverse";
   return (
     <header className="mb-8 text-center sm:mb-12">
       {eyebrow ? (
-        <p className="mb-2 text-sm font-bold tracking-wide text-brand-600">
+        <p
+          className={cx(
+            "mb-2 text-sm font-bold tracking-wide",
+            inverse ? "text-white/80" : "text-brand-600",
+          )}
+        >
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-2xl font-bold leading-snug text-ink-900 sm:text-3xl">
+      <h2
+        className={cx(
+          "text-2xl font-bold leading-snug sm:text-3xl",
+          inverse ? "text-white" : "text-ink-900",
+        )}
+      >
         {title}
       </h2>
       {description ? (
-        <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-500">
+        <p
+          className={cx(
+            "mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed",
+            inverse ? "text-white/85" : "text-ink-500",
+          )}
+        >
           {description}
         </p>
       ) : null}

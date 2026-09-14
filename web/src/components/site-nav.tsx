@@ -60,12 +60,13 @@ export function SiteHeader({
             </>
           ) : (
             <>
-              <Link
+              <LinkButton
                 href="/login"
-                className="hidden px-2 text-sm font-bold text-ink-700 hover:text-brand-600 lg:inline"
+                variant="accent"
+                className="hidden !min-h-10 !px-3 !text-sm lg:inline-flex sm:!px-4"
               >
                 ログイン
-              </Link>
+              </LinkButton>
               <LinkButton href="/diagnosis/new" className="!min-h-10 !px-3 !text-sm sm:!px-4">
                 <span className="sm:hidden">無料で確認</span>
                 <span className="hidden sm:inline">無料で相場を確認</span>
