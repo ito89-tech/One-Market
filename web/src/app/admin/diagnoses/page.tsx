@@ -1,4 +1,5 @@
 import { AdminTable } from "@/components/admin-table";
+import { DeleteButton } from "@/components/delete-button";
 import { JUDGEMENT_LABEL, formatDate, formatMan } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 
@@ -35,6 +36,7 @@ export default async function AdminDiagnosesPage() {
           "基準",
           "内部収益率",
           "区分",
+          "操作",
         ]}
         rows={diagnoses.map((diagnosis) => [
           formatDate(diagnosis.createdAt),
@@ -52,6 +54,11 @@ export default async function AdminDiagnosesPage() {
           `築${diagnosis.ageBracketLabel} / ${diagnosis.rateLowPercent.toString()}%-${diagnosis.rateHighPercent.toString()}%`,
           `${Number(diagnosis.yieldPercent).toFixed(3)}%`,
           diagnosis.plan === "FREE" ? "無料" : "有料",
+          <DeleteButton
+            key={`delete-${diagnosis.id}`}
+            endpoint={`/api/admin/diagnoses/${diagnosis.id}`}
+            label="履歴を削除"
+          />,
         ])}
       />
     </div>

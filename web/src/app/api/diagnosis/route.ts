@@ -2,7 +2,11 @@ import type { NextRequest } from "next/server";
 
 import { fail, internalError, ok } from "@/lib/api";
 import { AuthError, assertSameOrigin, requireUser } from "@/lib/auth";
-import { PaymentRequiredError, runDiagnosis } from "@/server/diagnosis";
+import {
+  PaymentRequiredError,
+  deleteAllUserDiagnoses,
+  runDiagnosis,
+} from "@/server/diagnosis";
 import { resolveLocationInput } from "@/server/location";
 import { propertyInputSchema, toFieldErrors } from "@/lib/validation";
 
@@ -46,6 +50,22 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof PaymentRequiredError) {
       return fail("PAYMENT_REQUIRED", error.message);
+    }
+    return internalError(error);
+  }
+}
+
+/** Clears the caller's own history. Entitlements are deliberately unaffected. */
+export async function DELETE() {
+  try {
+    await assertSameOrigin();
+    const user = await requireUser();
+
+    const deleted = await deleteAllUserDiagnoses(user.id);
+    return ok({ deleted });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return fail(error.code, error.message);
     }
     return internalError(error);
   }

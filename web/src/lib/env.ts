@@ -168,6 +168,17 @@ export function describeConfigProblems(): ConfigProblems {
     );
   }
 
+  if (!process.env.RESEND_API_KEY) {
+    // 未設定でもログインは通す（全員ログイン不能になる方が重大）。
+    warnings.push(
+      "RESEND_API_KEY が未設定のため、登録・他端末ログインのメール確認が無効です。",
+    );
+  } else if (!process.env.EMAIL_FROM) {
+    warnings.push(
+      "EMAIL_FROM が未設定です。Resend の共有送信元は自分宛てにしか届きません。",
+    );
+  }
+
   if (process.env.PAYMENT_PROVIDER === "mock") {
     warnings.push(
       "PAYMENT_PROVIDER=mock は本番では無視されます。stripe に変更してください。",

@@ -1,6 +1,6 @@
 import { fail, internalError, ok } from "@/lib/api";
-import { AuthError, requireUser } from "@/lib/auth";
-import { findUserDiagnosis } from "@/server/diagnosis";
+import { AuthError, assertSameOrigin, requireUser } from "@/lib/auth";
+import { deleteUserDiagnosis, findUserDiagnosis } from "@/server/diagnosis";
 
 export async function GET(
   _request: Request,
@@ -45,6 +45,29 @@ export async function GET(
         },
       },
     });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return fail(error.code, error.message);
+    }
+    return internalError(error);
+  }
+}
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    await assertSameOrigin();
+    const user = await requireUser();
+    const { id } = await params;
+
+    const deleted = await deleteUserDiagnosis(user.id, id);
+    if (!deleted) {
+      return fail("NOT_FOUND", "診断結果が見つかりませんでした。");
+    }
+
+    return ok({ id });
   } catch (error) {
     if (error instanceof AuthError) {
       return fail(error.code, error.message);

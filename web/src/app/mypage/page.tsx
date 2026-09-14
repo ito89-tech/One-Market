@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { DeleteButton } from "@/components/delete-button";
 import { LogoutButton } from "@/components/logout-button";
 import { UpgradeButton } from "@/components/upgrade-button";
 import {
@@ -134,7 +135,20 @@ export default async function MyPage() {
         </div>
 
         <section className="mt-8">
-          <h2 className="mb-4 text-base font-bold text-ink-900">診断履歴</h2>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-base font-bold text-ink-900">診断履歴</h2>
+            {diagnoses.length > 0 ? (
+              <DeleteButton
+                endpoint="/api/diagnosis"
+                label="履歴をすべて削除"
+                confirmLabel="すべて削除する"
+              />
+            ) : null}
+          </div>
+
+          <p className="mb-4 text-sm text-ink-500">
+            履歴を削除しても、ご利用済みの無料診断・有料残数は戻りません。
+          </p>
 
           {diagnoses.length === 0 ? (
             <Card className="text-center">
@@ -153,7 +167,7 @@ export default async function MyPage() {
                 <Card as="li" key={diagnosis.id} className="!p-0">
                   <Link
                     href={`/diagnosis/${diagnosis.id}`}
-                    className="block rounded-2xl p-5 hover:bg-[var(--color-surface-muted)] sm:p-6"
+                    className="block rounded-t-2xl p-5 hover:bg-[var(--color-surface-muted)] sm:p-6"
                   >
                     <div className="flex flex-wrap items-center gap-3">
                       <Badge tone={JUDGEMENT_TONE[diagnosis.judgement]}>
@@ -183,6 +197,13 @@ export default async function MyPage() {
                       )}
                     </p>
                   </Link>
+                  {/* リンクの内側に置くと、削除ボタンを押すだけで結果画面へ遷移してしまう */}
+                  <div className="flex justify-end border-t border-[var(--color-line)] px-5 py-3 sm:px-6">
+                    <DeleteButton
+                      endpoint={`/api/diagnosis/${diagnosis.id}`}
+                      label="この履歴を削除"
+                    />
+                  </div>
                 </Card>
               ))}
             </ul>

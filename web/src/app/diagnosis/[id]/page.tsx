@@ -8,6 +8,7 @@ import {
   DefinitionRow,
   LinkButton,
 } from "@/components/ui";
+import { DeleteButton } from "@/components/delete-button";
 import { getCurrentUser } from "@/lib/auth";
 import {
   JUDGEMENT_HEADLINE,
@@ -140,6 +141,14 @@ export default async function DiagnosisResultPage({
           <LinkButton href="/mypage" variant="quiet" className="w-full">
             マイページで履歴を見る
           </LinkButton>
+          <div className="flex justify-center">
+            <DeleteButton
+              endpoint={`/api/diagnosis/${diagnosis.id}`}
+              label="この診断結果を削除"
+              confirmLabel="本当に削除"
+              redirectTo="/mypage"
+            />
+          </div>
         </div>
 
         <p className="mt-8 text-xs leading-relaxed text-ink-300">

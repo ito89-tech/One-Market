@@ -161,6 +161,11 @@ export const registerSchema = z.object({
     .or(z.literal("")),
 });
 
+/** Admin-created accounts skip email confirmation, so the role is explicit. */
+export const adminCreateUserSchema = registerSchema.extend({
+  role: z.enum(["USER", "ADMIN"]).default("USER"),
+});
+
 export const loginSchema = z.object({
   email: z.string().trim().min(1, "メールアドレスを入力してください"),
   password: z.string().min(1, "パスワードを入力してください"),

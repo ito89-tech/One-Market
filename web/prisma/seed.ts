@@ -93,11 +93,13 @@ async function seedLocalUsers() {
         displayName: local.displayName,
         paidCredits: local.paidCredits ?? 0,
         freeDiagnosisUsedAt: local.markFreeUsed ? new Date() : null,
+        emailVerifiedAt: new Date(),
       },
       update: {
         passwordHash,
         role: local.role,
         displayName: local.displayName,
+        emailVerifiedAt: new Date(),
       },
     });
   }
@@ -115,10 +117,12 @@ async function seedLocalUsers() {
         passwordHash,
         role: "ADMIN",
         displayName: "管理者",
+        emailVerifiedAt: new Date(),
       },
       update: {
         passwordHash,
         role: "ADMIN",
+        emailVerifiedAt: new Date(),
       },
     });
   }

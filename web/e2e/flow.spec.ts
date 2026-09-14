@@ -281,6 +281,38 @@ test.describe("アカウントとデータ分離", () => {
     await expect(page.getByRole("alert").first()).toBeVisible();
     await expect(page).toHaveURL(/\/signup/);
   });
+
+  test("マイページから診断履歴を削除できる", async ({ page }) => {
+    await signUpAndDiagnose(page, uniqueEmail("delete-hist"));
+    await page.goto("/mypage");
+    await expect(page.getByText("無料診断").first()).toBeVisible();
+
+    await page.getByRole("button", { name: "この履歴を削除" }).click();
+    await page.getByRole("button", { name: "本当に削除" }).click();
+
+    await expect(page.getByText("まだ診断結果がありません")).toBeVisible();
+  });
+
+  test("管理者はユーザーを登録・削除できる", async ({ page }) => {
+    await page.goto("/login");
+    await page.getByLabel("メールアドレス").fill("admin@onemake.local");
+    await page.getByLabel("パスワード").fill("onemake-local-pass");
+    await page.getByRole("button", { name: "ログイン", exact: true }).click();
+    await expect(page).toHaveURL(/\/mypage/);
+
+    const email = uniqueEmail("admin-create");
+    await page.goto("/admin/users");
+    await page.getByRole("button", { name: "ユーザーを登録する" }).click();
+    await page.getByLabel("メールアドレス").fill(email);
+    await page.getByLabel("初期パスワード").fill(PASSWORD);
+    await page.getByRole("button", { name: "登録する" }).click();
+    await expect(page.getByText(email)).toBeVisible();
+
+    const row = page.getByRole("row").filter({ hasText: email });
+    await row.getByRole("button", { name: "ユーザーを削除" }).click();
+    await row.getByRole("button", { name: "本当に削除" }).click();
+    await expect(page.getByText(email)).toHaveCount(0);
+  });
 });
 
 test.describe("表示", () => {

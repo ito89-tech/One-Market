@@ -24,6 +24,8 @@ User 1──* Session
      1──* PropertyDiagnosis
      1──* Payment
      1──* Subscription
+     1──* EmailVerification
+     1──* TrustedDevice
 
 YieldSheet 1──* Area 1──* Station
                        1──* Municipality
@@ -43,8 +45,10 @@ DataIssue                        （.ods 変換時に検出した問題）
 
 | テーブル | 役割 |
 | --- | --- |
-| `User` | メール・パスワードハッシュ・権限・無料診断利用日時・有料残数・Stripe Customer ID |
+| `User` | メール・パスワードハッシュ・権限・無料診断利用日時・有料残数・メール確認時刻・Stripe Customer ID |
 | `Session` | セッショントークンの HMAC のみ保存。平文は Cookie 側 |
+| `EmailVerification` | 登録／他端末ログインの確認リンク。トークンは HMAC のみ |
+| `TrustedDevice` | 確認済み端末。ここにある端末からのログインはメール確認を省略 |
 
 `email` は登録時に小文字化して一意制約をかけます。
 `role` は `USER` / `ADMIN`。初期管理者は環境変数 `ADMIN_EMAILS` で昇格します。

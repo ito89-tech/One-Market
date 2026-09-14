@@ -201,6 +201,37 @@ export function findUserDiagnosis(userId: string, id: string) {
   return prisma.propertyDiagnosis.findFirst({ where: { id, userId } });
 }
 
+/**
+ * Deleting history never returns an entitlement: `freeDiagnosisUsedAt` and
+ * `paidCredits` are untouched, so the delete button cannot be used to farm
+ * free diagnoses.
+ *
+ * Scoped by userId in the same statement as the id, so a miss is
+ * indistinguishable from someone else's row.
+ */
+export async function deleteUserDiagnosis(
+  userId: string,
+  id: string,
+): Promise<boolean> {
+  const deleted = await prisma.propertyDiagnosis.deleteMany({
+    where: { id, userId },
+  });
+  return deleted.count > 0;
+}
+
+export async function deleteAllUserDiagnoses(userId: string): Promise<number> {
+  const deleted = await prisma.propertyDiagnosis.deleteMany({
+    where: { userId },
+  });
+  return deleted.count;
+}
+
+/** Admin variant: not scoped to an owner, used from the admin console. */
+export async function deleteDiagnosisAsAdmin(id: string): Promise<boolean> {
+  const deleted = await prisma.propertyDiagnosis.deleteMany({ where: { id } });
+  return deleted.count > 0;
+}
+
 export function listUserDiagnoses(userId: string) {
   return prisma.propertyDiagnosis.findMany({
     where: { userId },

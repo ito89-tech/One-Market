@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  adminCreateUserSchema,
   loginSchema,
   propertyInputSchema,
   registerSchema,
@@ -162,5 +163,18 @@ describe("ログインバリデーション", () => {
     const errors = toFieldErrors(result.error);
     expect(errors.email).toBeTruthy();
     expect(errors.password).toBeTruthy();
+  });
+});
+
+describe("管理者のユーザー作成バリデーション", () => {
+  it("権限を受け取れる", () => {
+    const result = adminCreateUserSchema.safeParse({
+      email: "a@example.com",
+      password: "password123",
+      role: "ADMIN",
+    });
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.data.role).toBe("ADMIN");
   });
 });

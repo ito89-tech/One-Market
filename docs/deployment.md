@@ -185,6 +185,18 @@ Stripe アカウントによっては **Managed Payments** が既定で有効に
 本アプリはホスト型 Checkout 作成時に `managed_payments.enabled=false` を付けて
 回避しています。ダッシュボード側で Managed Payments を無効にしても構いません。
 
+### 3-5. メール確認（Resend）
+
+登録と、確認済みとみなしていない端末からのログインでは、メール内のリンクを
+開くまでセッションを発行しません。
+
+1. [Resend](https://resend.com) で API キーを発行する
+2. 可能ならドメインを検証し、`EMAIL_FROM` をそのアドレスにする
+   （未検証の場合は `ワンマケ <onboarding@resend.dev>` が自分宛てにだけ届く）
+3. Vercel に `RESEND_API_KEY` と `EMAIL_FROM` を入れる
+4. キーが無い本番では確認を強制せずログインできます（ロックアウト防止）。
+   `/api/health` の `mail.verificationEnforced` で有効かを確認できます
+
 ---
 
 ## 4. Vercel に設定する
@@ -221,6 +233,8 @@ Stripe アカウントによっては **Managed Payments** が既定で有効に
 | `STRIPE_PRICE_ID_MONTHLY_5` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_UNLIMITED` | `price_...` |
 | `ADMIN_EMAILS` | 管理者メール（カンマ区切り）。初期: `egami09@proton.me`。後から差し替え可 |
+| `RESEND_API_KEY` | Resend の API キー。登録・他端末ログインの確認メールに使う |
+| `EMAIL_FROM` | 送信元。例: `ワンマケ <noreply@your-domain.com>`。未設定時は Resend 共有送信元 |
 
 `AUTH_SECRET` の生成:
 
@@ -248,19 +262,21 @@ Preview には Stripe の **テストキー**（`sk_test_` と対応する Price
 
 1. **トップページが表示される** — Vercel のビルドと起動が成功している
 2. **`/api/health` が 200** — `database=up` かつ `yieldSheets` / `stations` が 0 より大きい
-3. **会員登録 → ログイン** — DB 接続と `AUTH_SECRET` が正しい
+3. **会員登録 → メール確認 → ログイン** — DB 接続と `AUTH_SECRET`・Resend が正しい
 4. **管理画面 `/admin`（`ADMIN_EMAILS` のアカウント）**
    - 「診断エンジン」に `sheets` / `stations` の件数が出る → シード済み
    - BLOCKER の警告が無い
+   - ユーザーの登録・削除ができる
 5. **無料診断を1回実行** — 診断エンジンが動き、履歴が保存される
-6. **有料プランを購入**（物件入力 → ペイウォール経由）
+6. **マイページで診断履歴を削除できる** — 無料枠は戻らない
+7. **有料プランを購入**（物件入力 → ペイウォール経由）
    - スマートフォンの Safari / Chrome で Apple Pay / Google Pay が出ることを確認
    - 決済後は確認ボタンなしで、入力済み物件の**診断結果画面**へ自動遷移する
    - マイページの履歴にも同じ結果が並ぶ（＝ Webhook で枠が付与され診断が保存されている）
-7. **Stripe ダッシュボードの Webhook ログ** — 該当イベントが 200 で成功している
-8. **続けて有料診断** — 残り回数が正しく減る
+8. **Stripe ダッシュボードの Webhook ログ** — 該当イベントが 200 で成功している
+9. **続けて有料診断** — 残り回数が正しく減る
 
-6 で結果に進まず「決済の確認に時間がかかっています」になる場合は、ほぼ Webhook の設定ミスです。
+7 で結果に進まず「決済の確認に時間がかかっています」になる場合は、ほぼ Webhook の設定ミスです。
 Stripe の Webhook ログに出ているレスポンスを確認してください。
 
 - 503 → `STRIPE_WEBHOOK_SECRET` が未設定
