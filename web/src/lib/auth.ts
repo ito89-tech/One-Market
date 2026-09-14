@@ -15,9 +15,7 @@ import { serverEnv } from "./env";
 import { prisma } from "./prisma";
 
 const COOKIE_NAME = "onemake_session";
-const DEVICE_COOKIE_NAME = "onemake_device";
 const SESSION_DAYS = 30;
-const DEVICE_DAYS = 400; // Chrome caps cookie lifetime at 400 days
 const BCRYPT_COST = 12;
 
 export function hashToken(token: string): string {
@@ -48,37 +46,6 @@ export async function createSession(userId: string): Promise<void> {
     path: "/",
     expires: expiresAt,
   });
-}
-
-/**
- * Stable per-browser identifier used to decide whether a login needs email
- * confirmation. Only its HMAC is stored, like the session token, so the table
- * cannot be used to recognise a browser on its own.
- *
- * Logging out deliberately keeps this cookie: the device stays trusted, so a
- * returning user is not asked to confirm by email every time.
- */
-export async function getOrCreateDeviceHash(): Promise<string> {
-  const store = await cookies();
-  const existing = store.get(DEVICE_COOKIE_NAME)?.value;
-  if (existing) return hashToken(existing);
-
-  const token = randomBytes(32).toString("base64url");
-  store.set(DEVICE_COOKIE_NAME, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    expires: new Date(Date.now() + DEVICE_DAYS * 24 * 60 * 60 * 1000),
-  });
-  return hashToken(token);
-}
-
-/** Null when this browser has never been here, without setting a cookie. */
-export async function readDeviceHash(): Promise<string | null> {
-  const store = await cookies();
-  const existing = store.get(DEVICE_COOKIE_NAME)?.value;
-  return existing ? hashToken(existing) : null;
 }
 
 export async function destroySession(): Promise<void> {

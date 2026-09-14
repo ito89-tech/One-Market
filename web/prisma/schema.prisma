@@ -23,11 +23,6 @@ enum UserRole {
   ADMIN
 }
 
-enum VerificationPurpose {
-  SIGNUP
-  NEW_DEVICE
-}
-
 enum Judgement {
   UNDERPRICED
   FAIR
@@ -70,8 +65,6 @@ model User {
   freeDiagnosisUsedAt DateTime?
   // 決済で付与された有料診断の残数（1回プラン）
   paidCredits         Int      @default(0)
-  // メール確認が済んだ時刻。null は未確認（ログインにメール確認が必要）
-  emailVerifiedAt     DateTime?
   stripeCustomerId    String?  @unique
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
@@ -80,46 +73,8 @@ model User {
   diagnoses     PropertyDiagnosis[]
   payments      Payment[]
   subscriptions Subscription[]
-  verifications EmailVerification[]
-  devices       TrustedDevice[]
 
   @@index([createdAt])
-}
-
-// メール確認トークン。Session と同じく平文は保存せず HMAC のみ持つ。
-model EmailVerification {
-  id         String              @id @default(cuid())
-  userId     String
-  purpose    VerificationPurpose
-  tokenHash  String              @unique
-  // 発行元ブラウザ。リンクを別端末で開いても、セッションはこの端末にだけ発行する。
-  deviceHash String
-  userAgent  String?
-  verifiedAt DateTime?
-  consumedAt DateTime?
-  expiresAt  DateTime
-  createdAt  DateTime            @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, createdAt])
-  @@index([deviceHash])
-  @@index([expiresAt])
-}
-
-// 確認済みの端末。ここに無い端末からのログインはメール確認を要求する。
-model TrustedDevice {
-  id         String   @id @default(cuid())
-  userId     String
-  deviceHash String
-  label      String?
-  lastSeenAt DateTime @default(now())
-  createdAt  DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, deviceHash])
-  @@index([userId])
 }
 
 model Session {

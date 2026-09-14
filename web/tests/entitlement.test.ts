@@ -21,7 +21,6 @@ function user(overrides: Partial<User> = {}): User {
     freeDiagnosisUsedAt: null,
     paidCredits: 0,
     stripeCustomerId: null,
-    emailVerifiedAt: null,
     createdAt: new Date(),
     updatedAt: new Date(),
     ...overrides,

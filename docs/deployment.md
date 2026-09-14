@@ -97,9 +97,14 @@ Vercel の `vercel-build` は `scripts/ensure-db-ready.ts` を実行します。
 - xlsx アップロード… 新しい利回りシートを解析して DB 全置換（会員・決済は残る）
 - 収益率セル編集 / 駅の追加削除… DB 上の値を管理者が直接修正補充
 
-管理者は環境変数 `ADMIN_EMAILS`（カンマ区切り）で指定します。初期値は
-`egami09@proton.me`。差し替えは Vercel の Environment Variables を変更するだけです。
-登録時・ログイン時に一覧と一致すれば `ADMIN` に昇格します。
+管理者は次の2通りです。どちらも `role=ADMIN` なら管理画面に入れます。
+
+- **開発者**: 環境変数 `ADMIN_EMAILS`（カンマ区切り）。初期値は `egami09@proton.me`。
+  登録時・ログイン時に一覧と一致すれば `ADMIN` に昇格します。
+- **実地の管理者**: 管理画面 `/admin/users` の「ユーザーを登録する」で権限を
+  「管理者」にして追加します。`ADMIN_EMAILS` に載せる必要はありません。
+
+最後の管理者は削除できません。
 
 > スプレッドシートを更新したときは、管理画面から xlsx をアップロードするか、
 > `web/data/yield-sheet.xlsx` を差し替えて再デプロイ／再同期します。
@@ -185,18 +190,6 @@ Stripe アカウントによっては **Managed Payments** が既定で有効に
 本アプリはホスト型 Checkout 作成時に `managed_payments.enabled=false` を付けて
 回避しています。ダッシュボード側で Managed Payments を無効にしても構いません。
 
-### 3-5. メール確認（Resend）
-
-登録と、確認済みとみなしていない端末からのログインでは、メール内のリンクを
-開くまでセッションを発行しません。
-
-1. [Resend](https://resend.com) で API キーを発行する
-2. 可能ならドメインを検証し、`EMAIL_FROM` をそのアドレスにする
-   （未検証の場合は `ワンマケ <onboarding@resend.dev>` が自分宛てにだけ届く）
-3. Vercel に `RESEND_API_KEY` と `EMAIL_FROM` を入れる
-4. キーが無い本番では確認を強制せずログインできます（ロックアウト防止）。
-   `/api/health` の `mail.verificationEnforced` で有効かを確認できます
-
 ---
 
 ## 4. Vercel に設定する
@@ -232,9 +225,7 @@ Stripe アカウントによっては **Managed Payments** が既定で有効に
 | `STRIPE_PRICE_ID_ONE_TIME` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_5` | `price_...` |
 | `STRIPE_PRICE_ID_MONTHLY_UNLIMITED` | `price_...` |
-| `ADMIN_EMAILS` | 管理者メール（カンマ区切り）。初期: `egami09@proton.me`。後から差し替え可 |
-| `RESEND_API_KEY` | Resend の API キー。登録・他端末ログインの確認メールに使う |
-| `EMAIL_FROM` | 送信元。例: `ワンマケ <noreply@your-domain.com>`。未設定時は Resend 共有送信元 |
+| `ADMIN_EMAILS` | 開発者の管理者メール（カンマ区切り）。初期: `egami09@proton.me`。実地管理者は管理画面から追加 |
 
 `AUTH_SECRET` の生成:
 
@@ -262,11 +253,11 @@ Preview には Stripe の **テストキー**（`sk_test_` と対応する Price
 
 1. **トップページが表示される** — Vercel のビルドと起動が成功している
 2. **`/api/health` が 200** — `database=up` かつ `yieldSheets` / `stations` が 0 より大きい
-3. **会員登録 → メール確認 → ログイン** — DB 接続と `AUTH_SECRET`・Resend が正しい
-4. **管理画面 `/admin`（`ADMIN_EMAILS` のアカウント）**
+3. **会員登録 → ログイン** — DB 接続と `AUTH_SECRET` が正しい
+4. **管理画面 `/admin`（`ADMIN_EMAILS` の開発者アカウント）**
    - 「診断エンジン」に `sheets` / `stations` の件数が出る → シード済み
    - BLOCKER の警告が無い
-   - ユーザーの登録・削除ができる
+   - 「ユーザーを登録する」で権限「管理者」の2人目を作れる
 5. **無料診断を1回実行** — 診断エンジンが動き、履歴が保存される
 6. **マイページで診断履歴を削除できる** — 無料枠は戻らない
 7. **有料プランを購入**（物件入力 → ペイウォール経由）

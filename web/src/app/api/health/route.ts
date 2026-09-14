@@ -42,11 +42,6 @@ export async function GET() {
       paymentProvider: paymentProvider(),
       paidFlowEnabled: isPaidFlowEnabled(),
     },
-    mail: {
-      configured: Boolean(process.env.RESEND_API_KEY),
-      fromConfigured: Boolean(process.env.EMAIL_FROM),
-      verificationEnforced: Boolean(process.env.RESEND_API_KEY),
-    },
     hint: null as string | null,
   };
 
@@ -77,9 +72,6 @@ export async function GET() {
     } else if (!isPaidFlowEnabled()) {
       checks.hint =
         "会員・診断は利用可能です。有料決済は Stripe の秘密鍵・Price ID・Webhook を揃えると有効になります。";
-    } else if (!process.env.RESEND_API_KEY) {
-      checks.hint =
-        "会員・診断・決済は利用可能です。RESEND_API_KEY を入れると登録・他端末ログインのメール確認が有効になります。";
     }
 
     return NextResponse.json(checks, { status: checks.ok ? 200 : 503 });

@@ -33,8 +33,6 @@ export async function createUserAsAdmin(input: {
       passwordHash: await hashPassword(input.password),
       displayName: input.displayName || null,
       role: input.role,
-      // The admin vouches for the address, so no confirmation link is sent.
-      emailVerifiedAt: new Date(),
     },
     select: { id: true, email: true, role: true },
   });

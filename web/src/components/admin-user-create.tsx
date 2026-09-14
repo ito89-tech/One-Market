@@ -14,9 +14,8 @@ type ApiResult =
     };
 
 /**
- * Admin-side account creation. The created account is treated as confirmed,
- * so the operator can hand over the credentials directly instead of waiting
- * for the invitee to click a link.
+ * Admin-side account creation. Role ADMIN can access /admin even if the
+ * address is not listed in ADMIN_EMAILS (that env is the developer bootstrap).
  */
 export function AdminUserCreate() {
   const router = useRouter();
@@ -84,8 +83,7 @@ export function AdminUserCreate() {
     <Card>
       <h2 className="text-base font-bold text-ink-900">ユーザーの登録</h2>
       <p className="mt-2 text-sm leading-relaxed text-ink-500">
-        管理者が登録したアカウントはメール確認済みとして扱われます。
-        パスワードはご本人に直接お伝えください。
+        実地の管理者は権限を「管理者」にして登録します。パスワードはご本人に直接お伝えください。
       </p>
 
       <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-5">

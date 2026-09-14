@@ -1,12 +1,10 @@
 import type { NextRequest } from "next/server";
-import { headers } from "next/headers";
 
 import { fail, internalError, ok } from "@/lib/api";
 import {
   AuthError,
   assertSameOrigin,
   createSession,
-  getOrCreateDeviceHash,
   hashPassword,
 } from "@/lib/auth";
 import {
@@ -15,24 +13,15 @@ import {
 } from "@/lib/db-errors";
 import { serverEnv } from "@/lib/env";
 import { prisma, requireRuntimeSecrets } from "@/lib/prisma";
-import { optionalNext } from "@/lib/next-param";
 import { registerSchema, toFieldErrors } from "@/lib/validation";
-import {
-  isEmailVerificationEnabled,
-  issueVerification,
-  touchTrustedDevice,
-} from "@/server/verification";
 
 export async function POST(request: NextRequest) {
   try {
     requireRuntimeSecrets();
     await assertSameOrigin();
 
-    const body = (await request.json().catch(() => null)) as
-      | Record<string, unknown>
-      | null;
+    const body = await request.json().catch(() => null);
     const parsed = registerSchema.safeParse(body);
-    const next = optionalNext(body?.next);
     if (!parsed.success) {
       return fail(
         "VALIDATION_ERROR",
@@ -51,50 +40,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const verificationRequired = isEmailVerificationEnabled();
     const user = await prisma.user.create({
       data: {
         email,
         passwordHash: await hashPassword(parsed.data.password),
         displayName: parsed.data.displayName || null,
         role: serverEnv.adminEmails().includes(email) ? "ADMIN" : "USER",
-        emailVerifiedAt: verificationRequired ? null : new Date(),
       },
     });
 
-    const deviceHash = await getOrCreateDeviceHash();
-    const userAgent = (await headers()).get("user-agent");
-
-    if (!verificationRequired) {
-      await touchTrustedDevice(user.id, deviceHash, userAgent);
-      await createSession(user.id);
-      return ok({
-        id: user.id,
-        email: user.email,
-        pendingVerification: false,
-      });
-    }
-
-    const issued = await issueVerification({
-      user,
-      purpose: "SIGNUP",
-      deviceHash,
-      userAgent,
-      next,
-    });
-    if (!issued.ok) {
-      return fail(
-        "ENGINE_UNAVAILABLE",
-        "確認メールを送信できませんでした。時間をおいて再度お試しください。",
-      );
-    }
-
-    return ok({
-      id: user.id,
-      email: user.email,
-      pendingVerification: true,
-      devVerifyUrl: issued.devUrl,
-    });
+    await createSession(user.id);
+    return ok({ id: user.id, email: user.email });
   } catch (error) {
     if (error instanceof AuthError) {
       return fail(error.code, error.message);

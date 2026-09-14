@@ -58,7 +58,6 @@ describe("createUserAsAdmin", () => {
       expect.objectContaining({
         data: expect.objectContaining({
           email: "new@example.com",
-          emailVerifiedAt: expect.any(Date),
           role: "USER",
         }),
       }),

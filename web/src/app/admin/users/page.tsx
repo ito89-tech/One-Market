@@ -2,6 +2,7 @@ import { AdminTable } from "@/components/admin-table";
 import { AdminUserCreate } from "@/components/admin-user-create";
 import { DeleteButton } from "@/components/delete-button";
 import { getCurrentUser } from "@/lib/auth";
+import { serverEnv } from "@/lib/env";
 import { formatDate } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 
@@ -18,11 +19,26 @@ export default async function AdminUsersPage() {
 
   const adminCount = users.filter((user) => user.role === "ADMIN").length;
 
+  const bootstrapAdmins = serverEnv.adminEmails();
+
   return (
     <div className="space-y-6">
       <AdminUserCreate />
 
       <p className="text-sm text-ink-500">
+        開発者アカウントは環境変数{" "}
+        <code className="font-mono text-xs">ADMIN_EMAILS</code>
+        {bootstrapAdmins.length > 0 ? (
+          <>
+            （{bootstrapAdmins.map((email) => (
+              <span key={email} className="break-all">
+                {email}
+              </span>
+            ))}
+            ）
+          </>
+        ) : null}
+        で管理者になります。実地の管理者は下の「ユーザーを登録する」から権限「管理者」で追加してください。
         ユーザーを削除すると、そのユーザーの診断履歴・決済記録・ログイン情報もすべて削除されます。
       </p>
 
@@ -31,7 +47,6 @@ export default async function AdminUsersPage() {
           "メールアドレス",
           "お名前",
           "権限",
-          "メール確認",
           "無料診断",
           "有料残数",
           "サブスク",
@@ -48,7 +63,6 @@ export default async function AdminUsersPage() {
             user.email,
             user.displayName ?? "—",
             user.role,
-            user.emailVerifiedAt ? formatDate(user.emailVerifiedAt) : "未確認",
             user.freeDiagnosisUsedAt ? formatDate(user.freeDiagnosisUsedAt) : "未利用",
             user.paidCredits,
             user.subscriptions.map((s) => s.status).join(", ") || "—",
