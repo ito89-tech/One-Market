@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { getCurrentUser } from "@/lib/auth";
 
 import "./globals.css";
@@ -41,21 +42,23 @@ export default async function RootLayout({
         >
           本文へスキップ
         </a>
-        <SiteHeader
-          user={
-            user
-              ? {
-                  displayName: user.displayName,
-                  email: user.email,
-                  role: user.role,
-                }
-              : null
-          }
-        />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
+        <SmoothScroll>
+          <SiteHeader
+            user={
+              user
+                ? {
+                    displayName: user.displayName,
+                    email: user.email,
+                    role: user.role,
+                  }
+                : null
+            }
+          />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter />
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -16,6 +16,30 @@ import {
 } from "./helpers";
 
 test.describe("LP から診断結果までの導線", () => {
+  test("トップを上下にスクロールしてもページが壊れない", async ({ page }) => {
+    const pageErrors: string[] = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+
+    await page.goto("/");
+    await expect(
+      page.getByRole("heading", { name: /相場と比べてどうですか/ }),
+    ).toBeVisible();
+
+    await page.mouse.wheel(0, 2200);
+    await expect(page.getByRole("heading", { name: "3つのステップで完了します" })).toBeVisible({
+      timeout: 8000,
+    });
+    await expectNoHorizontalScroll(page);
+
+    await page.mouse.wheel(0, -2200);
+    await expect(
+      page.getByRole("heading", { name: /相場と比べてどうですか/ }),
+    ).toBeVisible({ timeout: 8000 });
+    await expectNoHorizontalScroll(page);
+
+    expect(pageErrors).toEqual([]);
+  });
+
   test("会員登録を求められるのは物件情報の入力後", async ({ page }) => {
     await page.goto("/");
 

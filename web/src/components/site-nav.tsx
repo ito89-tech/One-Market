@@ -21,7 +21,7 @@ export function SiteHeader({
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-line)] bg-white/95 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-line)] bg-white/85 pt-[env(safe-area-inset-top)] shadow-[0_1px_0_rgba(255,61,46,0.08)] backdrop-blur-md">
       <div className="mx-auto flex max-w-[1080px] items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Logo />
 

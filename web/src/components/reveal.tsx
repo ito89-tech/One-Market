@@ -40,12 +40,16 @@ export function Reveal({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        node.style.transitionDelay = `${delay}ms`;
-        node.classList.add("is-visible");
-        observer.disconnect();
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          node.style.transitionDelay = `${delay}ms`;
+          node.classList.add("is-visible");
+        } else {
+          node.style.transitionDelay = "0ms";
+          node.classList.remove("is-visible");
+        }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.14, rootMargin: "18% 0px 12% 0px" },
     );
     observer.observe(node);
     return () => observer.disconnect();

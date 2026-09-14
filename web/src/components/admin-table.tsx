@@ -22,7 +22,10 @@ export function AdminTable({
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-[var(--color-line)] bg-white">
+    <div
+      data-lenis-prevent
+      className="overflow-x-auto rounded-xl border border-[var(--color-line)] bg-white"
+    >
       <table className="w-full min-w-[640px] text-left text-sm">
         <thead className="bg-[var(--color-surface-muted)] text-xs text-ink-500">
           <tr>

@@ -81,7 +81,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden bg-brand-50"
+      className="hero-glow relative overflow-hidden bg-brand-50"
       onTouchStart={(event) => {
         touchStartX.current = event.changedTouches[0]?.clientX ?? null;
       }}
@@ -95,7 +95,7 @@ export function HeroSlider() {
         go((current) => current + (delta < 0 ? 1 : -1));
       }}
     >
-      <div className="mx-auto w-full max-w-[1080px] px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
+      <div className="hero-parallax mx-auto w-full max-w-[1080px] px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
         <div
           className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12"
           role="region"
