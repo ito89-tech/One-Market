@@ -11,6 +11,13 @@ type Phase =
   | "running_diagnosis"
   | "error";
 
+type ConfirmResult =
+  | {
+      ok: true;
+      data: { ready: boolean; reason?: string };
+    }
+  | { ok: false; error: { message: string } };
+
 type MeResult =
   | {
       ok: true;
@@ -29,12 +36,35 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitUntilCanDiagnose(): Promise<boolean> {
+/**
+ * Prefer confirming the Stripe session (grants credits if webhook lagged),
+ * then fall back to /api/me so mock checkouts without a session id still work.
+ */
+async function waitUntilCanDiagnose(sessionId: string | null): Promise<boolean> {
   const started = Date.now();
   while (Date.now() - started < MAX_WAIT_MS) {
-    const response = await fetch("/api/me", { cache: "no-store" });
-    const body = (await response.json()) as MeResult;
-    if (body.ok && body.data.usage.canDiagnose) return true;
+    if (sessionId) {
+      try {
+        const response = await fetch("/api/stripe/checkout/confirm", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ sessionId }),
+        });
+        const body = (await response.json()) as ConfirmResult;
+        if (body.ok && body.data.ready) return true;
+      } catch {
+        /* keep polling */
+      }
+    }
+
+    try {
+      const response = await fetch("/api/me", { cache: "no-store" });
+      const body = (await response.json()) as MeResult;
+      if (body.ok && body.data.usage.canDiagnose) return true;
+    } catch {
+      /* keep polling */
+    }
+
     await sleep(POLL_MS);
   }
   return false;
@@ -42,20 +72,22 @@ async function waitUntilCanDiagnose(): Promise<boolean> {
 
 /**
  * After Stripe (or mock) redirects here, entitlement may still be catching up
- * via webhook. Once usable, immediately run the property draft that triggered
- * the paywall and land on the result page — no extra confirm click.
+ * via webhook. Confirm the session from Stripe as a backup, then run the
+ * property draft and land on the result page.
  */
 export function CheckoutSuccessContinue({
+  sessionId,
   initiallyUsable,
   mock,
 }: {
+  sessionId: string | null;
   initiallyUsable: boolean;
   mock: boolean;
 }) {
   const router = useRouter();
   const started = useRef(false);
   const [phase, setPhase] = useState<Phase>(
-    initiallyUsable ? "running_diagnosis" : "waiting_payment",
+    initiallyUsable && !sessionId ? "running_diagnosis" : "waiting_payment",
   );
   const [error, setError] = useState<string | null>(null);
 
@@ -65,9 +97,13 @@ export function CheckoutSuccessContinue({
 
     void (async () => {
       try {
-        if (!initiallyUsable) {
+        // Always confirm when Stripe gave us a session id — webhook may not
+        // have run yet (or at all). For mock / already-usable without a
+        // session, skip straight to diagnosis.
+        const needsWait = Boolean(sessionId) || !initiallyUsable;
+        if (needsWait) {
           setPhase("waiting_payment");
-          const ready = await waitUntilCanDiagnose();
+          const ready = await waitUntilCanDiagnose(sessionId);
           if (!ready) {
             setPhase("error");
             setError(
@@ -79,7 +115,6 @@ export function CheckoutSuccessContinue({
 
         const draft = loadDraft();
         if (!draft) {
-          // Upgrade from mypage (no pending property) → history / status only.
           router.replace("/mypage");
           return;
         }
@@ -106,7 +141,7 @@ export function CheckoutSuccessContinue({
         );
       }
     })();
-  }, [initiallyUsable, router]);
+  }, [initiallyUsable, router, sessionId]);
 
   if (phase === "error") {
     return (
