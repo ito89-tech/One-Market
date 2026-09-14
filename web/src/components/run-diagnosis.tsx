@@ -16,7 +16,7 @@ import {
 type State =
   | { phase: "working" }
   | { phase: "redirecting" }
-  | { phase: "paywall"; message: string }
+  | { phase: "paywall"; message: string; checkoutError?: string }
   | { phase: "error"; message: string };
 
 type ApiResult =
@@ -87,12 +87,26 @@ export function RunDiagnosis({ paidFlowEnabled }: { paidFlowEnabled: boolean }) 
         window.location.href = body.data.url;
         return;
       }
-      setState({ phase: "error", message: body.error.message });
+      // 決済開始失敗でも有料案内は残し、プラン選択からやり直せるようにする
+      setState((current) =>
+        current.phase === "paywall"
+          ? { ...current, checkoutError: body.error.message }
+          : { phase: "error", message: body.error.message },
+      );
     } catch {
-      setState({
-        phase: "error",
-        message: "決済ページを開けませんでした。時間をおいて再度お試しください。",
-      });
+      setState((current) =>
+        current.phase === "paywall"
+          ? {
+              ...current,
+              checkoutError:
+                "決済ページを開けませんでした。時間をおいて再度お試しください。",
+            }
+          : {
+              phase: "error",
+              message:
+                "決済ページを開けませんでした。時間をおいて再度お試しください。",
+            },
+      );
     } finally {
       setCheckoutPending(false);
     }
@@ -154,7 +168,7 @@ export function RunDiagnosis({ paidFlowEnabled }: { paidFlowEnabled: boolean }) 
             <PlanPicker
               onSelect={startCheckout}
               pending={checkoutPending}
-              error={null}
+              error={state.checkoutError ?? null}
             />
           ) : (
             <Alert tone="info">

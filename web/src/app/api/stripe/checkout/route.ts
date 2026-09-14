@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import Stripe from "stripe";
 
 import { BILLING_PLANS, isPlanKey } from "@/config/plans";
 import { fail, internalError, ok } from "@/lib/api";
@@ -48,37 +49,40 @@ export async function POST(request: NextRequest) {
     }
 
     const appUrl = serverEnv.appUrl();
-    const session = await stripe.checkout.sessions.create(
-      {
-        mode: plan.checkoutMode,
-        customer: customerId,
-        line_items: [{ price: priceId, quantity: 1 }],
-        success_url: `${appUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${appUrl}/checkout/cancel`,
-        client_reference_id: user.id,
-        metadata: { userId: user.id, planKey: plan.key },
-        locale: "ja",
-        // payment_method_types は指定しない。未指定にすることで Stripe
-        // ダッシュボードで有効化した決済手段がそのまま使われ、Apple Pay /
-        // Google Pay / Link などのウォレットが表示される。ここに
-        // ["card"] を書くとウォレットが消えるので追加しないこと。
-        ...(plan.checkoutMode === "subscription"
-          ? {
-              subscription_data: {
-                metadata: { userId: user.id, planKey: plan.key },
-              },
-            }
-          : {}),
-      },
-      {
-        // 二重クリックで決済セッションと Payment 行が増えないようにする。
-        // 分単位のバケットにしているのは、日を跨がない範囲で本当に
-        // 2 回買いたい場合を塞がないため。
-        idempotencyKey: `checkout:${user.id}:${plan.key}:${Math.floor(
-          Date.now() / 60_000,
-        )}`,
-      },
-    );
+    // Managed Payments がアカウント既定 ON だと、税コード未設定の Price で
+    // Checkout 作成が拒否される。本サービスはホスト型 Checkout（カード／ウォレット）
+    // のみ使うため、セッション単位で Managed Payments を無効化する。
+    const sessionParams = {
+      mode: plan.checkoutMode,
+      customer: customerId,
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${appUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/checkout/cancel`,
+      client_reference_id: user.id,
+      metadata: { userId: user.id, planKey: plan.key },
+      locale: "ja" as const,
+      managed_payments: { enabled: false },
+      // payment_method_types は指定しない。未指定にすることで Stripe
+      // ダッシュボードで有効化した決済手段がそのまま使われ、Apple Pay /
+      // Google Pay / Link などのウォレットが表示される。ここに
+      // ["card"] を書くとウォレットが消えるので追加しないこと。
+      ...(plan.checkoutMode === "subscription"
+        ? {
+            subscription_data: {
+              metadata: { userId: user.id, planKey: plan.key },
+            },
+          }
+        : {}),
+    } as Stripe.Checkout.SessionCreateParams;
+
+    const session = await stripe.checkout.sessions.create(sessionParams, {
+      // 二重クリックで決済セッションと Payment 行が増えないようにする。
+      // 分単位のバケットにしているのは、日を跨がない範囲で本当に
+      // 2 回買いたい場合を塞がないため。
+      idempotencyKey: `checkout:${user.id}:${plan.key}:${Math.floor(
+        Date.now() / 60_000,
+      )}`,
+    });
 
     if (!session.url) {
       return fail("INTERNAL_ERROR", "決済ページを開始できませんでした。");
@@ -102,6 +106,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof AuthError) {
       return fail(error.code, error.message);
+    }
+    if (error instanceof Stripe.errors.StripeError) {
+      console.error("[stripe/checkout]", error.message);
+      return fail(
+        "INTERNAL_ERROR",
+        "決済ページを開始できませんでした。時間をおいて再度お試しください。",
+      );
     }
     return internalError(error);
   }

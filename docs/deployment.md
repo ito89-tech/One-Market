@@ -171,6 +171,13 @@ npx prisma migrate resolve --applied 0_init
 有料の枠を付与するのはこの Webhook だけです。決済完了画面に到達したことは
 根拠になりません。ここを設定し忘れると、課金は成立するのに診断が使えません。
 
+### 3-4. Managed Payments（税コード）について
+
+Stripe アカウントによっては **Managed Payments** が既定で有効になり、
+商品に `tax_code` が無いと Checkout セッション作成が失敗します。
+本アプリはホスト型 Checkout 作成時に `managed_payments.enabled=false` を付けて
+回避しています。ダッシュボード側で Managed Payments を無効にしても構いません。
+
 ---
 
 ## 4. Vercel に設定する
