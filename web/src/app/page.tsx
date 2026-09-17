@@ -136,9 +136,9 @@ export default function LandingPage() {
                 alt="複数物件の提示価格を比較している様子"
               />
               <div className="p-6">
-                <p className="text-xs font-bold text-brand-700">複数物件を比べるとき</p>
+                <p className="text-xs font-bold text-brand-700">売却相場も確認可能</p>
                 <h3 className="mt-2 text-lg font-bold text-ink-900">
-                  候補の位置づけを同じ尺度で揃える
+                  所有物件の現在の相場を確認したい時
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-500">
                   2回目以降は有料プランです。履歴はマイページに残るので、あとから見返せます。
