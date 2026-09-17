@@ -25,6 +25,36 @@ test.describe("LP から診断結果までの導線", () => {
       page.getByRole("heading", { name: /相場と比べてどうですか/ }),
     ).toBeVisible();
 
+    const aboutTitle = page.getByRole("heading", {
+      name: "判定・相場価格・差額を、このサービスひとつで確認できます",
+    });
+    const aboutBody = page.getByText(/ワンルーム投資の提案を受けたとき/);
+    const noSales = page.getByText("ワンマケは判定後の営業行為は一切ございません");
+    const noSalesWhy = page.getByText(/多くの無料売却査定サイトは不動産会社が運営しており/);
+    await expect(noSales).toBeVisible();
+    await expect(noSalesWhy).toBeVisible();
+    const [aboutTitleStyle, noSalesStyle, aboutBodyStyle, noSalesWhyStyle] =
+      await Promise.all([
+        aboutTitle.evaluate((el) => ({
+          fontSize: getComputedStyle(el).fontSize,
+          fontWeight: getComputedStyle(el).fontWeight,
+        })),
+        noSales.evaluate((el) => ({
+          fontSize: getComputedStyle(el).fontSize,
+          fontWeight: getComputedStyle(el).fontWeight,
+        })),
+        aboutBody.evaluate((el) => ({
+          fontSize: getComputedStyle(el).fontSize,
+          fontWeight: getComputedStyle(el).fontWeight,
+        })),
+        noSalesWhy.evaluate((el) => ({
+          fontSize: getComputedStyle(el).fontSize,
+          fontWeight: getComputedStyle(el).fontWeight,
+        })),
+      ]);
+    expect(noSalesStyle).toEqual(aboutTitleStyle);
+    expect(noSalesWhyStyle).toEqual(aboutBodyStyle);
+
     await page.mouse.wheel(0, 2200);
     await expect(page.getByRole("heading", { name: "3つのステップで完了します" })).toBeVisible({
       timeout: 8000,

@@ -87,6 +87,21 @@ export default function LandingPage() {
             </Reveal>
           ))}
         </ul>
+        <Reveal>
+          <div className="mt-10 text-center sm:mt-12">
+            <p className="text-2xl font-bold leading-snug text-balance text-ink-900 sm:text-3xl">
+              ワンマケは判定後の営業行為は一切ございません
+            </p>
+            <div className="mx-auto mt-4 max-w-2xl space-y-3 text-[15px] leading-relaxed text-ink-500">
+              <p>
+                多くの無料売却査定サイトは不動産会社が運営しており、物件を登録した後に営業電話がかかってくるケースが多いです。
+              </p>
+              <p>
+                ワンマケは不動産取引で利益を得ておらず、有料プランをご利用頂いている皆様のおかげで成立しているサービスです。
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </Section>
 
       <Section id="scenes" muted>
