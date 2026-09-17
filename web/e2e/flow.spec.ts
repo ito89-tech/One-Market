@@ -88,7 +88,7 @@ test.describe("LP から診断結果までの導線", () => {
     });
     expect(noteStyle.fontSize).toBe("16px");
     expect(Number(noteStyle.fontWeight)).toBeGreaterThanOrEqual(600);
-    expect(noteStyle.textAlign).toBe("left");
+    expect(noteStyle.textAlign).toBe("center");
   });
 
   test("診断結果に内部計算用の利回りを表示しない", async ({ page }) => {
