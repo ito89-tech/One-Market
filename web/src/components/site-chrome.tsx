@@ -32,7 +32,7 @@ export function SiteFooter() {
     <footer className="border-t border-[var(--color-line)] bg-white pb-[max(0px,env(safe-area-inset-bottom))]">
       <Container className="py-12">
         <div className="mb-8">
-          <Logo />
+          <Logo size="footer" />
           <p className="mt-3 text-sm text-ink-500">
             提示価格が相場と比べてどうかを、自分で確かめられる。
           </p>
