@@ -76,6 +76,19 @@ test.describe("LP から診断結果までの導線", () => {
     // クライアント提供の計算例（横浜駅・築7年）は割安側に出る
     await expect(page.getByText("判定：割安")).toBeVisible();
     await expect(page.getByText(/相場より .*万円 ほど安い価格です/)).toBeVisible();
+    const note = page.getByText("※これは販売価格ベースでの相場です。");
+    await expect(note).toBeVisible();
+    const noteStyle = await note.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return {
+        fontSize: style.fontSize,
+        fontWeight: style.fontWeight,
+        textAlign: style.textAlign,
+      };
+    });
+    expect(noteStyle.fontSize).toBe("14px");
+    expect(Number(noteStyle.fontWeight)).toBeLessThanOrEqual(500);
+    expect(noteStyle.textAlign).toBe("center");
   });
 
   test("診断結果に内部計算用の利回りを表示しない", async ({ page }) => {
