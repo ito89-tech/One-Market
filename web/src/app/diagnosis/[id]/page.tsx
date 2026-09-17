@@ -80,6 +80,13 @@ export default async function DiagnosisResultPage({
           <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-ink-500">
             {JUDGEMENT_SUMMARY[judgement]}
           </p>
+          <p className="mx-auto mt-5 max-w-md text-left text-base font-bold leading-relaxed text-ink-900">
+            ※これは販売価格ベースでの相場です。
+            <br />
+            売却価格を知りたい場合はこの価格から買取・仲介業者の利幅を差し引くことで求められます。
+            <br />
+            （おおよそ約200万円で考えるのがベターです。）
+          </p>
         </Card>
 
         {/* 2. 相場価格 3. 提示価格との比較 */}
