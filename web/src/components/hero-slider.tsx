@@ -7,22 +7,22 @@ import { cx, LinkButton } from "@/components/ui";
 
 const SLIDES = [
   {
-    src: "/images/hero-full-laptop-v3.png",
+    src: "/images/hero-full-laptop-v4.png",
     alt: "ノートパソコン。画面にはワンマケの診断結果が出ています",
     caption: "パソコンでの診断画面",
-    width: 1005,
-    height: 646,
+    width: 984,
+    height: 626,
     eyebrow: "ワンルーム投資物件の価格診断",
     kicker: "初回無料　／　入力は1〜2分",
     title: ["その提案価格は、", "相場と比べてどうですか？"],
     body: "物件の情報を入力するだけで、収益還元法により算出された相場価格と、提示された価格との差を確認できます。",
   },
   {
-    src: "/images/hero-full-phone-v4.png",
+    src: "/images/hero-full-phone-v5.png",
     alt: "スマートフォン。物件情報の入力画面が表示されています",
     caption: "スマートフォンでの入力画面",
-    width: 557,
-    height: 1014,
+    width: 532,
+    height: 993,
     eyebrow: "外出先でも同じ尺度で",
     kicker: "判定　／　相場価格　／　差額",
     title: ["手元の画面でも、", "同じ結果を確認できます"],
@@ -164,23 +164,9 @@ export function HeroSlider() {
                     fill
                     priority
                     sizes="(min-width: 1024px) 520px, 100vw"
-                    className="object-contain object-center [filter:drop-shadow(0_18px_32px_rgba(16,24,28,0.16))]"
+                    className="object-contain object-center"
                   />
                 </div>
-              ))}
-            </div>
-            <div className="hero-caption-stack mt-3">
-              {SLIDES.map((item, i) => (
-                <p
-                  key={item.src}
-                  className={cx(
-                    "text-center text-xs text-ink-300 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    i === index ? "opacity-100" : "opacity-0",
-                  )}
-                  aria-hidden={i !== index}
-                >
-                  {item.caption}
-                </p>
               ))}
             </div>
           </div>
