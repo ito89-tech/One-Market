@@ -138,7 +138,7 @@ export default function LandingPage() {
               <div className="p-6">
                 <p className="text-xs font-bold text-brand-700">売却相場も確認可能</p>
                 <h3 className="mt-2 text-lg font-bold text-ink-900">
-                  所有物件の現在の相場を確認したい時
+                  所有物件の最新相場を確認したいとき
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-500">
                   2回目以降は有料プランです。履歴はマイページに残るので、あとから見返せます。
